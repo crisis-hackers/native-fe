@@ -1,39 +1,39 @@
 export default class  {
     steps = [
+        // {
+        //     key: 'mood',
+        //     title: 'Hello!',
+        //     text: 'How are you?',
+        //     type: 'text'
+        // },
         {
-            key: 'mood',
-            title: 'Hello!',
-            text: 'How are you?',
-            type: 'text'
-        },
-        {
-            key: 'fever_bool',
+            key: 'temperature',
             text: 'Are you having fever?',
             type: 'boolean',
             substeps: [
-                {
-                    key: 'fever',
-                    text: 'What is your last measured body temperature?',
-                    type: 'radio',
-                    options: [
-                        {
-                            label: '37-38',
-                            value: 38
-                        },
-                        {
-                            label: '38-38.5',
-                            value: 38.5
-                        },
-                        {
-                            label: '38.5-39',
-                            value: 39
-                        },
-                        {
-                            label: '39+',
-                            value: 40
-                        }
-                    ]
-                }
+                // {
+                //     key: 'fever',
+                //     text: 'What is your last measured body temperature?',
+                //     type: 'radio',
+                //     options: [
+                //         {
+                //             label: '37-38',
+                //             value: 38
+                //         },
+                //         {
+                //             label: '38-38.5',
+                //             value: 38.5
+                //         },
+                //         {
+                //             label: '38.5-39',
+                //             value: 39
+                //         },
+                //         {
+                //             label: '39+',
+                //             value: 40
+                //         }
+                //     ]
+                // }
             ]
         },
         {
@@ -41,9 +41,7 @@ export default class  {
             text: 'Do you experience any coughing?',
             type: 'boolean',
             substeps: [
-                {
 
-                }
             ]
         }
     ];

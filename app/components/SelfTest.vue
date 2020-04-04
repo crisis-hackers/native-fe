@@ -4,7 +4,7 @@
         <GridLayout rows="*,60" columns="*">
             <ScrollView row="0" col="0" orientation="vertical">
                 <FlexboxLayout flexDirection="column" class="msg-feed">
-                    <StackLayout v-for="msg in messages" :key="msg.text" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
+                    <StackLayout v-for="msg in messages" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
                         <Label v-if="msg.title" class="msg-title">{{ msg.title }}</Label>
                         <Label class="msg-text" :textWrap="true">{{ msg.text }}</Label>
                     </StackLayout>
@@ -36,6 +36,9 @@
 <script>
     import BasicChatBot from "../js/BasicChatBot";
     import Strings from './mixins/Strings';
+    import * as geolocation from 'nativescript-geolocation';
+    import {Accuracy} from 'tns-core-modules/ui/enums';
+    import BE from '../js/BE';
 
     export default {
         name: "SelfTest",
@@ -47,7 +50,8 @@
                 messages: [],
                 currentInput: {},
                 chatbot: null,
-                processing: false
+                processing: false,
+                location: null
             }
         },
         methods: {
@@ -174,14 +178,56 @@
                 this.addMessage(false, text);
             },
             onPageLoaded() {
+                this.messages = [];
+                this.getUserLocation();
                 this.chatbot = new BasicChatBot();
                 this.nextStep();
             },
+            getUserLocation() {
+                geolocation.getCurrentLocation({
+                    desiredAccuracy: Accuracy.high,
+                    timeout: 1000 * 30 //30s
+                })
+                .then((location) => {
+                    this.location = location;
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+            },
             sendResult() {
-                this.messages = [];
                 let result = this.chatbot.getResult();
-                console.dir(result);
                 this.processing = true;
+                Promise.resolve()
+                .then(() => {
+                    //if high precision accuracy was not resolved, resolve just a coarse accuracy with much lower timeout
+                    return this.location ? Promise.resolve(this.location) : geolocation.getCurrentLocation({
+                        desiredAccuracy: Accuracy.any,
+                        timeout: 1000*2 //2s
+                    })
+                })
+                .then((location) => {
+                    result.lat = location.latitude;
+                    result.lon = location.longitude;
+
+                    return BE.sendSelfTestResult(result);
+                })
+                .then((result) => {
+
+                })
+                .catch((err) => {
+                    console.log(err);
+                    if (err.status) {
+                        // server error
+                        //TODO
+                    } else {
+                        // network error
+                        //TODO
+                    }
+                })
+                .finally(() => {
+                    this.processing = false;
+                })
             }
         }
     }
