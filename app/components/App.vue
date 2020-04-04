@@ -2,7 +2,7 @@
     <Page>
         <ActionBar title="Welcome to NativeScript-Vue!"/>
         <GridLayout columns="*" rows="*">
-            <Label>Ta čau Geo</Label>
+            <Label></Label>
             <Button></Button>
         </GridLayout>
     </Page>
