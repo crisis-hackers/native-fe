@@ -253,6 +253,17 @@ module.exports = env => {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
+
+                options: {
+                    presets: [
+                        '@babel/preset-env',
+                        {
+                            plugins: [
+                                '@babel/plugin-proposal-class-properties'
+                            ]
+                        }
+                    ]
+                },
             },
             {
                 test: /\.ts$/,

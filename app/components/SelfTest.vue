@@ -1,57 +1,49 @@
 <template>
-    <Page>
+    <Page @loaded="onPageLoaded">
         <ActionBar title="Quarantina" />
-        <ScrollView orientation="vertical">
-            <FlexboxLayout flexDirection="column" class="msg-feed">
-                <StackLayout v-for="msg in messages" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
-                    <Label v-if="msg.title" class="msg-title">{{ msg.title }}</Label>
-                    <Label class="msg-text" :textWrap="true">{{ msg.text }}</Label>
-                </StackLayout>
-                <StackLayout v-if="currentInput" :key="currentInput.type" class="msg msg-answer msg-input">
-                    <TextField v-if="currentInput.type === 'text' || currentInput.type === 'number'"
-                               :keyboardType="currentInput.type === 'number' ? 'number' : ''"
-                               v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" />
-                    <StackLayout v-if="currentInput.type === 'boolean' || currentInput.type === 'radio'"
-                                 :orientation="currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
-                        <Button class="msg-input-button" v-for="option in currentInput.options" @tap="processInput(option)">{{ option.label }}</Button>
+        <GridLayout rows="*,60" columns="*">
+            <ScrollView row="0" col="0" orientation="vertical">
+                <FlexboxLayout flexDirection="column" class="msg-feed">
+                    <StackLayout v-for="msg in messages" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
+                        <Label v-if="msg.title" class="msg-title">{{ msg.title }}</Label>
+                        <Label class="msg-text" :textWrap="true">{{ msg.text }}</Label>
                     </StackLayout>
-                    <StackLayout v-if="currentInput.type === 'checkbox'" orientation="vertical">
-                        <StackLayout v-for="option in currentInput.options" orientation="horizontal">
-                            <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
-                            <Label verticalAlignment="center">{{ option.label }}</Label>
+                    <StackLayout v-if="currentInput !== null" :key="currentInput.type" class="msg msg-answer msg-input">
+                        <TextField v-if="currentInput.type === 'text' || currentInput.type === 'number'"
+                                   :keyboardType="currentInput.type === 'number' ? 'number' : ''"
+                                   v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" />
+                        <StackLayout v-if="currentInput.type === 'boolean' || currentInput.type === 'radio'"
+                                     :orientation="currentInput.options && currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
+                            <Button class="msg-input-button" v-for="option in currentInput.options" @tap="processInput(option)">{{ option.label }}</Button>
                         </StackLayout>
-                        <Button @tap="processInput">Hotovo</Button>
+                        <StackLayout v-if="currentInput.type === 'checkbox'" orientation="vertical">
+                            <StackLayout v-for="option in currentInput.options" orientation="horizontal">
+                                <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
+                                <Label verticalAlignment="center">{{ option.label }}</Label>
+                            </StackLayout>
+                            <Button @tap="processInput">Hotovo</Button>
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
-            </FlexboxLayout>
-        </ScrollView>
+                </FlexboxLayout>
+            </ScrollView>
+            <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="-primary" @tap="sendResult">Send</Button>
+            <ActivityIndicator rowSpan="2" :busy="processing" />
+        </GridLayout>
+
     </Page>
 </template>
 
 <script>
+    import BasicChatBot from "../js/BasicChatBot";
+
     export default {
         name: "SelfTest",
         data() {
             return {
-                messages: [
-                    {
-                        question: true,
-                        title: 'sdsdgfgdfgs',
-                        text: 'SSDahskjhaskjdhaskjh kjhfjkasdhf kjashdg hsdakjgh sdkjghfk jsdhfkjshdfkjdshk fsdkjf hkjdshf ksdhfk hdkjf'
-                    },
-                    {
-                        question: true,
-                        title: 'sdsdf',
-                        text: 'ahskjhs'
-                    },
-                    {
-                        question: false,
-                        text: 'ahskjh'
-                    }
-                ],
-                currentInput: {
-                    type: 'number'
-                }
+                messages: [],
+                currentInput: {},
+                chatbot: null,
+                processing: false
             }
         },
         methods: {
@@ -71,12 +63,20 @@
                         this.addAnswer(this.currentInput.options.filter((item) => item.checked).map((item) => item.label).join(',\n'));
                         break;
                 }
-                this.currentInput = null;
                 this.nextStep();
             },
             nextStep() {
-                this.addQuestion('Test?');
-                this.spawnDummyNextInput();
+                let step = this.chatbot.getNextStep(this.currentInput);
+                if (step) {
+                    this.addQuestion(step.text, step.title);
+                    if (step.type === 'boolean') {
+                        this.spawnBooleanInput();
+                    } else {
+                        this.spawnInput(step.type, step.options);
+                    }
+                    return;
+                }
+                this.currentInput = null;
             },
             spawnDummyNextInput() {
                 let options = [
@@ -147,20 +147,25 @@
                 this.spawnInput('checkbox', options);
             },
             addMessage(question, text, title = null) {
-                console.log('jkjdsd');
-                console.log(this.messages.length);
                 this.messages = this.messages.concat({
                     question: question,
                     text: text,
                     title: title
                 });
-                console.log(this.messages.length);
             },
             addQuestion(text, title = null) {
                 this.addMessage(true, text, title);
             },
             addAnswer(text) {
                 this.addMessage(false, text);
+            },
+            onPageLoaded() {
+                this.chatbot = new BasicChatBot();
+                this.nextStep();
+            },
+            sendResult() {
+                let result = this.chatbot.getResult();
+                this.processing = true;
             }
         }
     }
