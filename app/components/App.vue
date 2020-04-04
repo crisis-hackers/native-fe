@@ -1,14 +1,16 @@
 <template>
     <Page>
         <ActionBar title="Welcome to NativeScript-Vue!"/>
-        <GridLayout columns="*" rows="*">
-            <Button class="-primary" @tap="startTest">Start test</Button>
+        <GridLayout columns="*" rows="*,*">
+            <Button row="0" class="-primary" @tap="startTest">Start test</Button>
+            <Button row="1" class="-primary" @tap="dummySendTest">Dummy send test</Button>
         </GridLayout>
     </Page>
 </template>
 
 <script>
     import SelfTest from './SelfTest';
+    import SendTest from './SendTest';
 
     export default {
         data() {
@@ -19,6 +21,9 @@
         methods: {
             startTest() {
                 this.$navigateTo(SelfTest);
+            },
+            dummySendTest() {
+                this.$navigateTo(SendTest)
             }
         }
   }
