@@ -1,0 +1,26 @@
+import Vue from 'nativescript-vue'
+// @ts-ignore
+// @ts-ignore
+import Intro from './components/Intro'
+
+import store from './store'
+import VueDevtools from 'nativescript-vue-devtools'
+import Theme from '@nativescript/theme'
+
+if(TNS_ENV !== 'production') {
+  Vue.use(VueDevtools)
+}
+
+// Prints Vue logs when --env.production is *NOT* set while building
+Vue.config.silent = (TNS_ENV === 'production');
+// Prints Colored logs when --env.production is *NOT* set while building
+// @ts-ignore
+Vue.config.debug = (TNS_ENV !== 'production');
+
+Theme.setMode(Theme.Light);
+
+
+new Vue({
+  store,
+  render: h => h('frame', [h(Intro)])
+}).$start();
