@@ -51,16 +51,20 @@
                 switch (this.currentInput.type) {
                     case "text":
                     case "number":
-                        this.addAnswer(this.currentInput.answer);
+                        this.fillAnswer(this.currentInput.answer);
+                        this.addAnswerMessage(this.currentInput.answer);
                         break;
 
                     case "boolean":
                     case "radio":
-                        this.addAnswer(value.label);
+                        this.fillAnswer(value.value);
+                        this.addAnswerMessage(value.label);
                         break;
 
                     case "checkbox":
-                        this.addAnswer(this.currentInput.options.filter((item) => item.checked).map((item) => item.label).join(',\n'));
+                        let selectedOptions = this.currentInput.options.filter((item) => item.checked);
+                        this.fillAnswer(selectedOptions.map((item) => item.value));
+                        this.addAnswerMessage(selectedOptions.map((item) => item.label).join(',\n'));
                         break;
                 }
                 this.nextStep();
@@ -77,6 +81,9 @@
                     return;
                 }
                 this.currentInput = null;
+            },
+            fillAnswer(value) {
+                this.currentInput.answer = value;
             },
             spawnDummyNextInput() {
                 let options = [
@@ -115,11 +122,14 @@
                 }
             },
             spawnInput(type, options = null) {
+                let answer = '';
+                if (type === 'checkbox') {
+                    answer = [];
+                }
                 this.currentInput = {
                     type: type,
                     options: options,
-                    answer: '',
-                    answerArray: []
+                    answer: answer
                 };
             },
             spawnTextInput() {
@@ -156,7 +166,7 @@
             addQuestion(text, title = null) {
                 this.addMessage(true, text, title);
             },
-            addAnswer(text) {
+            addAnswerMessage(text) {
                 this.addMessage(false, text);
             },
             onPageLoaded() {
@@ -165,6 +175,7 @@
             },
             sendResult() {
                 let result = this.chatbot.getResult();
+                console.dir(result);
                 this.processing = true;
             }
         }
