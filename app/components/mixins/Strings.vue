@@ -9,6 +9,9 @@
             return {
                 str: {
                     appName: 'Q-Tracker'
+                },
+                num: {
+                    helpline: '0800 221 234'
                 }
             }
         }

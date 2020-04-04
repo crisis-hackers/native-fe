@@ -39,6 +39,7 @@
     import * as geolocation from 'nativescript-geolocation';
     import {Accuracy} from 'tns-core-modules/ui/enums';
     import BE from '../js/BE';
+    import TestResults from './TestResults';
 
     export default {
         name: "SelfTest",
@@ -213,16 +214,19 @@
                     return BE.sendSelfTestResult(result);
                 })
                 .then((result) => {
-
+                    this.$navigateTo(TestResults);
                 })
                 .catch((err) => {
                     console.log(err);
-                    if (err.status) {
-                        // server error
-                        //TODO
-                    } else {
-                        // network error
-                        //TODO
+                    if (err.response) {
+                        if (err.response.status) {
+                            // server error
+                            //TODO
+                            console.dir(err.response);
+                        } else {
+                            // network error
+                            //TODO
+                        }
                     }
                 })
                 .finally(() => {

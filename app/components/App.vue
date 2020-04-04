@@ -1,10 +1,11 @@
 <template>
     <Page>
         <ActionBar :title="`Welcome to ${str.appName}!`"/>
-        <GridLayout columns="*" rows="*,*,*">
+        <GridLayout columns="*" rows="*,*,*,*">
             <Button row="0" class="-primary" @tap="startTest">Start test</Button>
             <Button row="1" class="-primary" @tap="dummySendTest">Dummy send test</Button>
             <Button row="2" class="-primary" @tap="shareApp">Share</Button>
+            <Button row="3" class="-primary" @tap="dummyTestResult">Dummy test result</Button>
         </GridLayout>
     </Page>
 </template>
@@ -14,6 +15,7 @@
     import SendTest from './SendTest';
     import SocialShare from './SocialShare';
     import Strings from './mixins/Strings'
+    import TestResults from './TestResults';
 
     export default {
         mixins:[
@@ -32,8 +34,8 @@
             dummySendTest() {
                 this.$navigateTo(SendTest)
             },
-            share() {
-
+            dummyTestResult() {
+                this.$navigateTo(TestResults);
             }
         }
   }
