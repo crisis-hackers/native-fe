@@ -2,19 +2,25 @@
     <Page>
         <ActionBar title="Welcome to NativeScript-Vue!"/>
         <GridLayout columns="*" rows="*">
-            <Label></Label>
-            <Button></Button>
+            <Button class="-primary" @tap="startTest">Start test</Button>
         </GridLayout>
     </Page>
 </template>
 
-<script lang="ts">
-  export default {
-    data() {
-      return {
-        msg: 'Hello World!'
-      }
-    }
+<script>
+    import SelfTest from './SelfTest';
+
+    export default {
+        data() {
+              return {
+                    msg: 'Hello World!'
+              }
+        },
+        methods: {
+            startTest() {
+                this.$navigateTo(SelfTest);
+            }
+        }
   }
 </script>
 

@@ -2,7 +2,7 @@
     <Page actionBarHidden="true">
         <GridLayout rows="auto, 90" columns="*">
             <TabView  row="0" col="0" height="90%" :selectedIndex="currentPage">
-                <TabViewItem v-for="page in pages" label="">
+                <TabViewItem v-for="page in pages" label="" class="m-tab-view-item">
                     <FlexboxLayout flexDirection="column" justifyContent="space-around"
                                    alignItems="center" :paddingLeft="layout.mainXPadding" :paddingRight="layout.mainXPadding">
                         <Label class="title h1" textWrap="true">{{ page.title }}</Label>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+    import TOS from './TOS'
+
     export default {
         name: "Intro",
         data() {
@@ -55,7 +57,7 @@
                 this.currentPage++;
             },
             skip() {
-
+                this.$navigateTo(TOS)
             }
         }
     }
@@ -75,6 +77,11 @@
         border-width: 0px;
         android-elevation: 0;
         text-transform: uppercase;
+    }
+
+    .m-tab-view-item {
+        border-width: 0px;
+        android-elevation: 0;
     }
 
     .bold-text {
