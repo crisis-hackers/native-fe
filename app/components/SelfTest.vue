@@ -15,6 +15,13 @@
                                  :orientation="currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
                         <Button class="msg-input-button" v-for="option in currentInput.options" @tap="processInput(option)">{{ option.label }}</Button>
                     </StackLayout>
+                    <StackLayout v-if="currentInput.type === 'checkbox'" orientation="vertical">
+                        <StackLayout v-for="option in currentInput.options" orientation="horizontal">
+                            <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
+                            <Label verticalAlignment="center">{{ option.label }}</Label>
+                        </StackLayout>
+                        <Button @tap="processInput">Hotovo</Button>
+                    </StackLayout>
                 </StackLayout>
             </FlexboxLayout>
         </ScrollView>
@@ -29,7 +36,7 @@
                 messages: [
                     {
                         question: true,
-                        title: 'sdsdgfgdfg',
+                        title: 'sdsdgfgdfgs',
                         text: 'SSDahskjhaskjdhaskjh kjhfjkasdhf kjashdg hsdakjgh sdkjghfk jsdhfkjshdfkjdshk fsdkjf hkjdshf ksdhfk hdkjf'
                     },
                     {
@@ -59,13 +66,20 @@
                     case "radio":
                         this.addAnswer(value.label);
                         break;
+
+                    case "checkbox":
+                        this.addAnswer(this.currentInput.options.filter((item) => item.checked).map((item) => item.label).join(',\n'));
+                        break;
                 }
                 this.currentInput = null;
                 this.nextStep();
             },
             nextStep() {
                 this.addQuestion('Test?');
-                this.spawnRadioInput([
+                this.spawnDummyNextInput();
+            },
+            spawnDummyNextInput() {
+                let options = [
                     {
                         label: 'Ajdkljsldkg',
                         value: 5
@@ -86,7 +100,19 @@
                         label: 'ASkj',
                         value: 5521
                     }
-                ]);
+                ];
+                let rand = Math.random();
+                if (rand < 1/5) {
+                    this.spawnTextInput();
+                } else if (rand < 2/5) {
+                    this.spawnBooleanInput();
+                } else if (rand < 3/5) {
+                    this.spawnRadioInput(options);
+                } else if (rand < 4/5) {
+                    this.spawnNumberInput();
+                } else {
+                    this.spawnCheckboxInput(options);
+                }
             },
             spawnInput(type, options = null) {
                 this.currentInput = {
@@ -172,7 +198,7 @@
     }
 
     .msg-feed {
-        margin: 0dp;
+        padding: 16dp;
     }
 
     .msg-input {

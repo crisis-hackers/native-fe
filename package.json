@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
+    "@nstudio/nativescript-checkbox": "^1.0.0",
     "@vue/devtools": "^5.0.6",
     "nativescript-geolocation": "^5.1.0",
     "nativescript-socketio": "^3.2.1",

@@ -19,6 +19,17 @@ Vue.config.debug = (TNS_ENV !== 'production');
 
 Theme.setMode(Theme.Light);
 
+Vue.registerElement(
+    'CheckBox',
+    () => require('@nstudio/nativescript-checkbox').CheckBox,
+    {
+      model: {
+        prop: 'checked',
+        event: 'checkedChange'
+      }
+    }
+);
+
 
 new Vue({
   store,
