@@ -1,6 +1,6 @@
 <template>
     <Page>
-        <ActionBar title="Welcome to NativeScript-Vue!"/>
+        <ActionBar :title="`Welcome to ${str.appName}!`"/>
         <GridLayout columns="*" rows="*,*,*">
             <Button row="0" class="-primary" @tap="startTest">Start test</Button>
             <Button row="1" class="-primary" @tap="dummySendTest">Dummy send test</Button>
@@ -13,10 +13,12 @@
     import SelfTest from './SelfTest';
     import SendTest from './SendTest';
     import SocialShare from './SocialShare';
+    import Strings from './mixins/Strings'
 
     export default {
         mixins:[
-            SocialShare
+            SocialShare,
+            Strings
         ],
         data() {
               return {

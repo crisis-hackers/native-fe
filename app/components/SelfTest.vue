@@ -1,10 +1,10 @@
 <template>
     <Page @loaded="onPageLoaded">
-        <ActionBar title="Quarantina" />
+        <ActionBar :title="str.appName" />
         <GridLayout rows="*,60" columns="*">
             <ScrollView row="0" col="0" orientation="vertical">
                 <FlexboxLayout flexDirection="column" class="msg-feed">
-                    <StackLayout v-for="msg in messages" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
+                    <StackLayout v-for="msg in messages" :key="msg.text" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
                         <Label v-if="msg.title" class="msg-title">{{ msg.title }}</Label>
                         <Label class="msg-text" :textWrap="true">{{ msg.text }}</Label>
                     </StackLayout>
@@ -14,10 +14,10 @@
                                    v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" />
                         <StackLayout v-if="currentInput.type === 'boolean' || currentInput.type === 'radio'"
                                      :orientation="currentInput.options && currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
-                            <Button class="msg-input-button" v-for="option in currentInput.options" @tap="processInput(option)">{{ option.label }}</Button>
+                            <Button class="msg-input-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ option.label }}</Button>
                         </StackLayout>
                         <StackLayout v-if="currentInput.type === 'checkbox'" orientation="vertical">
-                            <StackLayout v-for="option in currentInput.options" orientation="horizontal">
+                            <StackLayout v-for="option in currentInput.options" :key="option.value" orientation="horizontal">
                                 <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
                                 <Label verticalAlignment="center">{{ option.label }}</Label>
                             </StackLayout>
@@ -35,9 +35,13 @@
 
 <script>
     import BasicChatBot from "../js/BasicChatBot";
+    import Strings from './mixins/Strings';
 
     export default {
         name: "SelfTest",
+        mixins: [
+            Strings
+        ],
         data() {
             return {
                 messages: [],
@@ -174,6 +178,7 @@
                 this.nextStep();
             },
             sendResult() {
+                this.messages = [];
                 let result = this.chatbot.getResult();
                 console.dir(result);
                 this.processing = true;
