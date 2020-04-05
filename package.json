@@ -1,11 +1,11 @@
 {
-  "name": "htc-sk-health-3",
+  "name": "qtracker",
   "version": "1.0.0",
-  "description": "Hack The Crisis Slovakia Healthcare Team 3's App",
+  "description": "Hack The Crisis Slovakia Healthcare Team 3's App named Q-Tracker",
   "author": "",
   "license": "MIT",
   "nativescript": {
-    "id": "com.htc.hct3",
+    "id": "com.crisishackers.qtracker",
     "templateVersion": "v2",
     "tns-ios": {
       "version": "6.0.1"
