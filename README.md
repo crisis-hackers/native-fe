@@ -21,3 +21,12 @@ tns debug <platform>
 tns build <platform> --env.production
 
 ```
+
+## Important
+
+#### You have to set up the [Goole Maps API key](https://developers.google.com/maps/documentation/android-sdk/get-api-key).
+After you do, copy it to the
+``
+app/App_Resources/Android/src/main/res/values/nativescript_google_maps_api.xml.example
+`` 
+file and remove the 'example' file extension.

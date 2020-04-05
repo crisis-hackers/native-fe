@@ -36,10 +36,9 @@
 <script>
     import BasicChatBot from "../js/BasicChatBot";
     import Strings from './mixins/Strings';
-    import * as geolocation from 'nativescript-geolocation';
-    import {Accuracy} from 'tns-core-modules/ui/enums';
     import BE from '../js/BE';
     import TestResults from './TestResults';
+    import Location from '../js/Location';
 
     export default {
         name: "SelfTest",
@@ -185,10 +184,7 @@
                 this.nextStep();
             },
             getUserLocation() {
-                geolocation.getCurrentLocation({
-                    desiredAccuracy: Accuracy.high,
-                    timeout: 1000 * 30 //30s
-                })
+                Location.getPreciseLocation(1000 * 30) //30s
                 .then((location) => {
                     this.location = location;
                 })
@@ -202,10 +198,7 @@
                 Promise.resolve()
                 .then(() => {
                     //if high precision accuracy was not resolved, resolve just a coarse accuracy with much lower timeout
-                    return this.location ? Promise.resolve(this.location) : geolocation.getCurrentLocation({
-                        desiredAccuracy: Accuracy.any,
-                        timeout: 1000*2 //2s
-                    })
+                    return this.location ? Promise.resolve(this.location) : Location.getCoarseLocation(1000 * 2) //2s
                 })
                 .then((location) => {
                     result.lat = location.latitude;

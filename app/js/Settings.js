@@ -14,5 +14,16 @@ export default {
 
     getResults() {
         return JSON.parse(appSettings.getString('results', '[]'));
+    },
+
+    saveLocation(lat, lon) {
+        appSettings.setString('lastLocation', JSON.stringify({
+            lat: lat,
+            lon: lon
+        }));
+    },
+
+    getLastLocation() {
+        return JSON.parse(appSettings.getString('lastLocation', null));
     }
 }

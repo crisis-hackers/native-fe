@@ -1,8 +1,8 @@
 <template>
-    <StackLayout orientation="vertical">
+    <StackLayout orientation="vertical" padding="16dp">
         <GridLayout rows="*" columns="*,*">
-            <Label row="0" col="0">Total tests</Label>
-            <Label row="0" col="1">{{ totalTests }}</Label>
+            <Label class="h2" row="0" col="0">Total tests</Label>
+            <Label class="h2" row="0" col="1" textAlignment="right">{{ totalTests }}</Label>
         </GridLayout>
     </StackLayout>
 </template>
