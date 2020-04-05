@@ -4,7 +4,7 @@
 
         </ActionBar>
         <GridLayout rows="*,60" columns="*">
-            <ScrollView row="0" col="0" orientation="vertical">
+            <ScrollView row="0" col="0" orientation="vertical" ref="mainScrollView">
                 <FlexboxLayout flexDirection="column" class="msg-feed">
                     <StackLayout v-for="msg in messages" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
                         <Label v-if="msg.title" class="msg-title">{{ msg.title }}</Label>
@@ -53,7 +53,8 @@
                 currentInput: {},
                 chatbot: null,
                 processing: false,
-                location: null
+                location: null,
+                scrollLock: false
             }
         },
         methods: {
@@ -178,6 +179,7 @@
                     text: text,
                     title: title
                 });
+                this.scrollToBottom();
             },
             addQuestion(text, title = null) {
                 this.addMessage(true, text, title);
@@ -233,6 +235,18 @@
                 .finally(() => {
                     this.processing = false;
                 })
+            },
+            scrollToBottom() {
+                if (this.scollLock) {
+                    return;
+                }
+                let sv = this.$refs.mainScrollView.nativeView;
+                this.scollLock = true;
+                setTimeout(() => {
+                    sv.scrollToVerticalOffset(sv.scrollableHeight, true);
+                    this.scollLock = false;
+                }, 50);
+
             }
         }
     }
