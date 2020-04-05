@@ -95,7 +95,7 @@
 
     .title {
         text-transform: uppercase;
-        font-weight: bolder;
+        font-weight: bold;
     }
 
     .safe {

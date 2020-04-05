@@ -80,7 +80,12 @@
             nextStep() {
                 let step = this.chatbot.getNextStep(this.currentInput);
                 if (step) {
-                    this.addQuestion(step.text, step.title);
+                    step.messages.forEach((msg) => this.addQuestion(msg.text, msg.title));
+                    if (!step.type) {
+                        //finished
+                        this.currentInput = null;
+                        return;
+                    }
                     if (step.type === 'boolean') {
                         this.spawnBooleanInput();
                     } else {
@@ -88,6 +93,7 @@
                     }
                     return;
                 }
+                //finished
                 this.currentInput = null;
             },
             fillAnswer(value) {
@@ -146,11 +152,11 @@
             spawnBooleanInput() {
                 this.spawnInput('boolean', [
                     {
-                        label: 'Yes',
+                        label: 'Áno',
                         value: true
                     },
                     {
-                        label: 'No',
+                        label: 'Nie',
                         value: false
                     }
                 ]);
