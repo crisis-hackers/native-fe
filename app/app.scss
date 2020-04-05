@@ -1,13 +1,34 @@
 // NativeScript core theme
 // @see https://docs.nativescript.org/ui/theme
 @import '~@nativescript/theme/core';
-@import '~@nativescript/theme/aqua';
+@import '~@nativescript/theme/grey';
 
 // Override variables here
 
 // Global SCSS styling
 // @see https://docs.nativescript.org/ui/styling
 ActionBar {
-  background-color: #53ba82;
-  color: #ffffff;
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.m-action-bar {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.m-button {
+  border-radius: 25px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.m-green-button {
+  background-color: #97e59d;
+}
+
+.m-helpline-button {
+  border-radius: 40px;
+  background-color: #53c1ec;
+  color: white;
 }

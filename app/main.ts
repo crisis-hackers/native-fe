@@ -30,6 +30,10 @@ Vue.registerElement(
     }
 );
 
+Vue.registerElement(
+    'MapView',
+    ()=> require('nativescript-google-maps-sdk').MapView
+);
 
 new Vue({
   store,

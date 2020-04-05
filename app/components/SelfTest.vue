@@ -1,8 +1,10 @@
 <template>
     <Page @loaded="onPageLoaded">
-        <ActionBar :title="str.appName" />
+        <ActionBar :title="str.appName">
+
+        </ActionBar>
         <GridLayout rows="*,60" columns="*">
-            <ScrollView row="0" col="0" orientation="vertical">
+            <ScrollView row="0" col="0" orientation="vertical" ref="mainScrollView">
                 <FlexboxLayout flexDirection="column" class="msg-feed">
                     <StackLayout v-for="msg in messages" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
                         <Label v-if="msg.title" class="msg-title">{{ msg.title }}</Label>
@@ -14,19 +16,19 @@
                                    v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" />
                         <StackLayout v-if="currentInput.type === 'boolean' || currentInput.type === 'radio'"
                                      :orientation="currentInput.options && currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
-                            <Button class="msg-input-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ option.label }}</Button>
+                            <Button class="msg-input-button m-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ option.label }}</Button>
                         </StackLayout>
                         <StackLayout v-if="currentInput.type === 'checkbox'" orientation="vertical">
                             <StackLayout v-for="option in currentInput.options" :key="option.value" orientation="horizontal">
                                 <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
                                 <Label verticalAlignment="center">{{ option.label }}</Label>
                             </StackLayout>
-                            <Button @tap="processInput">Hotovo</Button>
+                            <Button class="m-button msg-input-button" @tap="processInput">Hotovo</Button>
                         </StackLayout>
                     </StackLayout>
                 </FlexboxLayout>
             </ScrollView>
-            <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="-primary" @tap="sendResult">Send</Button>
+            <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="m-button m-green-button" @tap="sendResult">Odoslať</Button>
             <ActivityIndicator rowSpan="2" :busy="processing" />
         </GridLayout>
 
@@ -36,9 +38,9 @@
 <script>
     import BasicChatBot from "../js/BasicChatBot";
     import Strings from './mixins/Strings';
-    import * as geolocation from 'nativescript-geolocation';
-    import {Accuracy} from 'tns-core-modules/ui/enums';
     import BE from '../js/BE';
+    import TestResults from './TestResults';
+    import Location from '../js/Location';
 
     export default {
         name: "SelfTest",
@@ -51,7 +53,8 @@
                 currentInput: {},
                 chatbot: null,
                 processing: false,
-                location: null
+                location: null,
+                scrollLock: false
             }
         },
         methods: {
@@ -80,7 +83,12 @@
             nextStep() {
                 let step = this.chatbot.getNextStep(this.currentInput);
                 if (step) {
-                    this.addQuestion(step.text, step.title);
+                    step.messages.forEach((msg) => this.addQuestion(msg.text, msg.title));
+                    if (!step.type) {
+                        //finished
+                        this.currentInput = null;
+                        return;
+                    }
                     if (step.type === 'boolean') {
                         this.spawnBooleanInput();
                     } else {
@@ -88,6 +96,7 @@
                     }
                     return;
                 }
+                //finished
                 this.currentInput = null;
             },
             fillAnswer(value) {
@@ -146,11 +155,11 @@
             spawnBooleanInput() {
                 this.spawnInput('boolean', [
                     {
-                        label: 'Yes',
+                        label: 'Áno',
                         value: true
                     },
                     {
-                        label: 'No',
+                        label: 'Nie',
                         value: false
                     }
                 ]);
@@ -170,6 +179,7 @@
                     text: text,
                     title: title
                 });
+                this.scrollToBottom();
             },
             addQuestion(text, title = null) {
                 this.addMessage(true, text, title);
@@ -184,10 +194,7 @@
                 this.nextStep();
             },
             getUserLocation() {
-                geolocation.getCurrentLocation({
-                    desiredAccuracy: Accuracy.high,
-                    timeout: 1000 * 30 //30s
-                })
+                Location.getPreciseLocation(1000 * 30) //30s
                 .then((location) => {
                     this.location = location;
                 })
@@ -201,10 +208,7 @@
                 Promise.resolve()
                 .then(() => {
                     //if high precision accuracy was not resolved, resolve just a coarse accuracy with much lower timeout
-                    return this.location ? Promise.resolve(this.location) : geolocation.getCurrentLocation({
-                        desiredAccuracy: Accuracy.any,
-                        timeout: 1000*2 //2s
-                    })
+                    return this.location ? Promise.resolve(this.location) : Location.getCoarseLocation(1000 * 2) //2s
                 })
                 .then((location) => {
                     result.lat = location.latitude;
@@ -213,21 +217,36 @@
                     return BE.sendSelfTestResult(result);
                 })
                 .then((result) => {
-
+                    this.$navigateTo(TestResults);
                 })
                 .catch((err) => {
                     console.log(err);
-                    if (err.status) {
-                        // server error
-                        //TODO
-                    } else {
-                        // network error
-                        //TODO
+                    if (err.response) {
+                        if (err.response.status) {
+                            // server error
+                            //TODO
+                            console.dir(err.response);
+                        } else {
+                            // network error
+                            //TODO
+                        }
                     }
                 })
                 .finally(() => {
                     this.processing = false;
                 })
+            },
+            scrollToBottom() {
+                if (this.scollLock) {
+                    return;
+                }
+                let sv = this.$refs.mainScrollView.nativeView;
+                this.scollLock = true;
+                setTimeout(() => {
+                    sv.scrollToVerticalOffset(sv.scrollableHeight, true);
+                    this.scollLock = false;
+                }, 50);
+
             }
         }
     }
@@ -242,13 +261,13 @@
 
     .msg-question {
         align-self: flex-start;
-        background-color: lightgoldenrodyellow;
+        background-color: #ffeaa7;
         margin-right: 20%;
     }
 
     .msg-answer {
         align-self: flex-end;
-        background-color: lightblue;
+        background-color: #c2e1e7;
         margin-left: 20%;
     }
 
@@ -273,6 +292,6 @@
     }
 
     .msg-input-button {
-
+        font-size: 12px;
     }
 </style>
