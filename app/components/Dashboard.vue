@@ -1,7 +1,7 @@
 <template>
     <Page>
         <ActionBar :title="str.appName" />
-        <Tabs selectedIndex="1" tabsPosition="bottom">
+        <Tabs selectedIndex="0" tabsPosition="bottom">
             <TabStrip>
                 <TabStripItem>
                     <Label>Home</Label>

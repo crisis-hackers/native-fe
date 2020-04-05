@@ -1,7 +1,7 @@
 <template>
     <Page actionBarHidden="true">
         <GridLayout rows="auto, 90" columns="*">
-            <TabView  row="0" col="0" height="90%" :selectedIndex="currentPage">
+            <TabView  row="0" col="0" height="90%" :selectedIndex="currentPage" :key="currentPage">
                 <TabViewItem v-for="page in pages" label="" class="m-tab-view-item">
                     <FlexboxLayout flexDirection="column" justifyContent="space-around"
                                    alignItems="center" :paddingLeft="layout.mainXPadding" :paddingRight="layout.mainXPadding">

@@ -1,6 +1,8 @@
 <template>
     <Page @loaded="onPageLoaded">
-        <ActionBar :title="str.appName" />
+        <ActionBar :title="str.appName">
+
+        </ActionBar>
         <GridLayout rows="*,60" columns="*">
             <ScrollView row="0" col="0" orientation="vertical">
                 <FlexboxLayout flexDirection="column" class="msg-feed">
@@ -14,19 +16,19 @@
                                    v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" />
                         <StackLayout v-if="currentInput.type === 'boolean' || currentInput.type === 'radio'"
                                      :orientation="currentInput.options && currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
-                            <Button class="msg-input-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ option.label }}</Button>
+                            <Button class="msg-input-button m-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ option.label }}</Button>
                         </StackLayout>
                         <StackLayout v-if="currentInput.type === 'checkbox'" orientation="vertical">
                             <StackLayout v-for="option in currentInput.options" :key="option.value" orientation="horizontal">
                                 <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
                                 <Label verticalAlignment="center">{{ option.label }}</Label>
                             </StackLayout>
-                            <Button @tap="processInput">Hotovo</Button>
+                            <Button class="m-button msg-input-button" @tap="processInput">Hotovo</Button>
                         </StackLayout>
                     </StackLayout>
                 </FlexboxLayout>
             </ScrollView>
-            <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="-primary" @tap="sendResult">Send</Button>
+            <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="m-button m-green-button" @tap="sendResult">Odoslať</Button>
             <ActivityIndicator rowSpan="2" :busy="processing" />
         </GridLayout>
 
@@ -245,13 +247,13 @@
 
     .msg-question {
         align-self: flex-start;
-        background-color: lightgoldenrodyellow;
+        background-color: #ffeaa7;
         margin-right: 20%;
     }
 
     .msg-answer {
         align-self: flex-end;
-        background-color: lightblue;
+        background-color: #c2e1e7;
         margin-left: 20%;
     }
 
@@ -276,6 +278,6 @@
     }
 
     .msg-input-button {
-
+        font-size: 12px;
     }
 </style>

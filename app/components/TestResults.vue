@@ -12,7 +12,7 @@
                 <Button class="no-bg-button link-button" @tap="navigateToTest">Test again</Button>
                 <Button class="no-bg-button link-button" @tap="navigateToDashboard">Track your neighbourhood</Button>
             </FlexboxLayout>
-            <Button row="1" class="-primary" @tap="callHelpLine">COVID-19 HELPLINE</Button>
+            <CallHelplineButton row="1" />
         </GridLayout>
     </Page>
 </template>
@@ -22,9 +22,11 @@
     import Strings from './mixins/Strings'
     import SelfTest from './SelfTest';
     import Dashboard from './Dashboard';
+    import CallHelplineButton from "@/components/CallHelplineButton";
 
     export default {
         name: "TestResults",
+        components: {CallHelplineButton},
         mixins: [
             Strings
         ],

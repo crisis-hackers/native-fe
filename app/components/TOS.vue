@@ -1,13 +1,19 @@
 <template>
     <Page>
-        <GridLayout rows="*,auto" columns="*">
-            <FlexboxLayout row="0" col="0" dock="top" flexDirection="column" justifyContent="space-around">
-                <StackLayout v-for="item in items" orientation="horizontal">
+        <GridLayout rows="1*,2*,auto" columns="*">
+            <DockLayout row="0" stretchLastChild="false">
+                <Label class="h2" dock="bottom" textAlignment="center">Terms of Service and Policy</Label>
+            </DockLayout>
+            <FlexboxLayout row="1" col="0" dock="top" flexDirection="column" justifyContent="center">
+                <StackLayout v-for="item in items" class="item" orientation="horizontal">
                     <Switch width="60" v-model="item.checked"></Switch>
-                    <Label verticalAlignment="center">{{ item.label }}</Label>
+                    <StackLayout orientation="vertical">
+                        <Label class="h3 title" :textWrap="true">{{ item.title }}</Label>
+                        <Label :textWrap="true">{{ item.text }}</Label>
+                    </StackLayout>
                 </StackLayout>
             </FlexboxLayout>
-            <Button row="1" col="0" @tap="agreed" dock="bottom" class="-primary" :isEnabled="allItemsChecked">I Agree</Button>
+            <Button row="2" col="0" @tap="agreed" class="m-button m-green-button" :isEnabled="allItemsChecked">I Agree</Button>
         </GridLayout>
 
     </Page>
@@ -24,11 +30,13 @@
                 items: [
                     {
                         checked: false,
-                        label: 'asd'
+                        title: 'Device Location',
+                        text: 'It is recommended that you set your location sharing to \'Always\'. You can change this anytime later.'
                     },
                     {
                         checked: false,
-                        label: 'abdsc'
+                        title: 'Data Sharing',
+                        text: 'Your data will only be shared with certified health professionals and scientists for research purposes.'
                     }
                 ]
             }
@@ -73,5 +81,12 @@
 </script>
 
 <style scoped>
+    .title {
+        font-weight: bold;
+    }
 
+    .item {
+        margin-top: 12dp;
+        margin-bottom: 12dp;
+    }
 </style>
