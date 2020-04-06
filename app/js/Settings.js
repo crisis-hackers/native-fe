@@ -25,5 +25,10 @@ export default {
 
     getLastLocation() {
         return JSON.parse(appSettings.getString('lastLocation', null));
+    },
+
+    getLanguageToUse() {
+        //TODO
+        return 'sk';
     }
 }

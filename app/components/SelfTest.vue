@@ -14,12 +14,12 @@
                                    v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" ref="inputTextField" />
                         <StackLayout v-if="currentInput.type === 'boolean' || currentInput.type === 'radio'"
                                      :orientation="currentInput.options && currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
-                            <Button class="msg-input-button m-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ option.label }}</Button>
+                            <Button class="msg-input-button m-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ tq(option.label) }}</Button>
                         </StackLayout>
                         <StackLayout v-if="currentInput.type === 'checkbox'" orientation="vertical">
                             <StackLayout v-for="option in currentInput.options" :key="option.value" orientation="horizontal">
                                 <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
-                                <Label verticalAlignment="center">{{ option.label }}</Label>
+                                <Label verticalAlignment="center">{{ tq(option.label) }}</Label>
                             </StackLayout>
                             <Button class="m-button msg-input-button" @tap="processInput">Hotovo</Button>
                         </StackLayout>
@@ -40,6 +40,8 @@
     import TestResults from './TestResults';
     import Location from '../js/Location';
     import ActionBarBackButton from "@/components/ActionBarBackButton";
+    import Questionnaire from "../js/Questionnaire";
+    import Settings from '../js/Settings';
 
     export default {
         name: "SelfTest",
@@ -54,7 +56,8 @@
                 chatbot: null,
                 processing: false,
                 location: null,
-                scrollLock: false
+                scrollLock: false,
+                language: Settings.getLanguageToUse()
             }
         },
         methods: {
@@ -69,13 +72,13 @@
                     case "boolean":
                     case "radio":
                         this.fillAnswer(value.value);
-                        this.addAnswerMessage(value.label);
+                        this.addAnswerMessage(this.tq(value.label));
                         break;
 
                     case "checkbox":
                         let selectedOptions = this.currentInput.options.filter((item) => item.checked);
                         this.fillAnswer(selectedOptions.map((item) => item.value));
-                        this.addAnswerMessage(selectedOptions.map((item) => item.label).join(',\n'));
+                        this.addAnswerMessage(selectedOptions.map((item) => this.tq(item.label)).join(',\n'));
                         break;
                 }
                 this.nextStep();
@@ -83,7 +86,8 @@
             nextStep() {
                 let step = this.chatbot.getNextStep(this.currentInput);
                 if (step) {
-                    step.messages.forEach((msg) => this.addQuestion(msg.text, msg.title));
+                    console.log(this.language);
+                    step.messages.forEach((msg) => this.addQuestion(this.tq(msg.text), this.tq(msg.title)));
                     if (!step.type) {
                         //finished
                         this.currentInput = null;
@@ -158,11 +162,17 @@
             spawnBooleanInput() {
                 this.spawnInput('boolean', [
                     {
-                        label: 'Áno',
+                        label: {
+                            sk: 'Áno',
+                            en: 'Yes'
+                        },
                         value: true
                     },
                     {
-                        label: 'Nie',
+                        label: {
+                            sk: 'Nie',
+                            en: 'No'
+                        },
                         value: false
                     }
                 ]);
@@ -193,7 +203,7 @@
             onPageLoaded() {
                 this.messages = [];
                 this.getUserLocation();
-                this.chatbot = new BasicChatBot();
+                this.chatbot = new BasicChatBot(new Questionnaire());
                 this.nextStep();
             },
             getUserLocation() {
@@ -258,6 +268,14 @@
                     console.log(tf);
                     tf.focus();
                 }, 200);
+            },
+            //translate questionnaire entries
+            tq(value) {
+                if (!value) {
+                    return null;
+                }
+                console.dir(value[this.language]);
+                return value[this.language];
             }
         }
     }
