@@ -1,15 +1,15 @@
 <template>
     <Page actionBarHidden="true">
-        <GridLayout rows="auto, 90" columns="*">
-            <TabView  row="0" col="0" height="90%" :selectedIndex="currentPage" :key="currentPage">
-                <TabViewItem v-for="page in pages" label="" class="m-tab-view-item">
+        <GridLayout rows="*, 90" columns="*">
+            <Tabs row="0" col="0" :selectedIndex="currentPage" @selectedIndexChanged="tabChanged">
+                <TabContentItem v-for="page in pages" class="m-tab-view-item">
                     <FlexboxLayout flexDirection="column" justifyContent="space-around"
                                    alignItems="center" :paddingLeft="layout.mainXPadding" :paddingRight="layout.mainXPadding">
                         <Label class="title h1" textWrap="true">{{ page.title }}</Label>
                         <Label class="subtitle h3" textWrap="true">{{ page.subtitle }}</Label>
                     </FlexboxLayout >
-                </TabViewItem>
-            </TabView>
+                </TabContentItem>
+            </Tabs>
             <GridLayout row="1" col="0" columns="2*,3*,2*">
                 <Button col="0" class="-outline no-bg-button" @tap="skip">Skip</Button>
                 <FlexboxLayout flexDirection="row" justifyContent="space-around">
@@ -60,6 +60,9 @@
                 this.$navigateTo(TOS, {
                     clearHistory: true
                 })
+            },
+            tabChanged(args) {
+                this.currentPage = args.newIndex;
             }
         }
     }
