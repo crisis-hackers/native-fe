@@ -12,8 +12,8 @@
             </Tabs>
             <GridLayout row="1" col="0" columns="2*,3*,2*">
                 <Button col="0" class="-outline no-bg-button" @tap="skip">Skip</Button>
-                <FlexboxLayout flexDirection="row" justifyContent="space-around">
-
+                <FlexboxLayout col="1" flexDirection="row" justifyContent="center" alignItems="center">
+                    <Label v-for="(page, index) in pages" :class="`dot ${index <= currentPage ? 'dot-active' : ''}`" />
                 </FlexboxLayout>
                 <Button col="2" class="-outline no-bg-button" @tap="nextPage">Next</Button>
             </GridLayout>
@@ -91,5 +91,17 @@
 
     .bold-text {
         font-weight: bolder;
+    }
+
+    .dot {
+        margin: 0 4dp;
+        height: 25px;
+        width: 25px;
+        background-color: #bbb;
+        border-radius: 50%;
+    }
+
+    .dot-active {
+        background-color: #53c1ec;
     }
 </style>
