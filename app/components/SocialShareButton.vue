@@ -1,12 +1,12 @@
 <template>
-    
+    <Button class="m-button m-helpline-button" @tap="shareApp">Share The App</Button>
 </template>
 
 <script>
     const SocialShare = require('nativescript-social-share');
 
     export default {
-        name: "Share",
+        name: "SocialShareButton",
         data() {
             return {
                 links: {

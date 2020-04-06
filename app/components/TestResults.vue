@@ -1,7 +1,7 @@
 <template>
     <Page @loaded="onPageLoaded">
         <ActionBar title="Test Results"/>
-        <GridLayout rows="*,60" columns="*">
+        <GridLayout rows="*,80" columns="*">
             <FlexboxLayout row="0" flexDirection="column" justifyContent="space-around" alignItems="center"
                 padding="64dp" class="result">
                 <Label :class="`h2 ${resultClass} title`" :textWrap="true">{{ result.title }}</Label>

@@ -3,11 +3,10 @@
         <ActionBar :title="`${str.appName}`">
 
         </ActionBar>
-        <GridLayout columns="*" rows="*,*,*,*" class="main">
+        <GridLayout columns="*" rows="*,*,*" class="main">
             <Button row="0" class="m-button m-green-button" @tap="startTest">Start test</Button>
-            <Button row="1" class="-primary" @tap="shareApp">Share</Button>
-            <Button row="2" class="-primary" @tap="dummyTestResult">Dummy test result</Button>
-            <CallHelplineButton row="3" />
+            <SocialShareButton row="1" />
+            <CallHelplineButton row="2" />
         </GridLayout>
     </Page>
 </template>
@@ -15,15 +14,14 @@
 <script>
     import SelfTest from './SelfTest';
     import SendTest from './SendTest';
-    import SocialShare from './SocialShare';
     import Strings from './mixins/Strings'
     import TestResults from './TestResults';
     import CallHelplineButton from "@/components/CallHelplineButton";
+    import SocialShareButton from "@/components/SocialShareButton";
 
     export default {
-        components: {CallHelplineButton},
+        components: {SocialShareButton, CallHelplineButton},
         mixins:[
-            SocialShare,
             Strings
         ],
         data() {

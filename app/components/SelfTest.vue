@@ -13,7 +13,7 @@
                     <StackLayout v-if="currentInput !== null" :key="currentInput.type" class="msg msg-answer msg-input">
                         <TextField v-if="currentInput.type === 'text' || currentInput.type === 'number'"
                                    :keyboardType="currentInput.type === 'number' ? 'number' : ''"
-                                   v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" />
+                                   v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" ref="inputTextField" />
                         <StackLayout v-if="currentInput.type === 'boolean' || currentInput.type === 'radio'"
                                      :orientation="currentInput.options && currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
                             <Button class="msg-input-button m-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ option.label }}</Button>
@@ -148,6 +148,9 @@
                     options: options,
                     answer: answer
                 };
+                if (type === 'text' || type === 'number') {
+                    this.requestTextFieldFocus();
+                }
             },
             spawnTextInput() {
                 this.spawnInput('text');
@@ -246,7 +249,13 @@
                     sv.scrollToVerticalOffset(sv.scrollableHeight, true);
                     this.scollLock = false;
                 }, 50);
-
+            },
+            requestTextFieldFocus() {
+                setTimeout(() => {
+                    let tf = this.$refs.inputTextField.nativeView;
+                    console.log(tf);
+                    tf.focus();
+                }, 200);
             }
         }
     }
@@ -254,9 +263,10 @@
 
 <style scoped>
     .msg {
-        padding: 8dp;
+        padding: 8dp 12dp;
         border-radius: 25px;
         margin-bottom: 8dp;
+        font-size: 14sp;
     }
 
     .msg-question {
@@ -272,7 +282,7 @@
     }
 
     .msg-answer .msg-text {
-        font-weight: bold;
+
     }
 
     .msg-title {
