@@ -1,8 +1,6 @@
 <template>
     <Page @loaded="onPageLoaded">
-        <ActionBar :title="str.appName">
-            <NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack"/>
-        </ActionBar>
+        <ActionBarBackButton :title="str.appName" />
         <GridLayout rows="*,60" columns="*">
             <ScrollView row="0" col="0" orientation="vertical" ref="mainScrollView">
                 <FlexboxLayout flexDirection="column" class="msg-feed">
@@ -41,9 +39,11 @@
     import BE from '../js/BE';
     import TestResults from './TestResults';
     import Location from '../js/Location';
+    import ActionBarBackButton from "@/components/ActionBarBackButton";
 
     export default {
         name: "SelfTest",
+        components: {ActionBarBackButton},
         mixins: [
             Strings
         ],
