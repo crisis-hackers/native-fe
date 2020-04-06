@@ -1,7 +1,7 @@
 <template>
     <Page @loaded="onPageLoaded">
         <ActionBar :title="str.appName">
-
+            <NavigationButton text="Go back" android.systemIcon="ic_menu_back" @tap="$navigateBack"/>
         </ActionBar>
         <GridLayout rows="*,60" columns="*">
             <ScrollView row="0" col="0" orientation="vertical" ref="mainScrollView">
@@ -220,7 +220,9 @@
                     return BE.sendSelfTestResult(result);
                 })
                 .then((result) => {
-                    this.$navigateTo(TestResults);
+                    this.$navigateTo(TestResults, {
+                        clearHistory: true
+                    });
                 })
                 .catch((err) => {
                     console.log(err);

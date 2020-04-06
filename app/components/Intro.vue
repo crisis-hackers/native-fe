@@ -57,7 +57,9 @@
                 this.currentPage++;
             },
             skip() {
-                this.$navigateTo(TOS)
+                this.$navigateTo(TOS, {
+                    clearHistory: true
+                })
             }
         }
     }

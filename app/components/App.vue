@@ -1,5 +1,5 @@
 <template>
-    <Page>
+    <Page ref="page">
         <ActionBar :title="`${str.appName}`">
 
         </ActionBar>
@@ -40,7 +40,7 @@
                 this.$navigateTo(TestResults);
             }
         }
-  }
+    }
 </script>
 
 <style scoped>

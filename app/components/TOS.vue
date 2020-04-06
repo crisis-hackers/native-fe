@@ -55,8 +55,7 @@
                 geolocation.isEnabled()
                 .then((enabled) => {
                     if (enabled) {
-                        this.navigateToApp();
-                        return undefined;
+                        return Promise.resolve();
                     } else {
                         return geolocation.enableLocationRequest();
                     }
@@ -73,8 +72,9 @@
                 });
             },
             navigateToApp() {
-                console.log("lol");
-                this.$navigateTo(App);
+                this.$navigateTo(App, {
+                    clearHistory: true
+                });
             }
         }
     }

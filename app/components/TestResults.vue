@@ -67,10 +67,14 @@
                 TNSPhone.dial(this.num.helpline, true);
             },
             navigateToTest() {
-                this.$navigateTo(SelfTest);
+                this.$navigateTo(SelfTest, {
+                    clearHistory: false
+                });
             },
             navigateToDashboard() {
-                this.$navigateTo(Dashboard);
+                this.$navigateTo(Dashboard, {
+                    clearHistory: true
+                });
             },
             onPageLoaded() {
                 this.dummyGetResult();
