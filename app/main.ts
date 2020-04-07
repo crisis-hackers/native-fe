@@ -1,7 +1,7 @@
 import Vue from 'nativescript-vue'
 // @ts-ignore
 // @ts-ignore
-import Intro from './components/Intro'
+import Intro from './components/pages/Intro.vue'
 
 import store from './store'
 import VueDevtools from 'nativescript-vue-devtools'

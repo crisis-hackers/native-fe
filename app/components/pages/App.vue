@@ -12,12 +12,11 @@
 </template>
 
 <script lang="ts">
-    import SelfTest from '@/components/SelfTest.vue';
-    import SendTest from '@/components/SendTest.vue';
+    import SelfTest from '@/components/pages/SelfTest.vue';
     import Strings from '@/components/mixins/Strings.vue'
-    import TestResults from '@/components/TestResults.vue';
-    import CallHelplineButton from "@/components/CallHelplineButton.vue";
-    import SocialShareButton from "@/components/SocialShareButton.vue";
+    import TestResults from '@/components/pages/TestResults.vue';
+    import CallHelplineButton from "@/components/elements/CallHelplineButton.vue";
+    import SocialShareButton from "@/components/elements/SocialShareButton.vue";
 
     export default {
         components: {SocialShareButton, CallHelplineButton},
@@ -32,9 +31,6 @@
         methods: {
             startTest() {
                 this.$navigateTo(SelfTest);
-            },
-            dummySendTest() {
-                this.$navigateTo(SendTest)
             },
             dummyTestResult() {
                 this.$navigateTo(TestResults);

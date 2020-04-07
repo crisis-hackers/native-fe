@@ -20,9 +20,9 @@
 <script lang="ts">
     import * as TNSPhone from 'nativescript-phone'
     import Strings from '@/components/mixins/Strings.vue'
-    import SelfTest from '@/components/SelfTest.vue';
-    import Dashboard from '@/components/Dashboard.vue';
-    import CallHelplineButton from '@/components/CallHelplineButton.vue';
+    import SelfTest from '@/components/pages/SelfTest.vue';
+    import Dashboard from '@/components/pages/Dashboard.vue';
+    import CallHelplineButton from '@/components/elements/CallHelplineButton.vue';
 
     export default {
         name: "TestResults",

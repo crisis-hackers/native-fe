@@ -34,12 +34,12 @@
 </template>
 
 <script lang="ts">
-    import {BasicChatBot, QMessage, QStep, QType} from "@/js/BasicChatBot";
-    import Strings from './mixins/Strings.vue';
-    import BE from '../js/BE';
+    import {BasicChatBot, QMessage, QMessageTrans, QStep, QType} from "@/js/BasicChatBot";
+    import Strings from '../mixins/Strings.vue';
+    import BE from '../../js/BE';
     import TestResults from './TestResults.vue';
-    import LocationHelper from '../js/Location';
-    import ActionBarBackButton from "@/components/ActionBarBackButton.vue";
+    import LocationHelper from '../../js/Location';
+    import ActionBarBackButton from "@/components/elements/ActionBarBackButton.vue";
     import {Questionnaire} from "@/js/Questionnaire";
     import {Location as MLocation, Settings} from '@/js/Settings';
     import {Location as NSLocation} from 'nativescript-geolocation'
@@ -235,11 +235,10 @@
                 }, 200);
             },
             //translate questionnaire entries
-            tq(value) {
+            tq(value: QMessageTrans) {
                 if (!value) {
                     return null;
                 }
-                console.dir(value[this.language]);
                 return value[this.language];
             }
         }

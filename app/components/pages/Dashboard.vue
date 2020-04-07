@@ -35,10 +35,10 @@
 
 <script lang="ts">
     import Strings from '@/components/mixins/Strings.vue';
-    import DashboardFAQ from "@/components/DashboardFAQ.vue";
-    import DashboardHome from "@/components/DashboardHome.vue";
-    import DashboardProfile from "@/components/DashboardProfile.vue";
-    import DashboardTracking from "@/components/DashboardTracking.vue";
+    import DashboardFAQ from "@/components/pages/DashboardFAQ.vue";
+    import DashboardHome from "@/components/pages/DashboardHome.vue";
+    import DashboardProfile from "@/components/pages/DashboardProfile.vue";
+    import DashboardTracking from "@/components/pages/DashboardTracking.vue";
 
     export default {
         name: "Dashboard",

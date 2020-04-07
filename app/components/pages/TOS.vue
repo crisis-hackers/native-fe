@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-    import App from '@/components/App.vue'
+    import App from '@/components/pages/App.vue'
     import * as geolocation from 'nativescript-geolocation';
 
     export default {

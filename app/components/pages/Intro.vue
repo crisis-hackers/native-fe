@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-    import TOS from '@/components/TOS.vue'
+    import TOS from '@/components/pages/TOS.vue'
 
     export default {
         name: "Intro",
