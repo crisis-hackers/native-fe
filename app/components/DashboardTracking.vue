@@ -7,14 +7,14 @@
     </StackLayout>
 </template>
 
-<script>
-    import settings from "@/js/Settings";
+<script lang="ts">
+    import {Settings} from "@/js/Settings";
 
     export default {
         name: "DashboardTracking",
         computed: {
             totalTests() {
-                return settings.getResults().length;
+                return Settings.getResults().length;
             }
         }
     }

@@ -21,8 +21,8 @@
     </Page>
 </template>
 
-<script>
-    import TOS from './TOS'
+<script lang="ts">
+    import TOS from '@/components/TOS.vue'
 
     export default {
         name: "Intro",

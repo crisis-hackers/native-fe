@@ -19,8 +19,8 @@
     </Page>
 </template>
 
-<script>
-    import App from './App'
+<script lang="ts">
+    import App from '@/components/App.vue'
     import * as geolocation from 'nativescript-geolocation';
 
     export default {
@@ -42,7 +42,7 @@
             }
         },
         computed: {
-            allItemsChecked() {
+            allItemsChecked(): boolean {
                 return this.items.every((item) => item.checked);
             }
         },

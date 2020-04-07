@@ -33,12 +33,12 @@
     </Page>
 </template>
 
-<script>
-    import Strings from './mixins/Strings';
-    import DashboardFAQ from "@/components/DashboardFAQ";
-    import DashboardHome from "@/components/DashboardHome";
-    import DashboardProfile from "@/components/DashboardProfile";
-    import DashboardTracking from "@/components/DashboardTracking";
+<script lang="ts">
+    import Strings from '@/components/mixins/Strings.vue';
+    import DashboardFAQ from "@/components/DashboardFAQ.vue";
+    import DashboardHome from "@/components/DashboardHome.vue";
+    import DashboardProfile from "@/components/DashboardProfile.vue";
+    import DashboardTracking from "@/components/DashboardTracking.vue";
 
     export default {
         name: "Dashboard",

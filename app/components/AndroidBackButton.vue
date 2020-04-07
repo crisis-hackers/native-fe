@@ -2,7 +2,7 @@
     
 </template>
 
-<script>
+<script lang="ts">
     import {isAndroid} from 'tns-core-modules/platform'
     import {AndroidApplication} from "tns-core-modules/application";
 

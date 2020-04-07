@@ -1,4 +1,6 @@
-export default class {
+import {AQuestionnaire, QType} from "@/js/BasicChatBot";
+
+export class Questionnaire extends AQuestionnaire {
     constants = {
         chatBotName: 'Quarantina'
     };
@@ -14,7 +16,7 @@ export default class {
                 },
                 {
                     text: {
-                        sk: `Ja som (${this.constants.chatBotName})  a pre vyťaženosť zdravotných pracovníkov Vam pomôžem identifikovať, či by ste mohli mať nákazu COVID-19. Všetky informácie, ktoré so mnou zozdieľate, sú dôverné.`
+                        sk: `Ja som (${this.constants['chatBotName']})  a pre vyťaženosť zdravotných pracovníkov Vam pomôžem identifikovať, či by ste mohli mať nákazu COVID-19. Všetky informácie, ktoré so mnou zozdieľate, sú dôverné.`
                     }
                 },
                 {
@@ -23,7 +25,7 @@ export default class {
                     }
                 }
             ],
-            type: 'boolean',
+            type: QType.BOOLEAN,
             nullable: true,
             substeps: [
                 {
@@ -35,7 +37,7 @@ export default class {
                             }
                         }
                     ],
-                    type: 'radio',
+                    type: QType.RADIO,
                     options: [
                         {
                             label: {
@@ -78,7 +80,7 @@ export default class {
                     }
                 }
             ],
-            type: 'checkbox',
+            type: QType.CHECKBOX,
             options: [
                 {
                     label: {
@@ -145,7 +147,7 @@ export default class {
                     }
                 }
             ],
-            type: 'boolean',
+            type: QType.BOOLEAN,
             substeps: [
                 {
                     key: 'travellingCountry',
@@ -156,7 +158,7 @@ export default class {
                             }
                         }
                     ],
-                    type: 'text'
+                    type: QType.TEXT
                 }
             ],
             negSubsteps: [
@@ -169,7 +171,7 @@ export default class {
                             }
                         }
                     ],
-                    type: 'boolean',
+                    type: QType.BOOLEAN,
                     substeps: [
                         {
                             key: 'travellingPersonHasSymptoms',
@@ -180,7 +182,7 @@ export default class {
                                     }
                                 }
                             ],
-                            type: 'boolean'
+                            type: QType.BOOLEAN
                         }
                     ]
                 }
@@ -195,7 +197,7 @@ export default class {
                     }
                 }
             ],
-            type: 'boolean'
+            type: QType.BOOLEAN
         },
         {
             key: 'diagnosis',
@@ -211,7 +213,7 @@ export default class {
                     }
                 }
             ],
-            type: 'checkbox',
+            type: QType.CHECKBOX,
             options: [
                 {
                     label: {
@@ -254,7 +256,7 @@ export default class {
                     }
                 }
             ],
-            type: 'radio',
+            type: QType.RADIO,
             options: [
                 {
                     label: {

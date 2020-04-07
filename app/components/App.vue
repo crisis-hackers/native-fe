@@ -11,13 +11,13 @@
     </Page>
 </template>
 
-<script>
-    import SelfTest from './SelfTest';
-    import SendTest from './SendTest';
-    import Strings from './mixins/Strings'
-    import TestResults from './TestResults';
-    import CallHelplineButton from "@/components/CallHelplineButton";
-    import SocialShareButton from "@/components/SocialShareButton";
+<script lang="ts">
+    import SelfTest from '@/components/SelfTest.vue';
+    import SendTest from '@/components/SendTest.vue';
+    import Strings from '@/components/mixins/Strings.vue'
+    import TestResults from '@/components/TestResults.vue';
+    import CallHelplineButton from "@/components/CallHelplineButton.vue";
+    import SocialShareButton from "@/components/SocialShareButton.vue";
 
     export default {
         components: {SocialShareButton, CallHelplineButton},

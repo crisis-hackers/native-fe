@@ -17,12 +17,12 @@
     </Page>
 </template>
 
-<script>
+<script lang="ts">
     import * as TNSPhone from 'nativescript-phone'
-    import Strings from './mixins/Strings'
-    import SelfTest from './SelfTest';
-    import Dashboard from './Dashboard';
-    import CallHelplineButton from "@/components/CallHelplineButton";
+    import Strings from '@/components/mixins/Strings.vue'
+    import SelfTest from '@/components/SelfTest.vue';
+    import Dashboard from '@/components/Dashboard.vue';
+    import CallHelplineButton from '@/components/CallHelplineButton.vue';
 
     export default {
         name: "TestResults",
@@ -50,10 +50,10 @@
             }
         },
         computed: {
-            result() {
+            result(): object {
                 return this.actualResult ? this.possibleResults[this.actualResult] : {}
             },
-            resultClass() {
+            resultClass(): string {
                 return this.actualResult ?? '';
             }
         },

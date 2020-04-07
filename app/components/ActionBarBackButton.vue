@@ -4,7 +4,7 @@
     </ActionBar>
 </template>
 
-<script>
+<script lang="ts">
     export default {
         name: "ActionBarBackButton",
         props: {

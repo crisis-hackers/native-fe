@@ -9,14 +9,14 @@
                         <Label class="msg-text" :textWrap="true">{{ msg.text }}</Label>
                     </StackLayout>
                     <StackLayout v-if="currentInput !== null" :key="currentInput.type" class="msg msg-answer msg-input">
-                        <TextField v-if="currentInput.type === 'text' || currentInput.type === 'number'"
-                                   :keyboardType="currentInput.type === 'number' ? 'number' : ''"
+                        <TextField v-if="currentInput.type === QType.TEXT || currentInput.type === QType.NUMBER"
+                                   :keyboardType="currentInput.type === QType.NUMBER ? 'number' : ''"
                                    v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" ref="inputTextField" />
-                        <StackLayout v-if="currentInput.type === 'boolean' || currentInput.type === 'radio'"
+                        <StackLayout v-if="currentInput.type === QType.BOOLEAN || currentInput.type === QType.RADIO"
                                      :orientation="currentInput.options && currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
                             <Button class="msg-input-button m-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ tq(option.label) }}</Button>
                         </StackLayout>
-                        <StackLayout v-if="currentInput.type === 'checkbox'" orientation="vertical">
+                        <StackLayout v-if="currentInput.type === QType.CHECKBOX" orientation="vertical">
                             <StackLayout v-for="option in currentInput.options" :key="option.value" orientation="horizontal">
                                 <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
                                 <Label verticalAlignment="center">{{ tq(option.label) }}</Label>
@@ -33,15 +33,16 @@
     </Page>
 </template>
 
-<script>
-    import BasicChatBot from "../js/BasicChatBot";
-    import Strings from './mixins/Strings';
+<script lang="ts">
+    import {BasicChatBot, QMessage, QStep, QType} from "@/js/BasicChatBot";
+    import Strings from './mixins/Strings.vue';
     import BE from '../js/BE';
-    import TestResults from './TestResults';
-    import Location from '../js/Location';
-    import ActionBarBackButton from "@/components/ActionBarBackButton";
-    import Questionnaire from "../js/Questionnaire";
-    import Settings from '../js/Settings';
+    import TestResults from './TestResults.vue';
+    import LocationHelper from '../js/Location';
+    import ActionBarBackButton from "@/components/ActionBarBackButton.vue";
+    import {Questionnaire} from "@/js/Questionnaire";
+    import {Location as MLocation, Settings} from '@/js/Settings';
+    import {Location as NSLocation} from 'nativescript-geolocation'
 
     export default {
         name: "SelfTest",
@@ -51,9 +52,10 @@
         ],
         data() {
             return {
+                QType,
                 messages: [],
                 currentInput: {},
-                chatbot: null,
+                chatbot: null as BasicChatBot,
                 processing: false,
                 location: null,
                 scrollLock: false,
@@ -63,19 +65,19 @@
         methods: {
             processInput(value) {
                 switch (this.currentInput.type) {
-                    case "text":
-                    case "number":
+                    case QType.TEXT:
+                    case QType.NUMBER:
                         this.fillAnswer(this.currentInput.answer);
                         this.addAnswerMessage(this.currentInput.answer);
                         break;
 
-                    case "boolean":
-                    case "radio":
+                    case QType.BOOLEAN:
+                    case QType.RADIO:
                         this.fillAnswer(value.value);
                         this.addAnswerMessage(this.tq(value.label));
                         break;
 
-                    case "checkbox":
+                    case QType.CHECKBOX:
                         let selectedOptions = this.currentInput.options.filter((item) => item.checked);
                         this.fillAnswer(selectedOptions.map((item) => item.value));
                         this.addAnswerMessage(selectedOptions.map((item) => this.tq(item.label)).join(',\n'));
@@ -84,16 +86,15 @@
                 this.nextStep();
             },
             nextStep() {
-                let step = this.chatbot.getNextStep(this.currentInput);
+                let step = this.chatbot.getNextStep(this.currentInput) as QStep;
                 if (step) {
-                    console.log(this.language);
-                    step.messages.forEach((msg) => this.addQuestion(this.tq(msg.text), this.tq(msg.title)));
-                    if (!step.type) {
+                    step.messages.forEach((msg: QMessage) => this.addQuestion(this.tq(msg.text), this.tq(msg.title)));
+                    if (step.type === null) {
                         //finished
                         this.currentInput = null;
                         return;
                     }
-                    if (step.type === 'boolean') {
+                    if (step.type === QType.BOOLEAN) {
                         this.spawnBooleanInput();
                     } else {
                         this.spawnInput(step.type, step.options);
@@ -106,45 +107,9 @@
             fillAnswer(value) {
                 this.currentInput.answer = value;
             },
-            spawnDummyNextInput() {
-                let options = [
-                    {
-                        label: 'Ajdkljsldkg',
-                        value: 5
-                    },
-                    {
-                        label: 'ASkjlkd',
-                        value: 552
-                    },
-                    {
-                        label: 'ASkjlkdssfsdjfkdf',
-                        value: 552
-                    },
-                    {
-                        label: 'AS',
-                        value: 5522
-                    },
-                    {
-                        label: 'ASkj',
-                        value: 5521
-                    }
-                ];
-                let rand = Math.random();
-                if (rand < 1/5) {
-                    this.spawnTextInput();
-                } else if (rand < 2/5) {
-                    this.spawnBooleanInput();
-                } else if (rand < 3/5) {
-                    this.spawnRadioInput(options);
-                } else if (rand < 4/5) {
-                    this.spawnNumberInput();
-                } else {
-                    this.spawnCheckboxInput(options);
-                }
-            },
-            spawnInput(type, options = null) {
-                let answer = '';
-                if (type === 'checkbox') {
+            spawnInput(type: QType, options = null) {
+                let answer: string|string[] = '';
+                if (type === QType.CHECKBOX) {
                     answer = [];
                 }
                 this.currentInput = {
@@ -152,15 +117,15 @@
                     options: options,
                     answer: answer
                 };
-                if (type === 'text' || type === 'number') {
+                if (type === QType.TEXT || type === QType.NUMBER) {
                     this.requestTextFieldFocus();
                 }
             },
             spawnTextInput() {
-                this.spawnInput('text');
+                this.spawnInput(QType.TEXT);
             },
             spawnBooleanInput() {
-                this.spawnInput('boolean', [
+                this.spawnInput(QType.BOOLEAN, [
                     {
                         label: {
                             sk: 'Áno',
@@ -178,13 +143,13 @@
                 ]);
             },
             spawnNumberInput() {
-                this.spawnInput('number');
+                this.spawnInput(QType.NUMBER);
             },
             spawnRadioInput(options) {
-                this.spawnInput('radio', options);
+                this.spawnInput(QType.RADIO, options);
             },
             spawnCheckboxInput(options) {
-                this.spawnInput('checkbox', options);
+                this.spawnInput(QType.CHECKBOX, options);
             },
             addMessage(question, text, title = null) {
                 this.messages = this.messages.concat({
@@ -207,11 +172,11 @@
                 this.nextStep();
             },
             getUserLocation() {
-                Location.getPreciseLocation(1000 * 30) //30s
-                .then((location) => {
+                LocationHelper.getPreciseLocation(1000 * 30) //30s
+                .then((location: NSLocation) => {
                     this.location = location;
                 })
-                .catch((err) => {
+                .catch((err: any) => {
                     console.error(err);
                 })
             },
@@ -221,9 +186,9 @@
                 Promise.resolve()
                 .then(() => {
                     //if high precision accuracy was not resolved, resolve just a coarse accuracy with much lower timeout
-                    return this.location ? Promise.resolve(this.location) : Location.getCoarseLocation(1000 * 2) //2s
+                    return this.location ? Promise.resolve(this.location) : LocationHelper.getCoarseLocation(1000 * 2) //2s
                 })
-                .then((location) => {
+                .then((location: NSLocation|MLocation) => {
                     result.lat = location.latitude;
                     result.lon = location.longitude;
 
