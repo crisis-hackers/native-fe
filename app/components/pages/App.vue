@@ -1,29 +1,26 @@
 <template>
-    <Page>
+    <Page ref="page">
         <ActionBar :title="`${str.appName}`">
 
         </ActionBar>
-        <GridLayout columns="*" rows="*,*,*,*" class="main">
+        <GridLayout columns="*" rows="*,*,*" class="main">
             <Button row="0" class="m-button m-green-button" @tap="startTest">Start test</Button>
-            <Button row="1" class="-primary" @tap="shareApp">Share</Button>
-            <Button row="2" class="-primary" @tap="dummyTestResult">Dummy test result</Button>
-            <CallHelplineButton row="3" />
+            <SocialShareButton row="1" />
+            <CallHelplineButton row="2" />
         </GridLayout>
     </Page>
 </template>
 
-<script>
-    import SelfTest from './SelfTest';
-    import SendTest from './SendTest';
-    import SocialShare from './SocialShare';
-    import Strings from './mixins/Strings'
-    import TestResults from './TestResults';
-    import CallHelplineButton from "@/components/CallHelplineButton";
+<script lang="ts">
+    import SelfTest from '@/components/pages/SelfTest.vue';
+    import Strings from '@/components/mixins/Strings.vue'
+    import TestResults from '@/components/pages/TestResults.vue';
+    import CallHelplineButton from "@/components/elements/CallHelplineButton.vue";
+    import SocialShareButton from "@/components/elements/SocialShareButton.vue";
 
     export default {
-        components: {CallHelplineButton},
+        components: {SocialShareButton, CallHelplineButton},
         mixins:[
-            SocialShare,
             Strings
         ],
         data() {
@@ -35,22 +32,14 @@
             startTest() {
                 this.$navigateTo(SelfTest);
             },
-            dummySendTest() {
-                this.$navigateTo(SendTest)
-            },
             dummyTestResult() {
                 this.$navigateTo(TestResults);
             }
         }
-  }
+    }
 </script>
 
 <style scoped>
-    ActionBar {
-        background-color: #53ba82;
-        color: #ffffff;
-    }
-
     .message {
         vertical-align: center;
         text-align: center;

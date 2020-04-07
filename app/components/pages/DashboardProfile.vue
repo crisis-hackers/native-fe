@@ -1,12 +1,13 @@
 <template>
     <StackLayout>
-        <Label class="h1">FAQ</Label>
+        <Label class="h1">Profile</Label>
     </StackLayout>
 </template>
 
-<script>
+<script lang="ts">
+
     export default {
-        name: "DashboardFAQ"
+        name: "DashboardProfile",
     }
 </script>
 

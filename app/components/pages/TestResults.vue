@@ -1,7 +1,7 @@
 <template>
     <Page @loaded="onPageLoaded">
         <ActionBar title="Test Results"/>
-        <GridLayout rows="*,60" columns="*">
+        <GridLayout rows="*,80" columns="*">
             <FlexboxLayout row="0" flexDirection="column" justifyContent="space-around" alignItems="center"
                 padding="64dp" class="result">
                 <Label :class="`h2 ${resultClass} title`" :textWrap="true">{{ result.title }}</Label>
@@ -17,12 +17,12 @@
     </Page>
 </template>
 
-<script>
+<script lang="ts">
     import * as TNSPhone from 'nativescript-phone'
-    import Strings from './mixins/Strings'
-    import SelfTest from './SelfTest';
-    import Dashboard from './Dashboard';
-    import CallHelplineButton from "@/components/CallHelplineButton";
+    import Strings from '@/components/mixins/Strings.vue'
+    import SelfTest from '@/components/pages/SelfTest.vue';
+    import Dashboard from '@/components/pages/Dashboard.vue';
+    import CallHelplineButton from '@/components/elements/CallHelplineButton.vue';
 
     export default {
         name: "TestResults",
@@ -50,10 +50,10 @@
             }
         },
         computed: {
-            result() {
+            result(): object {
                 return this.actualResult ? this.possibleResults[this.actualResult] : {}
             },
-            resultClass() {
+            resultClass(): string {
                 return this.actualResult ?? '';
             }
         },
@@ -67,10 +67,14 @@
                 TNSPhone.dial(this.num.helpline, true);
             },
             navigateToTest() {
-                this.$navigateTo(SelfTest);
+                this.$navigateTo(SelfTest, {
+                    clearHistory: false
+                });
             },
             navigateToDashboard() {
-                this.$navigateTo(Dashboard);
+                this.$navigateTo(Dashboard, {
+                    clearHistory: true
+                });
             },
             onPageLoaded() {
                 this.dummyGetResult();

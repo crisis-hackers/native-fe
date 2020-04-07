@@ -1,4 +1,4 @@
-# HTC
+# Q-Tracker
 
 > Hack The Crisis Slovakia Healthcare Team 3's App
 

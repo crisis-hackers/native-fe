@@ -19,8 +19,8 @@
     </Page>
 </template>
 
-<script>
-    import App from './App'
+<script lang="ts">
+    import App from '@/components/pages/App.vue'
     import * as geolocation from 'nativescript-geolocation';
 
     export default {
@@ -42,7 +42,7 @@
             }
         },
         computed: {
-            allItemsChecked() {
+            allItemsChecked(): boolean {
                 return this.items.every((item) => item.checked);
             }
         },
@@ -55,8 +55,7 @@
                 geolocation.isEnabled()
                 .then((enabled) => {
                     if (enabled) {
-                        this.navigateToApp();
-                        return undefined;
+                        return Promise.resolve();
                     } else {
                         return geolocation.enableLocationRequest();
                     }
@@ -73,8 +72,9 @@
                 });
             },
             navigateToApp() {
-                console.log("lol");
-                this.$navigateTo(App);
+                this.$navigateTo(App, {
+                    clearHistory: true
+                });
             }
         }
     }

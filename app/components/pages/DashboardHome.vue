@@ -11,11 +11,12 @@
     </StackLayout>
 </template>
 
-<script>
-    import settings from '../js/Settings';
+<script lang="ts">
+    import {Settings} from '@/js/Settings';
 
-    const GoogleMaps = require('nativescript-google-maps-sdk');
-    const GoogleMapsUtils = require('nativescript-google-maps-utils');
+    import * as GoogleMaps from "nativescript-google-maps-sdk";
+
+    import * as GoogleMapsUtils from "nativescript-google-maps-utils";
 
     export default {
         name: "DashboardHome",
@@ -47,10 +48,10 @@
                 this.mapView.settings.myLocationButtonEnabled = true;
 
                 this.mapView.zoom = 8;
-                let location = settings.getLastLocation();
+                let location = Settings.getLastLocation();
                 if (location) {
-                    this.mapView.latitude = location.lat;
-                    this.mapView.longitude = location.lon;
+                    this.mapView.latitude = location.latitude;
+                    this.mapView.longitude = location.longitude;
                 }
             },
             setupHeatMap() {

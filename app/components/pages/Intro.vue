@@ -1,19 +1,19 @@
 <template>
     <Page actionBarHidden="true">
-        <GridLayout rows="auto, 90" columns="*">
-            <TabView  row="0" col="0" height="90%" :selectedIndex="currentPage" :key="currentPage">
-                <TabViewItem v-for="page in pages" label="" class="m-tab-view-item">
+        <GridLayout rows="*, 90" columns="*">
+            <Tabs row="0" col="0" :selectedIndex="currentPage" @selectedIndexChanged="tabChanged">
+                <TabContentItem v-for="page in pages" class="m-tab-view-item">
                     <FlexboxLayout flexDirection="column" justifyContent="space-around"
                                    alignItems="center" :paddingLeft="layout.mainXPadding" :paddingRight="layout.mainXPadding">
                         <Label class="title h1" textWrap="true">{{ page.title }}</Label>
                         <Label class="subtitle h3" textWrap="true">{{ page.subtitle }}</Label>
                     </FlexboxLayout >
-                </TabViewItem>
-            </TabView>
+                </TabContentItem>
+            </Tabs>
             <GridLayout row="1" col="0" columns="2*,3*,2*">
                 <Button col="0" class="-outline no-bg-button" @tap="skip">Skip</Button>
-                <FlexboxLayout flexDirection="row" justifyContent="space-around">
-
+                <FlexboxLayout col="1" flexDirection="row" justifyContent="center" alignItems="center">
+                    <Label v-for="(page, index) in pages" :class="`dot ${index <= currentPage ? 'dot-active' : ''}`" />
                 </FlexboxLayout>
                 <Button col="2" class="-outline no-bg-button" @tap="nextPage">Next</Button>
             </GridLayout>
@@ -21,8 +21,8 @@
     </Page>
 </template>
 
-<script>
-    import TOS from './TOS'
+<script lang="ts">
+    import TOS from '@/components/pages/TOS.vue'
 
     export default {
         name: "Intro",
@@ -57,7 +57,12 @@
                 this.currentPage++;
             },
             skip() {
-                this.$navigateTo(TOS)
+                this.$navigateTo(TOS, {
+                    clearHistory: true
+                })
+            },
+            tabChanged(args) {
+                this.currentPage = args.newIndex;
             }
         }
     }
@@ -86,5 +91,17 @@
 
     .bold-text {
         font-weight: bolder;
+    }
+
+    .dot {
+        margin: 0 4dp;
+        height: 25px;
+        width: 25px;
+        background-color: #bbb;
+        border-radius: 50%;
+    }
+
+    .dot-active {
+        background-color: #53c1ec;
     }
 </style>
