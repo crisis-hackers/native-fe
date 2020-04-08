@@ -1,8 +1,8 @@
 <template>
-    <GridLayout row="*,*" columns="*">
+    <StackLayout orientation="vertical">
         <Label row="0" class="h1">FAQ</Label>
-        <WorldMap row="1" style="background-color: #333333" :loaded="dLoaded" />
-    </GridLayout>
+        <WorldMap :loaded="dLoaded" />
+    </StackLayout>
 </template>
 
 <script lang="ts">

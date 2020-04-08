@@ -1,5 +1,5 @@
 <template>
-    <WebView ref="webView"/>
+    <WebView style="height: 100%" ref="webView" />
 </template>
 
 <script lang="ts">
