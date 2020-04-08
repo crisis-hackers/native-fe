@@ -4,7 +4,7 @@
 
         </ActionBar>
         <GridLayout columns="*" rows="*,*,*" class="main">
-            <Button row="0" class="m-button m-green-button" @tap="startTest">Start test</Button>
+            <Button row="0" class="m-button m-green-button" @tap="startTest" :text="'selfTest.startButton'|L" />
             <SocialShareButton row="1" />
             <CallHelplineButton row="2" />
         </GridLayout>
@@ -23,11 +23,6 @@
         mixins:[
             Strings
         ],
-        data() {
-              return {
-                    msg: 'Hello World!'
-              }
-        },
         methods: {
             startTest() {
                 this.$navigateTo(SelfTest);

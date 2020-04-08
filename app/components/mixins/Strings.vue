@@ -8,7 +8,7 @@
         data() {
             return {
                 str: {
-                    appName: 'Q-Tracker'
+                    appName: this.$options.filters.L('app.name')
                 },
                 num: {
                     helpline: '0800 221 234'

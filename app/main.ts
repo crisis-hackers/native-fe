@@ -6,6 +6,7 @@ import Intro from './components/pages/Intro.vue'
 import store from './store'
 import VueDevtools from 'nativescript-vue-devtools'
 import Theme from '@nativescript/theme'
+import {localize} from 'nativescript-localize';
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools)
@@ -29,6 +30,8 @@ Vue.registerElement(
       }
     }
 );
+
+Vue.filter('L', localize);
 
 Vue.registerElement(
     'MapView',

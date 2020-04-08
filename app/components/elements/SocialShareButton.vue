@@ -1,5 +1,5 @@
 <template>
-    <Button class="m-button m-helpline-button" @tap="shareApp">Share The App</Button>
+    <Button class="m-button m-helpline-button" @tap="shareApp" :text="'buttons.shareApp'|L" />
 </template>
 
 <script lang="ts">

@@ -5,17 +5,17 @@
                 <TabContentItem v-for="page in pages" class="m-tab-view-item">
                     <FlexboxLayout flexDirection="column" justifyContent="space-around"
                                    alignItems="center" :paddingLeft="layout.mainXPadding" :paddingRight="layout.mainXPadding">
-                        <Label class="title h1" textWrap="true">{{ page.title }}</Label>
-                        <Label class="subtitle h3" textWrap="true">{{ page.subtitle }}</Label>
+                        <Label class="title h1" textWrap="true" :text="`intro.${page.key}.title`|L" />
+                        <Label class="subtitle h3" textWrap="true" :text="`intro.${page.key}.subtitle`|L" />
                     </FlexboxLayout >
                 </TabContentItem>
             </Tabs>
             <GridLayout row="1" col="0" columns="2*,3*,2*">
-                <Button col="0" class="-outline no-bg-button" @tap="skip">Skip</Button>
+                <Button col="0" class="-outline no-bg-button" @tap="skip" :text="'buttons.skip'|L" />
                 <FlexboxLayout col="1" flexDirection="row" justifyContent="center" alignItems="center">
                     <Label v-for="(page, index) in pages" :class="`dot ${index <= currentPage ? 'dot-active' : ''}`" />
                 </FlexboxLayout>
-                <Button col="2" class="-outline no-bg-button" @tap="nextPage">Next</Button>
+                <Button col="2" class="-outline no-bg-button" @tap="nextPage" :text="'buttons.next'|L" />
             </GridLayout>
         </GridLayout>
     </Page>
@@ -31,16 +31,13 @@
                 currentPage: 0,
                 pages: [
                     {
-                        title: 'Quick Diagnosis',
-                        subtitle: 'Help prevent the spread of Coronavirus in Slovakia'
+                        key: '_1'
                     },
                     {
-                        title: 'Track Your Neighbourhood',
-                        subtitle: 'Identify high risk areas and how fast the virus is spreading'
+                        key: '_2'
                     },
                     {
-                        title: 'Get Alerts',
-                        subtitle: 'You will be alerted if you come in close proximity of a COVID 19 patient'
+                        key: '_3'
                     }
                 ],
                 layout: {

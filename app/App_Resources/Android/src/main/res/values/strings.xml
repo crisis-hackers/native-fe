@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Q-Tracker</string>
-    <string name="title_activity_kimera">Q-Tracker</string>
+  <string name="_selfTest_startButton_vSdEG">"Spustiť test"</string>
+  <string name="_app_name_1k3Sbz">"Q-Tracker"</string>
+  <string name="app_name">"Q-Tracker"</string>
+  <string name="title_activity_kimera">"Q-Tracker"</string>
+  <string name="_tos__2_text_Z1QFKqg">"tos._2.text"</string>
+  <string name="_tos__2_title_Z1P1unL">"tos._2.title"</string>
+  <string name="_tos__1_text_Z1SJSmB">"tos._1.text"</string>
+  <string name="_tos__1_title_2c4Bhu">"tos._1.title"</string>
+  <string name="_tos_tos_Z1lcDnS">"tos.tos"</string>
+  <string name="_testResults_dashboard_Z1ToqVH">"testResults.dashboard"</string>
+  <string name="_testResults_testAgain_Z25XUuE">"testResults.testAgain"</string>
+  <string name="_testResults_reminder_vgOGV">"testResults.reminder"</string>
+  <string name="_testResults_thankYou_2iCzcu">"testResults.thankYou"</string>
+  <string name="_testResults_danger_text1_17yOno">"testResults.danger.text1"</string>
+  <string name="_testResults_danger_title_17zkjF">"testResults.danger.title"</string>
+  <string name="_testResults_risk_text1_Z1QlffJ">"testResults.risk.text1"</string>
+  <string name="_testResults_risk_title_Z1QkJjs">"testResults.risk.title"</string>
+  <string name="_testResults_safe_text1_2eDCVn">"testResults.safe.text1"</string>
+  <string name="_testResults_safe_title_2eE8RE">"testResults.safe.title"</string>
+  <string name="_intro__3_subtitle_WsmHB">"intro._3.subtitle"</string>
+  <string name="_intro__3_title_ZvcqAn">"intro._3.title"</string>
+  <string name="_intro__2_subtitle_1bE8It">"intro._2.subtitle"</string>
+  <string name="_intro__2_title_Z1yisJ3">"intro._2.title"</string>
+  <string name="_intro__1_subtitle_1pPTJl">"intro._1.subtitle"</string>
+  <string name="_intro__1_title_2sMCVd">"intro._1.title"</string>
+  <string name="_dashboard_tracking_totalTests_12k7Bn">"dashboard.tracking.totalTests"</string>
+  <string name="_dashboard_heatmap_tags_dryCough_title_Z2gH5Qc">"dashboard.heatmap.tags.dryCough.title"</string>
+  <string name="_dashboard_heatmap_tags_fever_title_Z21bRP5">"dashboard.heatmap.tags.fever.title"</string>
+  <string name="_dashboard_tabs_tracking_cfdS3">"dashboard.tabs.tracking"</string>
+  <string name="_dashboard_tabs_faq_IyM59">"dashboard.tabs.faq"</string>
+  <string name="_dashboard_tabs_profile_1IaphW">"dashboard.tabs.profile"</string>
+  <string name="_dashboard_tabs_home_2iSaWL">"dashboard.tabs.home"</string>
+  <string name="_buttons_agree_Z13aLQ">"buttons.agree"</string>
+  <string name="_buttons_send_285mVv">"buttons.send"</string>
+  <string name="_buttons_skip_285orG">"buttons.skip"</string>
+  <string name="_buttons_next_284HYX">"buttons.next"</string>
+  <string name="_buttons_callHelpline_ZI4lVK">"buttons.callHelpline"</string>
+  <string name="_buttons_shareApp_1OKGdT">"buttons.shareApp"</string>
+  <string name="_buttons_startSelfTest_wWFU8">"buttons.startSelfTest"</string>
 </resources>

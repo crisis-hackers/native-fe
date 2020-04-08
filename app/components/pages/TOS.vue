@@ -2,18 +2,18 @@
     <Page>
         <GridLayout rows="1*,2*,auto" columns="*">
             <DockLayout row="0" stretchLastChild="false">
-                <Label class="h2" dock="bottom" textAlignment="center">Terms of Service and Policy</Label>
+                <Label class="h2" dock="bottom" textAlignment="center" :text="'tos.tos'|L" />
             </DockLayout>
             <FlexboxLayout row="1" col="0" dock="top" flexDirection="column" justifyContent="center">
                 <StackLayout v-for="item in items" class="item" orientation="horizontal">
                     <Switch width="60" v-model="item.checked"></Switch>
                     <StackLayout orientation="vertical">
-                        <Label class="h3 title" :textWrap="true">{{ item.title }}</Label>
-                        <Label :textWrap="true">{{ item.text }}</Label>
+                        <Label class="h3 title" :textWrap="true" :text="`tos.${item.key}.title`|L" />
+                        <Label :textWrap="true" :text="`tos.${item.key}.text`|L" />
                     </StackLayout>
                 </StackLayout>
             </FlexboxLayout>
-            <Button row="2" col="0" @tap="agreed" class="m-button m-green-button" :isEnabled="allItemsChecked">I Agree</Button>
+            <Button row="2" col="0" @tap="agreed" class="m-button m-green-button" :isEnabled="allItemsChecked" :text="'buttons.agree'|L" />
         </GridLayout>
 
     </Page>
@@ -30,13 +30,11 @@
                 items: [
                     {
                         checked: false,
-                        title: 'Device Location',
-                        text: 'It is recommended that you set your location sharing to \'Always\'. You can change this anytime later.'
+                        key: '_1'
                     },
                     {
                         checked: false,
-                        title: 'Data Sharing',
-                        text: 'Your data will only be shared with certified health professionals and scientists for research purposes.'
+                        key: '_2'
                     }
                 ]
             }

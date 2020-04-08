@@ -1,7 +1,8 @@
 <template>
     <StackLayout>
         <SegmentedBar v-model="segmentedBarIndex" @selectedIndexChange="setupHeatMap">
-            <SegmentedBarItem v-for="item in segmentedBarItems" :key="item.title" :title="item.title" />
+            <SegmentedBarItem v-for="item in segmentedBarItems" :key="item.tag"
+                              :title="`dashboard.heatmap.tags.${item.tag}.title`|L" />
         </SegmentedBar>
         <GridLayout>
             <MapView
@@ -24,11 +25,9 @@
             return {
                 segmentedBarItems: [
                     {
-                        title: 'Fever',
                         tag: 'fever'
                     },
                     {
-                        title: 'Dry Cough',
                         tag: 'dryCough'
                     }
                 ],

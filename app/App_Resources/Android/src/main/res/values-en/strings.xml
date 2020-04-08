@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="_tos__2_text_Z1QFKqg">"Your data will only be shared with certified health professionals and scientists for research purposes."</string>
+  <string name="_tos__2_title_Z1P1unL">"Data Sharing"</string>
+  <string name="_tos__1_text_Z1SJSmB">"It is recommended that you set your location sharing to \'Always\'. You can change this anytime later."</string>
+  <string name="_tos__1_title_2c4Bhu">"Device Location"</string>
+  <string name="_tos_tos_Z1lcDnS">"Terms of Service and Policy"</string>
+  <string name="_testResults_dashboard_Z1ToqVH">"Track Your Neighborhood"</string>
+  <string name="_testResults_testAgain_Z25XUuE">"Test Again"</string>
+  <string name="_testResults_reminder_vgOGV">"Please check the app regularly to stay updated."</string>
+  <string name="_testResults_thankYou_2iCzcu">"Thank you for your time."</string>
+  <string name="_testResults_danger_text1_17yOno">"Isolate yourself and your immediate family members"</string>
+  <string name="_testResults_danger_title_17zkjF">"Get yourself tested now!"</string>
+  <string name="_testResults_risk_text1_Z1QlffJ">"Isolate yourself and your immediate family members"</string>
+  <string name="_testResults_risk_title_Z1QkJjs">"You are at high risk!"</string>
+  <string name="_testResults_safe_text1_2eDCVn">"Stay home and help prevent the spread of COVID-19"</string>
+  <string name="_testResults_safe_title_2eE8RE">"You are safe!"</string>
+  <string name="_intro__3_subtitle_WsmHB">"You will be alerted if you come in close proximity of a COVID 19 patient"</string>
+  <string name="_intro__3_title_ZvcqAn">"Get Alerts"</string>
+  <string name="_intro__2_subtitle_1bE8It">"Identify high risk areas and how fast the virus is spreading"</string>
+  <string name="_intro__2_title_Z1yisJ3">"Track Your Neighbourhood"</string>
+  <string name="_intro__1_subtitle_1pPTJl">"Help prevent the spread of Coronavirus in Slovakia"</string>
+  <string name="_intro__1_title_2sMCVd">"Quick Diagnosis"</string>
+  <string name="_dashboard_tracking_totalTests_12k7Bn">"Total tests"</string>
+  <string name="_dashboard_heatmap_tags_dryCough_title_Z2gH5Qc">"Dry Cough"</string>
+  <string name="_dashboard_heatmap_tags_fever_title_Z21bRP5">"Fever"</string>
+  <string name="_dashboard_tabs_tracking_cfdS3">"Tracking"</string>
+  <string name="_dashboard_tabs_faq_IyM59">"FAQ"</string>
+  <string name="_dashboard_tabs_profile_1IaphW">"Profile"</string>
+  <string name="_dashboard_tabs_home_2iSaWL">"Home"</string>
+  <string name="_buttons_agree_Z13aLQ">"I Agree"</string>
+  <string name="_buttons_send_285mVv">"Send"</string>
+  <string name="_buttons_skip_285orG">"Skip"</string>
+  <string name="_buttons_next_284HYX">"Next"</string>
+  <string name="_buttons_callHelpline_ZI4lVK">"COVID-19 HELPLINE"</string>
+  <string name="_buttons_shareApp_1OKGdT">"Share The App"</string>
+  <string name="_buttons_startSelfTest_wWFU8">"Start Test"</string>
+  <string name="_app_name_1k3Sbz">"Q-Tracker"</string>
+  <string name="app_name">"Q-Tracker"</string>
+  <string name="title_activity_kimera">"Q-Tracker"</string>
+  <string name="_selfTest_startButton_vSdEG">"Spustiť test"</string>
+</resources>

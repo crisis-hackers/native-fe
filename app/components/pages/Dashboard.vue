@@ -4,16 +4,16 @@
         <Tabs selectedIndex="0" tabsPosition="bottom">
             <TabStrip>
                 <TabStripItem>
-                    <Label>Home</Label>
+                    <Label :text="'dashboard.tabs.home'|L" />
                 </TabStripItem>
                 <TabStripItem>
-                    <Label>Tracking</Label>
+                    <Label :text="'dashboard.tabs.tracking'|L" />
                 </TabStripItem>
                 <TabStripItem>
-                    <Label>FAQ</Label>
+                    <Label :text="'dashboard.tabs.faq'|L" />
                 </TabStripItem>
                 <TabStripItem>
-                    <Label>Profile</Label>
+                    <Label :text="'dashboard.tabs.profile'|L" />
                 </TabStripItem>
             </TabStrip>
             <TabContentItem>
