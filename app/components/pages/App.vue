@@ -3,10 +3,11 @@
         <ActionBar :title="`${str.appName}`">
 
         </ActionBar>
-        <GridLayout columns="*" rows="*,*,*" class="main">
+        <GridLayout columns="*" rows="*,*,*,*" class="main">
             <Button row="0" class="m-button m-green-button" @tap="startTest" :text="'selfTest.startButton'|L" />
             <SocialShareButton row="1" />
             <CallHelplineButton row="2" />
+            <Button row="3" class="m-button" @tap="devStartDashboard">!!DEV!! dashboard</Button>
         </GridLayout>
     </Page>
 </template>
@@ -14,9 +15,9 @@
 <script lang="ts">
     import SelfTest from '@/components/pages/SelfTest.vue';
     import Strings from '@/components/mixins/Strings.vue'
-    import TestResults from '@/components/pages/TestResults.vue';
     import CallHelplineButton from "@/components/elements/CallHelplineButton.vue";
     import SocialShareButton from "@/components/elements/SocialShareButton.vue";
+    import Dashboard from "@/components/pages/Dashboard.vue";
 
     export default {
         components: {SocialShareButton, CallHelplineButton},
@@ -27,8 +28,8 @@
             startTest() {
                 this.$navigateTo(SelfTest);
             },
-            dummyTestResult() {
-                this.$navigateTo(TestResults);
+            devStartDashboard() {
+                this.$navigateTo(Dashboard);
             }
         }
     }

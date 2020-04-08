@@ -360,5 +360,13 @@ module.exports = env => {
         config.plugins.push(new webpack.HotModuleReplacementPlugin());
     }
 
+    config.plugins.push(new CopyWebpackPlugin([
+        {
+            from: {
+                glob: "www/**/*.+(html|js|css)"
+            }
+        }
+    ]));
+
     return config;
 };

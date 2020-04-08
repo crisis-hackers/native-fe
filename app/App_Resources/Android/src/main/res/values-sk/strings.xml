@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="_selfTest_startButton_vSdEG">"Spustiť test"</string>
+  <string name="_app_name_1k3Sbz">"Q-Tracker"</string>
+  <string name="app_name">"Q-Tracker"</string>
+  <string name="title_activity_kimera">"Q-Tracker"</string>
   <string name="_tos__2_text_Z1QFKqg">"Your data will only be shared with certified health professionals and scientists for research purposes."</string>
   <string name="_tos__2_title_Z1P1unL">"Data Sharing"</string>
   <string name="_tos__1_text_Z1SJSmB">"It is recommended that you set your location sharing to \'Always\'. You can change this anytime later."</string>
@@ -35,8 +39,4 @@
   <string name="_buttons_callHelpline_ZI4lVK">"COVID-19 HELPLINE"</string>
   <string name="_buttons_shareApp_1OKGdT">"Share The App"</string>
   <string name="_buttons_startSelfTest_wWFU8">"Start Test"</string>
-  <string name="_app_name_1k3Sbz">"Q-Tracker"</string>
-  <string name="app_name">"Q-Tracker"</string>
-  <string name="title_activity_kimera">"Q-Tracker"</string>
-  <string name="_selfTest_startButton_vSdEG">"selfTest.startButton"</string>
 </resources>

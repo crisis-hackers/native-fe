@@ -1,5 +1,5 @@
 <template>
-    <Page>
+    <Page @loaded="pageHasLoaded">
         <ActionBar :title="str.appName" />
         <Tabs selectedIndex="0" tabsPosition="bottom">
             <TabStrip>
@@ -23,7 +23,7 @@
                 <DashboardTracking />
             </TabContentItem>
             <TabContentItem>
-                <DashboardFAQ />
+                <DashboardFAQ :loaded="dLoaded" />
             </TabContentItem>
             <TabContentItem>
                 <DashboardProfile />
@@ -39,11 +39,12 @@
     import DashboardHome from "@/components/pages/DashboardHome.vue";
     import DashboardProfile from "@/components/pages/DashboardProfile.vue";
     import DashboardTracking from "@/components/pages/DashboardTracking.vue";
+    import PageLoaded from "@/components/mixins/PageLoaded.vue";
 
     export default {
         name: "Dashboard",
         mixins: [
-            Strings
+            Strings, PageLoaded
         ],
         components: {
             DashboardFAQ,
