@@ -28,6 +28,12 @@ const i18n = {
         },
         tracking: {
             totalTests: 'Total tests'
+        },
+        home: {
+            text1: 'First calculations of symptomatic COVID in each area across the Slovakia',
+            explore: 'Explore COVID-19 cases near you',
+            header2: 'Covid Tracker',
+            header3: 'World Covid Tracker'
         }
     },
     intro: {
