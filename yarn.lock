@@ -823,6 +823,11 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@types/geojson@^7946.0.7":
+  version "7946.0.7"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.7.tgz#c8fa532b60a0042219cdf173ca21a975ef0666ad"
+  integrity sha512-wE2v81i4C4Ol09RtsWFAqg3BUitWbHSpSlIo+bNdsCJijO9sjme+zm+73ZMCa/qMC8UEERxzGbvmr1cffo2SiQ==
+
 "@types/node@^12.0.12", "@types/node@^12.12.16":
   version "12.12.34"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.34.tgz#0a5d6ae5d22612f0cf5f10320e1fc5d2a745dcb8"
@@ -1328,6 +1333,11 @@ base64-arraybuffer@0.1.5:
   resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
   integrity sha1-c5JncZI7Whl0etZmqlzUv5xunOg=
 
+base64-js@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.0.tgz#a39992d723584811982be5e290bb6a53d86700f1"
+  integrity sha1-o5mS1yNYSBGYK+XikLtqU9hnAPE=
+
 base64-js@^1.0.2:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.3.1.tgz#58ece8cb75dd07e71ed08c736abc5fac4dbf8df1"
@@ -1374,6 +1384,11 @@ bfj@^6.1.1:
     check-types "^8.0.3"
     hoopy "^0.1.4"
     tryer "^1.0.1"
+
+big-integer@^1.6.7:
+  version "1.6.48"
+  resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.48.tgz#8fd88bd1632cba4a1c8c3e3d7159f08bb95b4b9e"
+  integrity sha512-j51egjPa7/i+RdiRuJbPdJ2FIUYYPhvYLjzoYbcMMm62ooO6F94fETG4MTs46zPAF9Brs04OajboA/qTGuz78w==
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -1434,6 +1449,20 @@ boolean@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/boolean/-/boolean-3.0.1.tgz#35ecf2b4a2ee191b0b44986f14eb5f052a5cbb4f"
   integrity sha512-HRZPIjPcbwAVQvOTxR4YE3o8Xs98NqbbL1iEZDCz7CL8ql0Lt5iOyJFxfnAB0oFs8Oh02F/lLlg30Mexv46LjA==
+
+bplist-creator@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/bplist-creator/-/bplist-creator-0.0.7.tgz#37df1536092824b87c42f957b01344117372ae45"
+  integrity sha1-N98VNgkoJLh8QvlXsBNEEXNyrkU=
+  dependencies:
+    stream-buffers "~2.2.0"
+
+bplist-parser@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/bplist-parser/-/bplist-parser-0.1.1.tgz#d60d5dcc20cba6dc7e1f299b35d3e1f95dafbae6"
+  integrity sha1-1g1dzCDLptx+HymbNdPh+V2vuuY=
+  dependencies:
+    big-integer "^1.6.7"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -3731,6 +3760,11 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
+leaflet@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.6.0.tgz#aecbb044b949ec29469eeb31c77a88e2f448f308"
+  integrity sha512-CPkhyqWUKZKFJ6K8umN5/D2wrJ2+/8UIpXppY7QDnUZW5bZL5+SEI2J7GBpwh4LIupOKqbNSQXgqmrEJopHVNQ==
+
 leven@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
@@ -4201,6 +4235,18 @@ nativescript-geolocation@^5.1.0:
   dependencies:
     nativescript-permissions "~1.3.0"
 
+nativescript-google-maps-sdk@*, nativescript-google-maps-sdk@^2.9.1:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/nativescript-google-maps-sdk/-/nativescript-google-maps-sdk-2.9.1.tgz#de40c1ff95c78a60ed9429fca393fe2aaaecbd75"
+  integrity sha512-O1LHRBqwR6XFIe7QsjkUyGROUvCGRaiRaDzhOMdXL8j572cFe5uyC/fMInmnhM3+xGm13QN0W54787Ppg77k9Q==
+
+nativescript-google-maps-utils@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/nativescript-google-maps-utils/-/nativescript-google-maps-utils-0.1.3.tgz#9c9d89166f3f80e47b9b406f01b4ccc1cea44184"
+  integrity sha1-nJ2JFm8/gOR7m0BvAbTMwc6kQYQ=
+  dependencies:
+    nativescript-google-maps-sdk "*"
+
 nativescript-hook@0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/nativescript-hook/-/nativescript-hook-0.2.4.tgz#e591e1d9ad415a8b4f3309c15731577af44a3dd4"
@@ -4209,7 +4255,7 @@ nativescript-hook@0.2.4:
     glob "^6.0.1"
     mkdirp "^0.5.1"
 
-nativescript-hook@0.2.5:
+nativescript-hook@0.2.5, nativescript-hook@~0.2.5:
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/nativescript-hook/-/nativescript-hook-0.2.5.tgz#ea85179ada2d619dcadc9dc32ec45bb5a3c6713e"
   integrity sha512-ciGJtNbtMB2lGv8jAkUripkRjd3g8atX9VYPSt6e8PI6YPiOKeoma3xjcXoW66pFMYpHnfrbp6Mq9U/QtiQrVg==
@@ -4217,10 +4263,33 @@ nativescript-hook@0.2.5:
     glob "^6.0.1"
     mkdirp "^0.5.1"
 
+nativescript-localize@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/nativescript-localize/-/nativescript-localize-4.2.1.tgz#f52d6cddfbcf6b0c3c24b54757c638538253ee3f"
+  integrity sha512-ktvRcWhUtO3RCcTBhL3R2wTWsQxZgoR6Mq4x29Ez6yBQ3K1gDUK860yggpnEZvjwlSSWcdh4w6UW1xbmCxC70A==
+  dependencies:
+    mkdirp "^0.5.1"
+    nativescript-hook "~0.2.5"
+    shorthash "0.0.2"
+    simple-plist "^0.3.0"
+    sprintf-js "^1.1.1"
+
+nativescript-permissions@1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/nativescript-permissions/-/nativescript-permissions-1.3.6.tgz#f79df6b63a3953c0e91ad76713b6c1597677c379"
+  integrity sha512-fkuoboLNdnc3SKdpbffR0Pd84G6iY7GKPirgQLrOFNMP6gLEO8fqJGY1+iFr562sPvlRhCMBjpmauMZuLMwHoQ==
+
 nativescript-permissions@~1.3.0:
   version "1.3.8"
   resolved "https://registry.yarnpkg.com/nativescript-permissions/-/nativescript-permissions-1.3.8.tgz#d0da4a0112213a3df3e384341052244815a46ff1"
   integrity sha512-jB5U/WbCRPZ2N4ho8WC7OsEi+UtbbpIBZ9OyLzNIUixr/ODdTeTgxXzGT3CUHyKBqYm9MrIADdNzCGbFaUo+KA==
+
+nativescript-phone@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/nativescript-phone/-/nativescript-phone-1.4.1.tgz#ab57ef8569bf74717ca9ab25e526d8bfbc4763c5"
+  integrity sha512-g2HbRMJaGTwRSvb58J+PAQOD/CmwhIyKXWpnCbuGmyrpl9crPNUV7qQguO5CHdYAs2MHNwWN24ITeh5Ew6yVDA==
+  dependencies:
+    nativescript-permissions "1.3.6"
 
 nativescript-social-share@^1.6.0:
   version "1.6.0"
@@ -4256,6 +4325,11 @@ nativescript-vue@^2.5.0:
   integrity sha512-JIDI//7djG8k7/iTjEkPZBiV6u1Mwt7V5kSuKeee9FGGoAiUymE/F78G//Av5vVcjsy00UtQtuaxgXjl0ltzww==
   dependencies:
     nativescript-hook "0.2.5"
+
+nativescript-webview-interface@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/nativescript-webview-interface/-/nativescript-webview-interface-1.4.3.tgz#14e1f8f2e8c087ecb097a4d276478ffd8de321a9"
+  integrity sha512-oAvP2xOQD5wfKfO6868UCgUt+lwrtyK13lMmWIjW+L//o48dYhJ5X2RQoBA2odibMgq0EGZS0SzCN0wOLpRr8Q==
 
 nativescript-worker-loader@~0.11.0:
   version "0.11.0"
@@ -4797,6 +4871,15 @@ pkg-up@^2.0.0:
   integrity sha1-yBmscoBZpGHKscOImivjxJoATX8=
   dependencies:
     find-up "^2.1.0"
+
+plist@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/plist/-/plist-2.1.0.tgz#57ccdb7a0821df21831217a3cad54e3e146a1025"
+  integrity sha1-V8zbeggh3yGDEhejytVOPhRqECU=
+  dependencies:
+    base64-js "1.2.0"
+    xmlbuilder "8.2.2"
+    xmldom "0.1.x"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -5597,10 +5680,24 @@ shelljs@0.6.0:
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.6.0.tgz#ce1ed837b4b0e55b5ec3dab84251ab9dbdc0c7ec"
   integrity sha1-zh7YN7Sw5Vtew9q4QlGrnb3Ax+w=
 
+shorthash@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/shorthash/-/shorthash-0.0.2.tgz#59b268eecbde59038b30da202bcfbddeb2c4a4eb"
+  integrity sha1-WbJo7sveWQOLMNogK8+93rLEpOs=
+
 signal-exit@^3.0.0:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
+
+simple-plist@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/simple-plist/-/simple-plist-0.3.0.tgz#929b0e81e826b47929f7561c324a3d348e700a09"
+  integrity sha512-zHzV7TxUsVzHv8Nt+eStifDNCNIOuS92POdFf/5MHAxtWA7IASzVawCasxNIT4bn5IfrrnMB1eXpagJMLWbG5w==
+  dependencies:
+    bplist-creator "0.0.7"
+    bplist-parser "0.1.1"
+    plist "2.1.0"
 
 slash@^1.0.0:
   version "1.0.0"
@@ -5803,7 +5900,7 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
-sprintf-js@^1.1.2:
+sprintf-js@^1.1.1, sprintf-js@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.2.tgz#da1765262bf8c0f571749f2ad6c26300207ae673"
   integrity sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==
@@ -5864,6 +5961,11 @@ stream-browserify@^2.0.1:
   dependencies:
     inherits "~2.0.1"
     readable-stream "^2.0.2"
+
+stream-buffers@~2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/stream-buffers/-/stream-buffers-2.2.0.tgz#91d5f5130d1cef96dcfa7f726945188741d09ee4"
+  integrity sha1-kdX1Ew0c75bc+n9yaUUYh0HQnuQ=
 
 stream-each@^1.1.0:
   version "1.2.3"
@@ -6614,6 +6716,16 @@ ws@~6.1.0:
   integrity sha512-eqZfL+NE/YQc1/ZynhojeV8q+H050oR8AZ2uIev7RU10svA9ZnJUddHcOUZTJLinZ9yEfdA2kSATS2qZK5fhJA==
   dependencies:
     async-limiter "~1.0.0"
+
+xmlbuilder@8.2.2:
+  version "8.2.2"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-8.2.2.tgz#69248673410b4ba42e1a6136551d2922335aa773"
+  integrity sha1-aSSGc0ELS6QuGmE2VR0pIjNap3M=
+
+xmldom@0.1.x:
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.1.31.tgz#b76c9a1bd9f0a9737e5a72dc37231cf38375e2ff"
+  integrity sha512-yS2uJflVQs6n+CyjHoaBmVSqIDevTAWrzMmjG1Gc7h1qQ7uVozNhEPJAwZXWyGQ/Gafo3fCwrcaokezLPupVyQ==
 
 xmlhttprequest-ssl@~1.5.4:
   version "1.5.5"

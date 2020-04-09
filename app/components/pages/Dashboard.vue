@@ -1,29 +1,29 @@
 <template>
-    <Page>
+    <Page @loaded="pageHasLoaded">
         <ActionBar :title="str.appName" />
         <Tabs selectedIndex="0" tabsPosition="bottom">
             <TabStrip>
                 <TabStripItem>
-                    <Label>Home</Label>
+                    <Label :text="'dashboard.tabs.home'|L" />
                 </TabStripItem>
                 <TabStripItem>
-                    <Label>Tracking</Label>
+                    <Label :text="'dashboard.tabs.tracking'|L" />
                 </TabStripItem>
                 <TabStripItem>
-                    <Label>FAQ</Label>
+                    <Label :text="'dashboard.tabs.faq'|L" />
                 </TabStripItem>
                 <TabStripItem>
-                    <Label>Profile</Label>
+                    <Label :text="'dashboard.tabs.profile'|L" />
                 </TabStripItem>
             </TabStrip>
             <TabContentItem>
-                <DashboardHome />
+                <DashboardHome :loaded="dLoaded" />
             </TabContentItem>
             <TabContentItem>
                 <DashboardTracking />
             </TabContentItem>
             <TabContentItem>
-                <DashboardFAQ />
+                <DashboardFAQ :loaded="dLoaded" />
             </TabContentItem>
             <TabContentItem>
                 <DashboardProfile />
@@ -39,11 +39,12 @@
     import DashboardHome from "@/components/pages/DashboardHome.vue";
     import DashboardProfile from "@/components/pages/DashboardProfile.vue";
     import DashboardTracking from "@/components/pages/DashboardTracking.vue";
+    import PageLoaded from "@/components/mixins/PageLoaded.vue";
 
     export default {
         name: "Dashboard",
         mixins: [
-            Strings
+            Strings, PageLoaded
         ],
         components: {
             DashboardFAQ,

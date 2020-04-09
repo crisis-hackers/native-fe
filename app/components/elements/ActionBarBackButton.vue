@@ -1,5 +1,5 @@
 <template>
-    <ActionBar :title="title">
+    <ActionBar :title="titleToShow">
         <NavigationButton icon="res://ic_arrow_back_black_24dp" @tap="$navigateBack"/>
     </ActionBar>
 </template>
@@ -10,7 +10,12 @@
         props: {
             title: {
                 type: String,
-                default: 'Q-Tracker'
+                required: false
+            }
+        },
+        computed: {
+            titleToShow() {
+                return this.title ?? this.$options.filters.L('app.name')
             }
         }
     }

@@ -4,13 +4,13 @@
         <GridLayout rows="*,80" columns="*">
             <FlexboxLayout row="0" flexDirection="column" justifyContent="space-around" alignItems="center"
                 padding="64dp" class="result">
-                <Label :class="`h2 ${resultClass} title`" :textWrap="true">{{ result.title }}</Label>
-                <Label class="h3 text1" :textWrap="true">{{ result.text1 }}</Label>
-                <Label class="h3 text2" :textWrap="true">Thank you for your time.</Label>
-                <Label class="h3 text2" :textWrap="true">Please check the app regularly to stay updated.</Label>
+                <Label :class="`h2 ${resultClass} title`" :textWrap="true" :text="`testResults.${result.key}.title`|L" />
+                <Label class="h3 text1" :textWrap="true" :text="`testResults.${result.key}.text1`|L" />
+                <Label class="h3 text2" :textWrap="true" :text="'testResults.thankYou'|L" />
+                <Label class="h3 text2" :textWrap="true" :text="'testResults.reminder'|L" />
 
-                <Button class="no-bg-button link-button" @tap="navigateToTest">Test again</Button>
-                <Button class="no-bg-button link-button" @tap="navigateToDashboard">Track your neighbourhood</Button>
+                <Button class="no-bg-button link-button" @tap="navigateToTest" :text="'testResults.testAgain'|L" />
+                <Button class="no-bg-button link-button" @tap="navigateToDashboard" :text="'testResults.dashboard'|L" />
             </FlexboxLayout>
             <CallHelplineButton row="1" />
         </GridLayout>
@@ -34,16 +34,13 @@
             return {
                 possibleResults: {
                     safe: {
-                        title: 'You are safe!',
-                        text1: 'Stay home and help prevent the spread of COVID-19'
+                        key: 'safe'
                     },
                     risk: {
-                        title: 'You are at high risk!',
-                        text1: 'Isolate yourself and your immediate family members'
+                        key: 'risk'
                     },
                     danger: {
-                        title: 'Get yourself tested now!',
-                        text1: 'Isolate yourself and your immediate family members'
+                        key: 'danger'
                     }
                 },
                 actualResult: null

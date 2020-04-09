@@ -1,5 +1,5 @@
 <template>
-    <Button row="1" class="m-button m-helpline-button" @tap="callHelpLine">COVID-19 HELPLINE</Button>
+    <Button row="1" class="m-button m-helpline-button" @tap="callHelpLine" :text="'buttons.callHelpline'|L" />
 </template>
 
 <script lang="ts">

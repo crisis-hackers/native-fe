@@ -21,10 +21,6 @@
   <string name="_intro__2_title_Z1yisJ3">"Track Your Neighbourhood"</string>
   <string name="_intro__1_subtitle_1pPTJl">"Help prevent the spread of Coronavirus in Slovakia"</string>
   <string name="_intro__1_title_2sMCVd">"Quick Diagnosis"</string>
-  <string name="_dashboard_home_header3_Z1bpu35">"World Covid Tracker"</string>
-  <string name="_dashboard_home_header2_Z1bpu36">"Covid Tracker"</string>
-  <string name="_dashboard_home_explore_1oM8I5">"Explore COVID-19 cases near you"</string>
-  <string name="_dashboard_home_text1_1zgzBP">"First calculations of symptomatic COVID in each area across the Slovakia"</string>
   <string name="_dashboard_tracking_totalTests_12k7Bn">"Total tests"</string>
   <string name="_dashboard_heatmap_tags_dryCough_title_Z2gH5Qc">"Dry Cough"</string>
   <string name="_dashboard_heatmap_tags_fever_title_Z21bRP5">"Fever"</string>
@@ -42,5 +38,5 @@
   <string name="_app_name_1k3Sbz">"Q-Tracker"</string>
   <string name="app_name">"Q-Tracker"</string>
   <string name="title_activity_kimera">"Q-Tracker"</string>
-  <string name="_selfTest_startButton_vSdEG">"selfTest.startButton"</string>
+  <string name="_selfTest_startButton_vSdEG">"Spustiť test"</string>
 </resources>

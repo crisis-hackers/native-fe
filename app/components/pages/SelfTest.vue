@@ -26,7 +26,7 @@
                     </StackLayout>
                 </FlexboxLayout>
             </ScrollView>
-            <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="m-button m-green-button" @tap="sendResult">Odoslať</Button>
+            <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="m-button m-green-button" @tap="sendResult" :text="'buttons.send'|L" />
             <ActivityIndicator rowSpan="2" :busy="processing" />
         </GridLayout>
 
