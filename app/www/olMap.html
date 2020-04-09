@@ -17,9 +17,16 @@
 <script src="olMap.js"></script>
 <script type="text/javascript">
     let webInt = window.nsWebViewInterface;
-    webInt.on('mapData', function (mapData) {
-        setupMap(mapData);
-    })
+    let olMap = null;
+    webInt.on('setup', function (showMap) {
+        olMap = new OlMap(showMap);
+    });
+    webInt.on('addGeoJSON', function (data) {
+        olMap.addGeoJSON(data);
+    });
+    webInt.on('setHeatMapLayer', function (data) {
+        olMap.setHeatMapLayer(data, true);
+    });
 </script>
 </body>
 </html>

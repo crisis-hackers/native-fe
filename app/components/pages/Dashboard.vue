@@ -17,7 +17,7 @@
                 </TabStripItem>
             </TabStrip>
             <TabContentItem>
-                <DashboardHome />
+                <DashboardHome :loaded="dLoaded" />
             </TabContentItem>
             <TabContentItem>
                 <DashboardTracking />

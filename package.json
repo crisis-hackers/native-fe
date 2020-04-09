@@ -17,6 +17,7 @@
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
     "@nstudio/nativescript-checkbox": "^1.0.0",
+    "@types/geojson": "^7946.0.7",
     "@vue/devtools": "^5.0.6",
     "axios": "^0.19.2",
     "leaflet": "^1.6.0",
