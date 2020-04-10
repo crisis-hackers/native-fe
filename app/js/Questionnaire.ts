@@ -7,7 +7,7 @@ export class Questionnaire extends AQuestionnaire {
 
     steps = [
         {
-            key: 'hasFever',
+            key: 'age',
             messages: [
                 {
                     text: {
@@ -21,12 +21,54 @@ export class Questionnaire extends AQuestionnaire {
                 },
                 {
                     text: {
-                        sk: 'Máte zvýšenú teplotu?'
+                        sk: 'Prosím vyplňte Váš vek.'
+                    }
+                },
+            ],
+            type: QType.NUMBER
+        },
+        {
+            key: 'symptoms',
+            messages: [
+                {
+                    text: {
+                        sk: 'Ďakujem. Teraz prejdime k symptómom. Prejavujú sa u Vás  niektoré z nasledujúcich symptómov?'
                     }
                 }
             ],
-            type: QType.BOOLEAN,
-            nullable: true,
+            type: QType.CHECKBOX,
+            options: [
+                {
+                    label: {
+                        sk: 'Kašeľ (novo vyniknutý, neustávajúci a suchý)'
+                    },
+                    value: 'dryCough'
+                },
+                {
+                    label: {
+                        sk: 'Horúčka'
+                    },
+                    value: 'fever'
+                },
+                {
+                    label: {
+                        sk: 'Strata čuchu a/alebo chuti'
+                    },
+                    value: 'lackOfSmell'
+                },
+                {
+                    label: {
+                        sk: 'Ťažkosti s dýchaním'
+                    },
+                    value: 'breathingDifficulty'
+                },
+                {
+                    label: {
+                        sk: 'Žiadne z uvedených'
+                    },
+                    value: 'none'
+                }
+            ],
             substeps: [
                 {
                     key: 'fever',
@@ -37,179 +79,137 @@ export class Questionnaire extends AQuestionnaire {
                             }
                         }
                     ],
-                    type: QType.RADIO,
+                    type: QType.CHECKBOX,
                     options: [
                         {
                             label: {
-                                sk: '37-38°C',
-                                en: '37-38°C'
+                                sk: '< 38°C',
+                                en: '< 38°C'
                             },
-                            value: 38.0
+                            value: 'low'
                         },
                         {
                             label: {
-                                sk: '38-38.5°C',
-                                en: '38-38.5°C'
+                                sk: '> 38°C',
+                                en: '> 38°C'
                             },
-                            value: 38.5
+                            value: 'high'
                         },
                         {
                             label: {
-                                sk: '38.5-39°C',
-                                en: '38.5-39°C'
+                                sk: 'Neviem presný údaj.',
+                                en: "I don't know."
                             },
-                            value: 39.0
-                        },
-                        {
-                            label: {
-                                sk: '39°C +',
-                                en: '39°C +'
-                            },
-                            value: 40.0
+                            value: 'idk'
                         }
                     ]
                 }
             ]
         },
         {
-            key: 'symptoms',
+            key: 'hasSecondarySymptoms',
             messages: [
                 {
                     text: {
-                        sk: 'Ďakujem. Teraz prejdime k symptómom. Ktorý z týchto symptómov pociťujete?'
-                    }
-                }
-            ],
-            type: QType.CHECKBOX,
-            options: [
-                {
-                    label: {
-                        sk: 'Suchý kašeľ'
-                    },
-                    value: 'dryCough'
-                },
-                {
-                    label: {
-                        sk: 'Strata chuti'
-                    },
-                    value: 'lackOfTaste'
-                },
-                {
-                    label: {
-                        sk: 'Strata čuchu'
-                    },
-                    value: 'lackOfSmell'
-                },
-                {
-                    label: {
-                        sk: 'Bolesť hrdla'
-                    },
-                    value: 'soreThroat'
-                },
-                {
-                    label: {
-                        sk: 'Slabosť'
-                    },
-                    value: 'weakness'
-                },
-                {
-                    label: {
-                        sk: 'Ťažký kašeľ'
-                    },
-                    value: 'severeCough'
-                },
-                {
-                    label: {
-                        sk: 'Dýchavičnosť'
-                    },
-                    value: 'dyspnea'
-                },
-                {
-                    label: {
-                        sk: 'Ospalosť'
-                    },
-                    value: 'sleepiness'
-                },
-                {
-                    label: {
-                        sk: 'Bolesť v hrudi'
-                    },
-                    value: 'chestPain'
-                }
-            ]
-        },
-        {
-            key: 'wasTravelling',
-            messages: [
-                {
-                    text: {
-                        sk: 'Ďakujem za priblíženie Vašich symptómov. Boli ste za posledných 14 dní v zahraničí?'
+                        sk: 'Máte aj nejaké iné symptómy?'
                     }
                 }
             ],
             type: QType.BOOLEAN,
             substeps: [
                 {
-                    key: 'travellingCountry',
+                    key: 'secondarySymptoms',
                     messages: [
                         {
                             text: {
-                                sk: 'V akej krajine ste boli?'
+                                sk: 'Ktoré z uvedených symptómov vás trápia?'
                             }
                         }
                     ],
-                    type: QType.TEXT
-                }
-            ],
-            negSubsteps: [
-                {
-                    key: 'wasWithTravellingPerson',
-                    messages: [
+                    type: QType.CHECKBOX,
+                    options: [
                         {
-                            text: {
-                                sk: 'A boli ste s niekým, kto sa za posledných 14 dní vrátil zo zahraničia?'
-                            }
+                            label: {
+                                sk: 'Bolesť hlavy)'
+                            },
+                            value: 'headache'
+                        },
+                        {
+                            label: {
+                                sk: 'Bolesť hrdla'
+                            },
+                            value: 'soreThroat'
+                        },
+                        {
+                            label: {
+                                sk: 'Celková slabosť'
+                            },
+                            value: 'weakness'
+                        },
+                        {
+                            label: {
+                                sk: 'Bolesť na hrudi'
+                            },
+                            value: 'chestPain'
+                        },
+                        {
+                            label: {
+                                sk: 'Zimnica/triaška'
+                            },
+                            value: 'chills'
+                        },
+                        {
+                            label: {
+                                sk: 'Upchatý nos'
+                            },
+                            value: 'stuffyNose'
+                        },
+                        {
+                            label: {
+                                sk: 'Výtok z nosa'
+                            },
+                            value: 'runnyNose'
+                        },
+                        {
+                            label: {
+                                sk: 'Hnačka'
+                            },
+                            value: 'diarrhea'
+                        },
+                        {
+                            label: {
+                                sk: 'Iný symptóm'
+                            },
+                            value: 'otherSymp'
                         }
                     ],
-                    type: QType.BOOLEAN,
                     substeps: [
                         {
-                            key: 'travellingPersonHasSymptoms',
+                            key: 'otherSymp',
                             messages: [
                                 {
                                     text: {
-                                        sk: 'Má tá osoba niektoré z vyššie uvedených symptómov?'
+                                        sk: 'Aké iné symptómy ešte máte?'
                                     }
                                 }
                             ],
-                            type: QType.BOOLEAN
+                            type: QType.TEXT,
                         }
                     ]
                 }
             ]
         },
         {
-            key: 'wasWithPositivePerson',
+            key: 'condition',
             messages: [
                 {
                     text: {
-                        sk: 'Boli ste v kontakte s niekým, kto má potvrdenú nákazu Covid-19?'
-                    }
-                }
-            ],
-            type: QType.BOOLEAN
-        },
-        {
-            key: 'diagnosis',
-            messages: [
-                {
-                    text: {
-                        sk: 'Ďakujem, už sme skoro na konci.'
+                        sk: 'Ďakujem, už mám len pár otázok.'
                     }
                 },
                 {
                     text: {
-                        sk: 'Liečite sa na niektorú z týchto diagnóz?'
+                        sk: 'Máte niektoré z chronických ochorení spomenutých nižšie?'
                     }
                 }
             ],
@@ -217,65 +217,140 @@ export class Questionnaire extends AQuestionnaire {
             options: [
                 {
                     label: {
-                        sk: 'Problémy s obličkami'
+                        sk: 'kardiovaskulárne'
                     },
-                    value: 'kidneyProblems'
+                    value: 'cardio'
                 },
                 {
                     label: {
-                        sk: 'Problémy so srdcom'
+                        sk: 'respiračné'
                     },
-                    value: 'heartProblems'
+                    value: 'respiratory'
                 },
                 {
                     label: {
-                        sk: 'Diabetes'
+                        sk: 'cukrovka'
                     },
                     value: 'diabetes'
                 },
                 {
                     label: {
-                        sk: 'Vysoký krvný tlak'
+                        sk: 'rakovina'
                     },
-                    value: 'highBloodPressure'
+                    value: 'cancer'
                 },
                 {
                     label: {
-                        sk: 'Problémy s pľúcami'
+                        sk: 'chronické ochorenie obličiek'
                     },
-                    value: 'lungProblems'
+                    value: 'kidneyProblems'
+                },
+                {
+                    label: {
+                        sk: 'chronické ochorenie pečene'
+                    },
+                    value: 'liverProblems'
+                },
+                {
+                    label: {
+                        sk: 'znížená imunita'
+                    },
+                    value: 'imunodeficiency'
+                },
+                {
+                    label: {
+                        sk: 'Žiadne z uvedených'
+                    },
+                    value: 'none'
                 }
-            ]
+            ],
         },
         {
-            key: 'symptomsChange',
+            key: 'smoker',
             messages: [
                 {
                     text: {
-                        sk: 'Akým smerom sa uberali vaše symptómy za posledných 48 hodín?'
+                        sk: 'Ste fajčiar/ka?'
                     }
                 }
             ],
-            type: QType.RADIO,
-            options: [
+            type: QType.BOOLEAN
+        },
+        {
+            key: 'travelled',
+            messages: [
                 {
-                    label: {
-                        sk: 'Zlepšili sa'
-                    },
-                    value: -1
-                },
-                {
-                    label: {
-                        sk: 'Zhoršili sa'
-                    },
-                    value: 1
-                },
-                {
-                    label: {
-                        sk: 'Bez zmeny'
-                    },
-                    value: 0
+                    text: {
+                        sk: 'Boli ste za posledných 14 dní v zahraničí?'
+                    }
                 }
+            ],
+            type: QType.BOOLEAN
+        },
+        {
+            key: 'exposed',
+            messages: [
+                {
+                    text: {
+                        sk: 'Boli ste v kontakte s niekým, kto má potvrdenú nákazu Covid-19 alebo je pre podozrenie v karanténe?'
+                    }
+                }
+            ],
+            type: QType.BOOLEAN
+        },
+        {
+            key: 'tested',
+            messages: [
+                {
+                    text: {
+                        sk: 'Bol/a ste testovaný/á na COVID-19?'
+                    }
+                }
+            ],
+            type: QType.BOOLEAN,
+            substeps: [
+                        {
+                            key: 'testDate',
+                            messages: [
+                                {
+                                    text: {
+                                        sk: 'Kedy vám bol odobraný test?'
+                                    }
+                                }
+                            ],
+                            type: QType.DATE,
+                        },
+                        {
+                            key: 'testResult',
+                            messages: [
+                                {
+                                    text: {
+                                        sk: 'Aký bol výsledok testu?'
+                                    }
+                                }
+                            ],
+                            type: QType.CHECKBOX,
+                            options: [
+                                {
+                                    label: {
+                                        sk: 'pozitívny'
+                                    },
+                                    value: 'positive'
+                                },
+                                {
+                                    label: {
+                                        sk: 'negatívny'
+                                    },
+                                    value: 'negative'
+                                },
+                                {
+                                    label: {
+                                        sk: 'Ešte neviem, čakám na výsledok testu.'
+                                    },
+                                    value: 'notKnown'
+                                }
+                            ]
+                        }
             ]
         },
         {
@@ -288,7 +363,7 @@ export class Questionnaire extends AQuestionnaire {
                 },
                 {
                     text: {
-                        sk: 'Pokračujte prosím kliknutím na tlačítko dole.'
+                        sk: 'Zajtra sa ozvem.'
                     }
                 }
             ],

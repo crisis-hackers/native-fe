@@ -15,7 +15,7 @@ export type QOption = {
 }
 
 export enum QType {
-    TEXT, NUMBER, BOOLEAN, RADIO, CHECKBOX
+    TEXT, NUMBER, BOOLEAN, RADIO, CHECKBOX, DATE
 }
 
 export type QStep = {
