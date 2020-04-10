@@ -15,7 +15,7 @@
             <FlexboxLayout class="last-child">
                 <Label class="h2 text-subheader" :text="'dashboard.home.header3'|L" />
                 <FlexboxLayout>
-                    <WorldMap :loaded="dLoaded" style="height: 250dp" />
+                    <WorldMap :loaded="dLoaded" style="height: 280dp" />
                 </FlexboxLayout>
                 <DashboardTable :headers="table2.headers" :rows="table2.rows" />
             </FlexboxLayout>
