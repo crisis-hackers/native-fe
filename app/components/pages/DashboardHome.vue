@@ -35,6 +35,7 @@
     import DashboardTable from "@/components/elements/DashboardTable.vue";
     import DashboardSimpleCard from "@/components/elements/DashboardSimpleCard.vue";
     import NearMe from "@/components/pages/NearMe.vue";
+    import BE, {DashboardData} from "@/js/BE";
 
     export default {
         name: "DashboardHome",
@@ -235,9 +236,27 @@
             }
         },
         methods: {
-            navigateExplore() {
+            navigateExplore(): void {
                 this.$navigateTo(NearMe);
+            },
+            getData(): void {
+                BE.getAllDashboardData()
+                    .then((data: DashboardData) => {
+                        console.log('skMapData:');
+                        console.dir(data.skMap.data);
+                        console.log('skTableData:');
+                        console.dir(data.skTable.data);
+                        console.log('worldMapData:');
+                        console.dir(data.worldMap.data);
+                        console.log('worldTableData:');
+                        console.dir(data.worldTable.data);
+                        console.log('dasboardCardsData');
+                        console.dir(data.cards.data);
+                    })
             }
+        },
+        mounted(): void {
+            this.getData();
         }
     }
 </script>
