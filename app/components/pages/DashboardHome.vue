@@ -12,13 +12,17 @@
                 <Label class="h2 text-subheader" :text="'dashboard.home.header2'|L" />
                 <DashboardTable :headers="table1.headers" :rows="table1.rows" :categories="table1.categories" />
             </FlexboxLayout>
-            <FlexboxLayout class="last-child">
+            <FlexboxLayout>
                 <Label class="h2 text-subheader" :text="'dashboard.home.header3'|L" />
                 <FlexboxLayout>
                     <WorldMap :loaded="dLoaded" style="height: 280dp" />
                 </FlexboxLayout>
                 <DashboardTable :headers="table2.headers" :rows="table2.rows" />
             </FlexboxLayout>
+            <GridLayout rows="auto" columns="*,*">
+                <DashboardSimpleCard row="0" col="0" value-color="#0061FF" value="112" :label="'dashboard.home.cards.newCasesLabel'|L"/>
+                <DashboardSimpleCard row="0" col="1" value-color="#FF0643" value="35%" :label="'dashboard.home.cards.mortalityLabel'|L"/>
+            </GridLayout>
         </StackLayout>
     </ScrollView>
 </template>
@@ -30,10 +34,11 @@
     import SlovakiaMap from "@/components/elements/map/SlovakiaMap.vue";
     import {TableCategory, TableHeader} from "@/js/types/DashboardTable";
     import DashboardTable from "@/components/elements/DashboardTable.vue";
+    import DashboardSimpleCard from "@/components/elements/DashboardSimpleCard.vue";
 
     export default {
         name: "DashboardHome",
-        components: {DashboardTable, SlovakiaMap, WorldMap},
+        components: {DashboardSimpleCard, DashboardTable, SlovakiaMap, WorldMap},
         mixins: [PageLoaded],
         data() {
             return {

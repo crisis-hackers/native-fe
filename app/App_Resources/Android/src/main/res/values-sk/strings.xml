@@ -25,6 +25,8 @@
   <string name="_intro__2_title_Z1yisJ3">"Track Your Neighbourhood"</string>
   <string name="_intro__1_subtitle_1pPTJl">"Help prevent the spread of Coronavirus in Slovakia"</string>
   <string name="_intro__1_title_2sMCVd">"Quick Diagnosis"</string>
+  <string name="_dashboard_home_cards_mortalityLabel_5uWqe">"Mortality rate"</string>
+  <string name="_dashboard_home_cards_newCasesLabel_1aFqrQ">"Suspected new cases"</string>
   <string name="_dashboard_home_header3_Z1bpu35">"World Covid Tracker"</string>
   <string name="_dashboard_home_header2_Z1bpu36">"Covid Tracker"</string>
   <string name="_dashboard_home_explore_1oM8I5">"Explore COVID-19 cases near you"</string>
