@@ -6,34 +6,40 @@
                 <FlexboxLayout>
                     <SlovakiaMap :loaded="dLoaded" style="height: 200dp" />
                 </FlexboxLayout>
-                <Button class="m-button" :text="'dashboard.home.explore'|L" />
+                <Button class="m-button" @tap="navigateExplore" :text="'dashboard.home.explore'|L" />
             </FlexboxLayout>
             <FlexboxLayout>
                 <Label class="h2 text-subheader" :text="'dashboard.home.header2'|L" />
                 <DashboardTable :headers="table1.headers" :rows="table1.rows" :categories="table1.categories" />
             </FlexboxLayout>
-            <FlexboxLayout class="last-child">
+            <FlexboxLayout>
                 <Label class="h2 text-subheader" :text="'dashboard.home.header3'|L" />
                 <FlexboxLayout>
-                    <WorldMap :loaded="dLoaded" style="height: 250dp" />
+                    <WorldMap :loaded="dLoaded" style="height: 280dp" />
                 </FlexboxLayout>
                 <DashboardTable :headers="table2.headers" :rows="table2.rows" />
             </FlexboxLayout>
+            <GridLayout rows="auto" columns="*,*">
+                <DashboardSimpleCard row="0" col="0" value-color="#0061FF" value="112" :label="'dashboard.home.cards.newCasesLabel'|L"/>
+                <DashboardSimpleCard row="0" col="1" value-color="#FF0643" value="35%" :label="'dashboard.home.cards.mortalityLabel'|L"/>
+            </GridLayout>
         </StackLayout>
     </ScrollView>
 </template>
 
 <script lang="ts">
-    import * as GoogleMaps from "nativescript-google-maps-sdk";
     import WorldMap from "@/components/elements/map/WorldMap.vue";
     import PageLoaded from "@/components/mixins/PageLoaded.vue";
     import SlovakiaMap from "@/components/elements/map/SlovakiaMap.vue";
     import {TableCategory, TableHeader} from "@/js/types/DashboardTable";
     import DashboardTable from "@/components/elements/DashboardTable.vue";
+    import DashboardSimpleCard from "@/components/elements/DashboardSimpleCard.vue";
+    import NearMe from "@/components/pages/NearMe.vue";
+    import BE, {DashboardData} from "@/js/BE";
 
     export default {
         name: "DashboardHome",
-        components: {DashboardTable, SlovakiaMap, WorldMap},
+        components: {DashboardSimpleCard, DashboardTable, SlovakiaMap, WorldMap},
         mixins: [PageLoaded],
         data() {
             return {
@@ -230,14 +236,27 @@
             }
         },
         methods: {
-            getFeverData() {
-                let feverData = [{'lng': 47.946966, 'lat': 18.784978}, {'lng': 49.31292, 'lat': 21.378606}, {'lng': 48.426951, 'lat': 16.994058}, {'lng': 47.616161, 'lat': 18.674631}, {'lng': 48.439394, 'lat': 21.862996}, {'lng': 49.031002, 'lat': 21.648734}, {'lng': 48.586983, 'lat': 21.490395}, {'lng': 48.744916, 'lat': 22.251724}, {'lng': 48.740539, 'lat': 17.629498}, {'lng': 47.915683, 'lat': 17.014693}, {'lng': 48.470146, 'lat': 20.219833}, {'lng': 48.45672, 'lat': 17.719505}, {'lng': 48.680575, 'lat': 17.652725}, {'lng': 48.418822, 'lat': 19.01365}, {'lng': 48.641014, 'lat': 20.389604}, {'lng': 48.867398, 'lat': 18.52686}, {'lng': 49.061428, 'lat': 18.607926}, {'lng': 48.534829, 'lat': 18.636501}, {'lng': 48.410753, 'lat': 18.757327}]
-                return feverData.map((item) => GoogleMaps.Position.positionFromLatLng(item.lng, item.lat));
+            navigateExplore(): void {
+                this.$navigateTo(NearMe);
             },
-            getDryCoughData() {
-                let dryCoughData = [{'lng': 48.373606, 'lat': 21.83895}, {'lng': 48.398794, 'lat': 21.923079}, {'lng': 48.426951, 'lat': 16.994058}, {'lng': 48.606273, 'lat': 21.373201}, {'lng': 47.616161, 'lat': 18.674631}, {'lng': 49.031002, 'lat': 21.648734}, {'lng': 48.093997, 'lat': 17.864693}, {'lng': 48.744916, 'lat': 22.251724}, {'lng': 48.470146, 'lat': 20.219833}, {'lng': 48.755612, 'lat': 17.451699}, {'lng': 48.288746, 'lat': 17.741896}, {'lng': 48.45672, 'lat': 17.719505}, {'lng': 48.680575, 'lat': 17.652725}, {'lng': 48.463313, 'lat': 19.138178}, {'lng': 48.610223, 'lat': 21.595733}, {'lng': 48.418822, 'lat': 19.01365}, {'lng': 48.641014, 'lat': 20.389604}, {'lng': 48.867398, 'lat': 18.52686}, {'lng': 49.061428, 'lat': 18.607926}, {'lng': 48.534829, 'lat': 18.636501}, {'lng': 48.410753, 'lat': 18.757327}];
-                return dryCoughData.map((item) => GoogleMaps.Position.positionFromLatLng(item.lng, item.lat));
+            getData(): void {
+                BE.getAllDashboardData()
+                    .then((data: DashboardData) => {
+                        console.log('skMapData:');
+                        console.dir(data.skMap.data);
+                        console.log('skTableData:');
+                        console.dir(data.skTable.data);
+                        console.log('worldMapData:');
+                        console.dir(data.worldMap.data);
+                        console.log('worldTableData:');
+                        console.dir(data.worldTable.data);
+                        console.log('dasboardCardsData');
+                        console.dir(data.cards.data);
+                    })
             }
+        },
+        mounted(): void {
+            this.getData();
         }
     }
 </script>
