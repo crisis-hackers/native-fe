@@ -14,13 +14,28 @@ let myStyle = new ol.style.Style({
     })
 });
 
+const userLocationStyle = new ol.style.Style({
+    image: new ol.style.Circle({
+        radius: 6,
+        fill: new ol.style.Fill({
+            color: '#3399CC'
+        }),
+        stroke: new ol.style.Stroke({
+            color: '#fff',
+            width: 2
+        })
+    })
+});
+
 class OlMap {
     constructor(options) {
         this.options = options;
         this.heatMapLayers = [];
         this.map = this.setupMap(options);
+        this.positionPoint = null;
+        this.accuracyFeature = null;
 
-        this.defaultGeoJsonColor = 'rgba(0,0,0,0.0)'
+        this.defaultGeoJsonColor = 'rgba(0,0,0,0.0)';
     }
 
     addGeoJSON(data) {
@@ -46,6 +61,29 @@ class OlMap {
         if (layerExtent) {
             this.map.getView().fit(layerExtent);
         }
+    }
+
+    setUserLocation(data) {
+        if (!this.positionPoint) {
+            this.positionPoint = new ol.geom.Point(ol.proj.fromLonLat([0.0, 0.0]));
+            let positionFeature = new ol.Feature({
+                geometry: this.positionPoint
+            });
+            positionFeature.setStyle(userLocationStyle);
+
+            this.accuracyFeature = new ol.Feature();
+            this.accuracyFeature.setStyle(userLocationStyle);
+            let locationLayer = new ol.layer.Vector({
+                source: new ol.source.Vector({
+                    features: [positionFeature, this.accuracyFeature],
+                })
+            });
+            this.map.addLayer(locationLayer);
+        }
+        let coords = this.coordsFromLocation(data.location)
+        this.positionPoint.setCoordinates(coords);
+        // accuracy does not work yet TODO
+        // this.accuracyFeature.setGeometry(ol.geom.Polygon.circular(coords, 100));
     }
 
     setHeatMapLayer(data, removeOthers = true) {
@@ -103,5 +141,9 @@ class OlMap {
             map.getInteractions().getArray().forEach((item) => map.removeInteraction(item));
         }
         return map;
+    }
+
+    coordsFromLocation(location) {
+        return ol.proj.fromLonLat([location.longitude, location.latitude])
     }
 }

@@ -40,6 +40,9 @@ const i18n = {
             }
         }
     },
+    nearMe: {
+        title: 'Near Me'
+    },
     intro: {
         _1: {
             title: 'Quick Diagnosis',
