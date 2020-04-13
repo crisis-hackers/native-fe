@@ -1,5 +1,6 @@
 import * as appSettings from "tns-core-modules/application-settings";
 import * as platformModule from "tns-core-modules/platform";
+import {SelfTestResult} from "@/js/BE";
 
 export type Location = {
     latitude: number,
@@ -13,17 +14,17 @@ export let Settings = {
         return platformModule.device.uuid;
     },
 
-    saveResult(result) {
+    saveResult(result: SelfTestResult): void {
         let results = this.getResults();
         results.push(result);
         appSettings.setString('results', JSON.stringify(results));
     },
 
-    getResults(): object[] {
+    getResults(): SelfTestResult[] {
         return JSON.parse(appSettings.getString('results', '[]'));
     },
 
-    saveLocation(lat: number, lon: number) {
+    saveLocation(lat: number, lon: number): void {
         appSettings.setString('lastLocation', JSON.stringify({
             latitude: lat,
             longitude: lon

@@ -1,6 +1,8 @@
 import axios, {AxiosResponse} from 'axios';
 import {Settings} from './Settings'
 
+export type SelfTestResult = any
+
 export type SkMapData = any
 export type SkTableData = any
 export type WorldMapData = any
@@ -22,10 +24,10 @@ export type NearMeData = {
 }
 
 export default {
-    sendSelfTestResult(result): Promise<AxiosResponse> {
+    sendSelfTestResult(result): Promise<AxiosResponse<SelfTestResult>> {
         result['user_id'] = Settings.getUUID();
         return axios.post('https://us-central1-hackthevirus.cloudfunctions.net/insert_location_test', result)
-            .then((response) => {
+            .then((response: AxiosResponse<SelfTestResult>) => {
                 Settings.saveResult(result);
                 return Promise.resolve(response);
             })
