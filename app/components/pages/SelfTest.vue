@@ -21,7 +21,11 @@
                                 <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
                                 <Label verticalAlignment="center" textWrap="true">{{ tq(option.label) }}</Label>
                             </StackLayout>
-                            <Button class="m-button msg-input-button" @tap="processInput">Hotovo</Button>
+                            <Button class="m-button msg-input-button" @tap="processInput" :text="'buttons.done'|L" />
+                        </StackLayout>
+                        <StackLayout v-if="currentInput.type === QType.DATE">
+                            <DatePicker v-model="currentInput.answer" :minDate="datePicker.min" :maxDate="datePicker.max" />
+                            <Button class="m-button msg-input-button" @tap="processInput" :text="'buttons.done'|L" />
                         </StackLayout>
                     </StackLayout>
                 </FlexboxLayout>
@@ -43,6 +47,7 @@
     import {Questionnaire} from "@/js/Questionnaire";
     import {Location as MLocation, Settings} from '@/js/Settings';
     import {Location as NSLocation} from 'nativescript-geolocation'
+    import {formatDate} from "@/js/utils/Format";
 
     export default {
         name: "SelfTest",
@@ -59,7 +64,11 @@
                 processing: false,
                 location: null,
                 scrollLock: false,
-                language: Settings.getLanguageToUse()
+                language: Settings.getLanguageToUse(),
+                datePicker: {
+                    min: new Date(2019, 11, 1), //first case
+                    max: new Date(),
+                }
             }
         },
         methods: {
@@ -82,6 +91,10 @@
                         this.fillAnswer(selectedOptions.map((item) => item.value));
                         this.addAnswerMessage(selectedOptions.map((item) => this.tq(item.label)).join(',\n'));
                         break;
+
+                    case QType.DATE:
+                        this.fillAnswer(this.currentInput.answer);
+                        this.addAnswerMessage(formatDate(this.currentInput.answer as Date))
                 }
                 this.nextStep();
             },
@@ -108,9 +121,14 @@
                 this.currentInput.answer = value;
             },
             spawnInput(type: QType, options = null) {
-                let answer: string|string[] = '';
-                if (type === QType.CHECKBOX) {
-                    answer = [];
+                let answer: string|string[]|Date = '';
+                switch (type) {
+                    case QType.CHECKBOX:
+                        answer = [];
+                        break;
+                    case QType.DATE:
+                        answer = new Date();
+                        break;
                 }
                 this.currentInput = {
                     type: type,

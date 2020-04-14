@@ -30,7 +30,7 @@ export type QStep = {
 
 export type QInput = {
     type: QType,
-    answer: string|string[],
+    answer: string|string[]|Date,
     options?: []
 }
 
@@ -52,7 +52,7 @@ export class BasicChatBot {
     getNextStep(response: QInput): QStep {
         let topItem = this.stepStack.pop();
         if (response && topItem.key) {
-            this.responses[topItem.key] = response.answer;
+            this.saveResponse(response, topItem);
         }
         let substeps: QStep[] = [];
         if (topItem.substeps && response && response.answer) {
@@ -67,11 +67,20 @@ export class BasicChatBot {
         return this.topItem();
     }
 
+    saveResponse(response: QInput, step: QStep) {
+        let answer = response.answer;
+        switch (step.type) {
+            case QType.DATE:
+                answer = (answer as Date).getUTCMilliseconds().toString();
+        }
+        this.responses[step.key] = answer;
+    }
+
     getPositiveSubsteps(response: QInput, step: QStep): QStep[] {
         switch (step.type) {
             case QType.CHECKBOX:
             case QType.RADIO:
-                let selected: string[] = typeof response.answer === "string" ? [response.answer] : response.answer;
+                let selected: string[] = typeof response.answer === "string" ? [response.answer as string] : response.answer as string[];
                 return step.substeps.filter((substep) => selected.includes(substep.key));
             default:
                 return step.substeps ?? [];

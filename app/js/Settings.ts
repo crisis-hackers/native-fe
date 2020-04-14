@@ -37,5 +37,9 @@ export let Settings = {
     getLanguageToUse(): Language {
         //TODO
         return 'sk';
+    },
+
+    getDateTimeLocale(): string {
+        return 'sk-SK';
     }
 };
