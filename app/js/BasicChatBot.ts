@@ -28,6 +28,12 @@ export type QStep = {
     negSubsteps?: QStep[]
 }
 
+export type QInput = {
+    type: QType,
+    answer: string|string[],
+    options?: []
+}
+
 export abstract class AQuestionnaire {
     constants: object;
     steps: QStep[];
@@ -43,14 +49,14 @@ export class BasicChatBot {
         this.stepStack.push({key: "", messages: [], type: undefined});
     }
 
-    getNextStep(response): QStep {
+    getNextStep(response: QInput): QStep {
         let topItem = this.stepStack.pop();
         if (response && topItem.key) {
             this.responses[topItem.key] = response.answer;
         }
         let substeps: QStep[] = [];
         if (topItem.substeps && response && response.answer) {
-            substeps = topItem.substeps;
+            substeps = this.getPositiveSubsteps(response, topItem);
         } else if (topItem.negSubsteps && response) {
             substeps = topItem.negSubsteps;
         }
@@ -59,6 +65,17 @@ export class BasicChatBot {
             return null;
         }
         return this.topItem();
+    }
+
+    getPositiveSubsteps(response: QInput, step: QStep): QStep[] {
+        switch (step.type) {
+            case QType.CHECKBOX:
+            case QType.RADIO:
+                let selected: string[] = typeof response.answer === "string" ? [response.answer] : response.answer;
+                return step.substeps.filter((substep) => selected.includes(substep.key));
+            default:
+                return step.substeps ?? [];
+        }
     }
 
     topItem() : QStep {

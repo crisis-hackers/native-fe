@@ -79,7 +79,7 @@ export class Questionnaire extends AQuestionnaire {
                             }
                         }
                     ],
-                    type: QType.CHECKBOX,
+                    type: QType.RADIO,
                     options: [
                         {
                             label: {

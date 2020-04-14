@@ -19,7 +19,7 @@
                         <StackLayout v-if="currentInput.type === QType.CHECKBOX" orientation="vertical">
                             <StackLayout v-for="option in currentInput.options" :key="option.value" orientation="horizontal">
                                 <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
-                                <Label verticalAlignment="center">{{ tq(option.label) }}</Label>
+                                <Label verticalAlignment="center" textWrap="true">{{ tq(option.label) }}</Label>
                             </StackLayout>
                             <Button class="m-button msg-input-button" @tap="processInput">Hotovo</Button>
                         </StackLayout>
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-    import {BasicChatBot, QMessage, QMessageTrans, QStep, QType} from "@/js/BasicChatBot";
+    import {BasicChatBot, QInput, QMessage, QMessageTrans, QStep, QType} from "@/js/BasicChatBot";
     import Strings from '../mixins/Strings.vue';
     import BE from '../../js/BE';
     import TestResults from './TestResults.vue';
@@ -54,7 +54,7 @@
             return {
                 QType,
                 messages: [],
-                currentInput: {},
+                currentInput: {} as QInput,
                 chatbot: null as BasicChatBot,
                 processing: false,
                 location: null,
@@ -116,7 +116,7 @@
                     type: type,
                     options: options,
                     answer: answer
-                };
+                } as QInput;
                 if (type === QType.TEXT || type === QType.NUMBER) {
                     this.requestTextFieldFocus();
                 }
