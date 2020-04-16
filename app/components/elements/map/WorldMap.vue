@@ -7,8 +7,8 @@
     import OpenLayersMap from "./OpenLayersMap.vue";
     import MapMixin from "@/components/mixins/MapMixin.vue";
     import WorldGeoJson from "@/geojson/world.json";
-    import {GeoJson} from "@/js/types/Map";
-    import {FeatureCollection} from "geojson";
+    import {GeoJson, GeoJsonColors} from "@/js/types/Map";
+    import {Feature, FeatureCollection} from "geojson";
     import {CountriesData, CountryData} from "@/js/BE";
 
     export default {
@@ -24,14 +24,15 @@
         computed: {
             geoJson(): GeoJson {
                 return {
-                    geoJson: this.generateWorldColors(this.countriesData, WorldGeoJson as FeatureCollection),
+                    geoJson: WorldGeoJson,
                     showText: false,
-                    fitMap: true
+                    fitMap: true,
+                    colors: this.generateWorldColors(this.countriesData, WorldGeoJson as FeatureCollection)
                 } as GeoJson
             }
         },
         methods: {
-            generateWorldColors(countriesData: CountriesData, geoJson: FeatureCollection): FeatureCollection {
+            generateWorldColors(countriesData: CountriesData, geoJson: FeatureCollection): GeoJsonColors {
                 let maxCases = countriesData.reduce((currMax: number, curr: CountryData) => {
                     return curr.total_cases > currMax ? curr.total_cases : currMax;
                 }, Number.MIN_VALUE);
@@ -39,18 +40,18 @@
                     acc[curr.countryterritorycode] = curr;
                     return acc;
                 }, {});
-                geoJson.features.forEach((feature) => {
+                return geoJson.features.reduce((acc: GeoJsonColors, feature: Feature) => {
                     let country = keyedData[feature.id] as CountryData;
                     if (!country) {
                         console.log(`no such country: ${feature.id}`)
                     } else {
                         let value = Math.log(country.total_cases) / Math.log(maxCases);
-                        feature.properties['color'] = `hsl(204, 61%, ${
+                        acc[feature.id] = `hsl(204, 61%, ${
                             Math.floor((1-value) * this.mapLightnessSpan) + Math.round((100 - this.mapLightnessSpan) / 2)
                         }%)`;
                     }
-                });
-                return geoJson;
+                    return acc;
+                }, {} as GeoJsonColors);
             }
         },
         data() {

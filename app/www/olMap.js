@@ -4,7 +4,7 @@ let myStyle = new ol.style.Style({
         width: 0
     }),
     fill: new ol.style.Fill({
-        color: '#000'
+        color: 'rgba(0,0,0,0.0)'
     }),
     text: new ol.style.Text({
         font: '12px Calibri,sans-serif',
@@ -59,7 +59,9 @@ class OlMap {
         let vectorLayer = new ol.layer.Vector({
             source: vectorSource,
             style: (feature) => {
-                myStyle.getFill().setColor(feature.getProperties()['color'] ?? this.defaultGeoJsonColor);
+                if (data.colors) {
+                    myStyle.getFill().setColor(data.colors[feature.getId()] ?? this.defaultGeoJsonColor);
+                }
                 if (data.showText) {
                     myStyle.getText().setText(feature.get('name'));
                 }
