@@ -7,7 +7,7 @@
     import OpenLayersMap from "./OpenLayersMap.vue";
     import MapMixin from "@/components/mixins/MapMixin.vue";
     import WorldGeoJson from "@/geojson/world.json";
-    import {GeoJson} from "@/js/Map";
+    import {GeoJson} from "@/js/types/Map";
     import {FeatureCollection} from "geojson";
     import {CountriesData, CountryData} from "@/js/BE";
 
@@ -25,7 +25,8 @@
             geoJson(): GeoJson {
                 return {
                     geoJson: this.generateWorldColors(this.countriesData, WorldGeoJson as FeatureCollection),
-                    showText: false
+                    showText: false,
+                    fitMap: true
                 } as GeoJson
             }
         },

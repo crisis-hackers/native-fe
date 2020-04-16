@@ -15,7 +15,7 @@
     import PageLoaded from "../mixins/PageLoaded.vue";
     import NearMeMap from "../elements/map/NearMeMap.vue";
     import ActionBarBackButton from "@/components/elements/ActionBarBackButton.vue";
-    import {HeatMap} from "@/js/Map";
+    import {HeatMap} from "@/js/types/Map";
     import BE, {NearMeData} from "@/js/BE";
 
     export default {

@@ -19,7 +19,7 @@
     let webInt = window.nsWebViewInterface;
     let olMap = null;
     webInt.on('setup', function (showMap) {
-        olMap = new OlMap(showMap);
+        olMap = new OlMap(showMap, window.nsWebViewInterface);
     });
     webInt.on('addGeoJSON', function (data) {
         olMap.addGeoJSON(data);

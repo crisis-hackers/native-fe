@@ -28,17 +28,28 @@ const userLocationStyle = new ol.style.Style({
 });
 
 class OlMap {
-    constructor(options) {
+    constructor(options, webViewInterface) {
+        this.webViewInterface = webViewInterface;
+
         this.options = options;
         this.heatMapLayers = [];
+        this.geoJsonLayers = [];
         this.map = this.setupMap(options);
         this.positionPoint = null;
         this.accuracyFeature = null;
 
         this.defaultGeoJsonColor = 'rgba(0,0,0,0.0)';
+
+        this.mapZoom = null;
     }
 
-    addGeoJSON(data) {
+    addGeoJSON(data, removeOthers = true) {
+        if (removeOthers) {
+            while (this.geoJsonLayers.length > 0) {
+                this.map.removeLayer(this.geoJsonLayers.pop());
+            }
+        }
+
         let vectorSource = new ol.source.Vector({
             features: (new ol.format.GeoJSON()).readFeatures(data.geoJson, {
                 featureProjection: 'EPSG:3857'
@@ -56,10 +67,13 @@ class OlMap {
             }
         });
 
+        this.geoJsonLayers.push(vectorLayer);
         this.map.addLayer(vectorLayer);
-        let layerExtent = vectorLayer.getSource().getExtent();
-        if (layerExtent) {
-            this.map.getView().fit(layerExtent);
+        if (data.fitMap) {
+            let layerExtent = vectorLayer.getSource().getExtent();
+            if (layerExtent) {
+                this.map.getView().fit(layerExtent);
+            }
         }
     }
 
@@ -140,7 +154,22 @@ class OlMap {
             map.getControls().getArray().forEach((item) => map.removeControl(item));
             map.getInteractions().getArray().forEach((item) => map.removeInteraction(item));
         }
+        this.mapZoom = map.getView().getZoom();
+        this.setupListeners(map);
         return map;
+    }
+
+    setupListeners(map) {
+        map.on('moveend', (e) => {
+            let newZoom = map.getView().getZoom();
+            if (this.mapZoom !== newZoom) {
+                this.webViewInterface.emit('zoomChanged', {
+                    oldZoom: this.mapZoom,
+                    newZoom: newZoom
+                })
+                this.mapZoom = newZoom;
+            }
+        });
     }
 
     coordsFromLocation(location) {
