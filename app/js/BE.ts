@@ -9,19 +9,40 @@ export type WorldMapData = any
 export type WorldTableData = any
 export type DashboardCardsData = any
 
+export type CountryData = {
+    cases: number,
+    countriesandterritories: string,
+    countryterritorycode: string,
+    day: number,
+    deaths: number,
+    geoid: string,
+    id: number,
+    month: number,
+    population2018: number,
+    total_cases: number,
+    total_deaths: number,
+    updated_at: string,
+    year: number
+};
+export type CountriesData = CountryData[];
+
+
 export type HeatMapData = any
 
 export type DashboardData = {
-    skMap: AxiosResponse<SkMapData>,
-    skTable: AxiosResponse<SkTableData>,
-    worldMap: AxiosResponse<WorldMapData>,
-    worldTable: AxiosResponse<WorldTableData>,
-    cards: AxiosResponse<DashboardCardsData>
+    // skMap: AxiosResponse<SkMapData>,
+    // skTable: AxiosResponse<SkTableData>,
+    // worldMap: AxiosResponse<WorldMapData>,
+    // worldTable: AxiosResponse<WorldTableData>,
+    // cards: AxiosResponse<DashboardCardsData>
+    countriesData: AxiosResponse<CountriesData>
 }
 
 export type NearMeData = {
     heatMap: AxiosResponse<HeatMapData>
 }
+
+const url = 'https://europe-west3-hackthevirus.cloudfunctions.net';
 
 export default {
     sendSelfTestResult(result): Promise<AxiosResponse<SelfTestResult>> {
@@ -31,6 +52,9 @@ export default {
                 Settings.saveResult(result);
                 return Promise.resolve(response);
             })
+    },
+    getCountriesData(): Promise<AxiosResponse<CountriesData>> {
+        return axios.get(`${url}/stats-countries`);
     },
     getSlovakiaMapData(): Promise<AxiosResponse<SkMapData>> {
         return axios.get('https://postman-echo.com/get?data=skmap');
@@ -51,20 +75,22 @@ export default {
 
     getAllDashboardData(): Promise<DashboardData> {
         return axios.all([
-            this.getSlovakiaMapData(),
-            this.getSlovakiaTableData(),
-            this.getWorldMapData(),
-            this.getWorldTableData(),
-            this.getDashboardCardsData()
+            // this.getSlovakiaMapData(),
+            // this.getSlovakiaTableData(),
+            // this.getWorldMapData(),
+            // this.getWorldTableData(),
+            // this.getDashboardCardsData()
+            this.getCountriesData()
         ])
             .then(axios.spread((...responses: AxiosResponse[]) => {
                 return Promise.resolve({
-                    skMap: responses[0],
-                    skTable: responses[1],
-                    worldMap: responses[2],
-                    worldTable: responses[3],
-                    cards: responses[4]
-                });
+                    // skMap: responses[0],
+                    // skTable: responses[1],
+                    // worldMap: responses[2],
+                    // worldTable: responses[3],
+                    // cards: responses[4]
+                    countriesData: responses[0]
+                } as DashboardData);
             }))
     },
 

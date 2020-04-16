@@ -8,7 +8,7 @@
             <Label v-for="i in dataLength" :row="i" :colSpan="headers.length" class="bg-row" />
             <Label v-for="(header, index) in headers" row="0" :col="index" :key="header.key" :text="header.label" class="label-header" />
             <Label v-for="cell in dataCells" :key="`${cell.row}|${cell.col}`" :row="cell.row + 1" :col="cell.col"
-                   :text="cell.data" :class="`label-cell${cell.bold ? '-bold' : ''}`"/>
+                   :text="cell.data" :class="`label-cell${cell.bold ? '-bold' : ''}`" :textWrap="true"/>
         </GridLayout>
     </StackLayout>
 </template>
@@ -34,8 +34,7 @@
         },
         data() {
             return {
-                selectedCategoryId: null,
-                cells: this.categories ? this.rows[this.categories[0].key] : this.rows
+                selectedCategoryId: null
             }
         },
         watch: {
@@ -58,17 +57,22 @@
             hasCategories() {
                 return this.categories && true;
             },
+            cells() {
+                return this.categories ? this.rows[this.categories[0].key] : this.rows
+            },
             dataCells() {
                 return this.cells.flatMap((item: object, index: number) => {
-                    return Object.entries(item).map(([key, value]) => {
-                        let colInfo = this.columnDataByKey[key];
-                        return {
-                            row: index,
-                            col: colInfo.index,
-                            data: value,
-                            bold: colInfo.boldCol
-                        }
-                    });
+                    return Object.entries(item)
+                        .filter(([key, value]) => this.columnDataByKey.hasOwnProperty(key))
+                        .map(([key, value]) => {
+                            let colInfo = this.columnDataByKey[key];
+                            return {
+                                row: index,
+                                col: colInfo.index,
+                                data: value,
+                                bold: colInfo.boldCol
+                            }
+                        });
                 })
             },
             columnDataByKey() {

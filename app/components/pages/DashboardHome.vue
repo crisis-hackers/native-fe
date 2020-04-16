@@ -15,9 +15,9 @@
             <FlexboxLayout>
                 <Label class="h2 text-subheader" :text="'dashboard.home.header3'|L" />
                 <FlexboxLayout>
-                    <WorldMap :loaded="dLoaded" style="height: 280dp" />
+                    <WorldMap :countries-data="beData.countriesData" :loaded="dLoaded" style="height: 280dp" />
                 </FlexboxLayout>
-                <DashboardTable :headers="table2.headers" :rows="table2.rows" />
+                <DashboardWorldTable :countries-data="beData.countriesData" />
             </FlexboxLayout>
             <GridLayout rows="auto" columns="*,*">
                 <DashboardSimpleCard row="0" col="0" value-color="#0061FF" value="112" :label="'dashboard.home.cards.newCasesLabel'|L"/>
@@ -35,11 +35,12 @@
     import DashboardTable from "@/components/elements/DashboardTable.vue";
     import DashboardSimpleCard from "@/components/elements/DashboardSimpleCard.vue";
     import NearMe from "@/components/pages/NearMe.vue";
-    import BE, {DashboardData} from "@/js/BE";
+    import BE, {CountriesData, DashboardData} from "@/js/BE";
+    import DashboardWorldTable from "@/components/elements/DashboardWorldTable.vue";
 
     export default {
         name: "DashboardHome",
-        components: {DashboardSimpleCard, DashboardTable, SlovakiaMap, WorldMap},
+        components: {DashboardWorldTable, DashboardSimpleCard, DashboardTable, SlovakiaMap, WorldMap},
         mixins: [PageLoaded],
         data() {
             return {
@@ -232,6 +233,9 @@
                             deaths: 45.66
                         }
                     ]
+                },
+                beData: {
+                    countriesData: [] as CountriesData
                 }
             }
         },
@@ -242,16 +246,7 @@
             getData(): void {
                 BE.getAllDashboardData()
                     .then((data: DashboardData) => {
-                        console.log('skMapData:');
-                        console.dir(data.skMap.data);
-                        console.log('skTableData:');
-                        console.dir(data.skTable.data);
-                        console.log('worldMapData:');
-                        console.dir(data.worldMap.data);
-                        console.log('worldTableData:');
-                        console.dir(data.worldTable.data);
-                        console.log('dasboardCardsData');
-                        console.dir(data.cards.data);
+                        this.beData.countriesData = data.countriesData.data;
                     })
             }
         },
