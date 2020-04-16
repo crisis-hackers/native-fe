@@ -130,7 +130,7 @@ export class Questionnaire extends AQuestionnaire {
                     options: [
                         {
                             label: {
-                                sk: 'Bolesť hlavy)'
+                                sk: 'Bolesť hlavy'
                             },
                             value: 'headache'
                         },
@@ -217,25 +217,25 @@ export class Questionnaire extends AQuestionnaire {
             options: [
                 {
                     label: {
-                        sk: 'kardiovaskulárne'
+                        sk: 'Kardiovaskulárne'
                     },
                     value: 'cardio'
                 },
                 {
                     label: {
-                        sk: 'respiračné'
+                        sk: 'Respiračné'
                     },
                     value: 'respiratory'
                 },
                 {
                     label: {
-                        sk: 'cukrovka'
+                        sk: 'Cukrovka'
                     },
                     value: 'diabetes'
                 },
                 {
                     label: {
-                        sk: 'rakovina'
+                        sk: 'Rakovina'
                     },
                     value: 'cancer'
                 },
@@ -247,13 +247,13 @@ export class Questionnaire extends AQuestionnaire {
                 },
                 {
                     label: {
-                        sk: 'chronické ochorenie pečene'
+                        sk: 'Chronické ochorenie pečene'
                     },
                     value: 'liverProblems'
                 },
                 {
                     label: {
-                        sk: 'znížená imunita'
+                        sk: 'Znížená imunita'
                     },
                     value: 'imunodeficiency'
                 },
@@ -333,13 +333,13 @@ export class Questionnaire extends AQuestionnaire {
                             options: [
                                 {
                                     label: {
-                                        sk: 'pozitívny'
+                                        sk: 'Pozitívny'
                                     },
                                     value: 'positive'
                                 },
                                 {
                                     label: {
-                                        sk: 'negatívny'
+                                        sk: 'Negatívny'
                                     },
                                     value: 'negative'
                                 },
@@ -363,7 +363,7 @@ export class Questionnaire extends AQuestionnaire {
                 },
                 {
                     text: {
-                        sk: 'Zajtra sa ozvem.'
+                        sk: 'Ozvite sa ak by sa váš stav zmenil.'
                     }
                 }
             ],
