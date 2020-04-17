@@ -7,40 +7,59 @@
     import PageLoaded from "../../mixins/PageLoaded.vue";
     import OpenLayersMap from "./OpenLayersMap.vue";
     import {GeoJson, HeatMap, ZoomChangedEvent} from "@/js/types/Map";
-    import Sk2 from "@/geojson/sk/sk_2_10.json";
-    import World from "@/geojson/world.json";
+    import MunicipalityGeoJson from "@/geojson/sk/suburb_polygons_20.json";
+    import DistrictGeoJson from "@/geojson/sk/sk_2_10.json";
+    import {SymptCasesLocationDistrictData, SymptCasesLocationMunicipalityData} from "@/js/BE";
+    import MapMixin from "@/components/mixins/MapMixin.vue";
 
     export default {
         name: "NearMeMap",
         components: {OpenLayersMap},
-        mixins: [PageLoaded],
+        mixins: [PageLoaded,MapMixin],
         props: {
             heatmap: {
                 type: Array as () => HeatMap,
                 required: false
+            },
+            districtData: {
+                type: Object as () => SymptCasesLocationDistrictData,
+                required: true
+            },
+            municipalityData: {
+                type: Object as () => SymptCasesLocationMunicipalityData,
+                required: true
             }
         },
         data() {
             return {
-                sk1: {
-                    geoJson: Sk2,
-                    showText: false,
-                    fitMap: false
-                } as GeoJson,
-                sk2: {
-                    geoJson: World,
-                    showText: false,
-                    fitMap: false
-                } as GeoJson,
-                zoomLevel: null
+                zoomLevel: null,
+                mapAlpha: 0.4,
+                municipalityZoomThreshold: 10
             }
         },
         computed: {
+            districtGeoJson(): GeoJson {
+                return {
+                    geoJson: DistrictGeoJson,
+                    fitMap: !this.zoomLevel, //fit map for the first time
+                    showText: false,
+                    colors: this.generateColors(this.districtData)
+                } as GeoJson
+            },
+            municipalityGeoJson(): GeoJson {
+                return {
+                    geoJson: MunicipalityGeoJson,
+                    fitMap: false,
+                    showText: false,
+                    colors: this.generateColors(this.municipalityData)
+                } as GeoJson
+            },
             geoJson() {
-                return this.zoomLevel && this.zoomLevel > 6 ?
-                    this.sk1 :
-                    this.sk2
-            }
+                return this.zoomLevel && this.zoomLevel > this.municipalityZoomThreshold ?
+                    this.municipalityGeoJson :
+                    this.districtGeoJson
+            },
+
         },
         methods: {
             zoomChanged(event: ZoomChangedEvent) {

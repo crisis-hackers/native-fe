@@ -248,7 +248,12 @@
         },
         methods: {
             navigateExplore(): void {
-                this.$navigateTo(NearMe);
+                this.$navigateTo(NearMe, {
+                    props: {
+                        districtData: this.beData.symptCasesLocationDistrictData,
+                        municipalityData: this.beData.symptCasesLocationMunicipalityData
+                    }
+                });
             },
             getData(): void {
                 BE.getAllDashboardData()
