@@ -37,13 +37,6 @@
                 selectedCategoryId: null
             }
         },
-        watch: {
-            selectedCategoryId: function(val) {
-                if (!this.categories)
-                    return;
-                this.cells = this.rows[this.categories[val].key];
-            }
-        },
         computed: {
             columnsString() {
                 return this.headers.map((header: TableHeader) => `${Math.round(1/header.width)}*`).join(',');
@@ -58,7 +51,13 @@
                 return this.categories && true;
             },
             cells() {
-                return this.categories ? this.rows[this.categories[0].key] : this.rows
+                if (this.hasCategories) {
+                    if (this.selectedCategoryId) {
+                        return this.rows[this.categories[this.selectedCategoryId].key];
+                    }
+                    return this.rows[this.categories[0].key];
+                }
+                return this.rows;
             },
             dataCells() {
                 return this.cells.flatMap((item: object, index: number) => {

@@ -28,6 +28,10 @@ export type QStep = {
     negSubsteps?: QStep[]
 }
 
+export type QResult = {
+    [key: string]: any
+}
+
 export abstract class AQuestionnaire {
     constants: object;
     steps: QStep[];
@@ -65,7 +69,7 @@ export class BasicChatBot {
         return this.stepStack[this.stepStack.length - 1];
     }
 
-    getResult() : object {
+    getResult() : QResult {
         return this.responses;
     }
 }

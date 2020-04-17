@@ -26,6 +26,11 @@
   <string name="_intro__1_subtitle_1pPTJl">"Help prevent the spread of Coronavirus in Slovakia"</string>
   <string name="_intro__1_title_2sMCVd">"Quick Diagnosis"</string>
   <string name="_nearMe_title_q36Dw">"Near Me"</string>
+  <string name="_dashboard_home_symptTable_bySex_XFzky">"By Gender"</string>
+  <string name="_dashboard_home_symptTable_byAge_XFuGG">"By Age"</string>
+  <string name="_dashboard_home_symptResults_3_ZkSIuD">"High Risk"</string>
+  <string name="_dashboard_home_symptResults_2_ZkSIuE">"Moderate Risk"</string>
+  <string name="_dashboard_home_symptResults_1_ZkSIuF">"Marked Safe"</string>
   <string name="_dashboard_home_cards_mortalityLabel_5uWqe">"Mortality rate"</string>
   <string name="_dashboard_home_cards_newCasesLabel_1aFqrQ">"Suspected new cases"</string>
   <string name="_dashboard_home_header3_Z1bpu35">"World Covid Tracker"</string>

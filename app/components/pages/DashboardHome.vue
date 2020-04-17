@@ -10,7 +10,7 @@
             </FlexboxLayout>
             <FlexboxLayout>
                 <Label class="h2 text-subheader" :text="'dashboard.home.header2'|L" />
-                <DashboardTable :headers="table1.headers" :rows="table1.rows" :categories="table1.categories" />
+                <DashboardSymptTable :age-data="beData.symptCasesAgeData" :sex-data="beData.symptCasesSexData" />
             </FlexboxLayout>
             <FlexboxLayout>
                 <Label class="h2 text-subheader" :text="'dashboard.home.header3'|L" />
@@ -21,7 +21,7 @@
             </FlexboxLayout>
             <GridLayout rows="auto" columns="*,*">
                 <DashboardSimpleCard row="0" col="0" value-color="#0061FF" value="112" :label="'dashboard.home.cards.newCasesLabel'|L"/>
-                <DashboardSimpleCard row="0" col="1" value-color="#FF0643" value="35%" :label="'dashboard.home.cards.mortalityLabel'|L"/>
+                <DashboardSimpleCard row="0" col="1" value-color="#FF0643" :value="mortalityRate" :label="'dashboard.home.cards.mortalityLabel'|L"/>
             </GridLayout>
         </StackLayout>
     </ScrollView>
@@ -31,21 +31,27 @@
     import WorldMap from "@/components/elements/map/WorldMap.vue";
     import PageLoaded from "@/components/mixins/PageLoaded.vue";
     import SlovakiaMap from "@/components/elements/map/SlovakiaMap.vue";
-    import {TableCategory, TableHeader} from "@/js/types/DashboardTable";
     import DashboardTable from "@/components/elements/DashboardTable.vue";
     import DashboardSimpleCard from "@/components/elements/DashboardSimpleCard.vue";
     import NearMe from "@/components/pages/NearMe.vue";
     import BE, {
         CountriesData,
         DashboardData,
+        MortalityRateData,
+        SymptCasesAgeData,
         SymptCasesLocationDistrictData,
-        SymptCasesLocationMunicipalityData
+        SymptCasesLocationMunicipalityData,
+        SymptCasesRiskData,
+        SymptCasesSexData
     } from "@/js/BE";
     import DashboardWorldTable from "@/components/elements/DashboardWorldTable.vue";
+    import DashboardSymptTable from "@/components/elements/DashboardSymptTable.vue";
 
     export default {
         name: "DashboardHome",
-        components: {DashboardWorldTable, DashboardSimpleCard, DashboardTable, SlovakiaMap, WorldMap},
+        components: {
+            DashboardSymptTable,
+            DashboardWorldTable, DashboardSimpleCard, DashboardTable, SlovakiaMap, WorldMap},
         mixins: [PageLoaded],
         data() {
             return {
@@ -58,192 +64,20 @@
                     }
                 ],
                 segmentedBarIndex: 0,
-                mapView: null,
-                table1: {
-                    categories: [
-                        {
-                            key: 'age',
-                            label: 'By Age'
-                        },
-                        {
-                            key: 'gender',
-                            label: 'By Gender'
-                        },
-                        {
-                            key: 'travel',
-                            label: 'By Travel'
-                        }
-                    ] as TableCategory[],
-                    headers: [
-                        {
-                            key: 'age',
-                            label: 'Age',
-                            width: 1/4
-                        },
-                        {
-                            key: 'confirmed',
-                            label: 'Confirmed',
-                            width: 1/4,
-                            boldCol: true
-                        },
-                        {
-                            key: 'recovered',
-                            label: 'Recovered',
-                            width: 1/4,
-                            boldCol: true
-                        },
-                        {
-                            key: 'deaths',
-                            label: 'Deaths',
-                            width: 1/4,
-                            boldCol: true
-                        }
-                    ] as TableHeader[],
-                    rows: {
-                        age: [
-                            {
-                                age: '0-15 years',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '1-15 years',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '2-15 years',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '3-15 years',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            }
-                        ],
-                        gender: [
-                            {
-                                age: '0-15 years g',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '0-15 years g',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '0-15 years g ',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '0-15 years g',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            }
-                        ],
-                        travel: [
-                            {
-                                age: '0-15 years',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '0-15 years',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '0-15 years',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            },
-                            {
-                                age: '0-15 years',
-                                confirmed: 73.67,
-                                recovered: 45.66,
-                                deaths: 45.66
-                            }
-                        ]
-                    }
-                },
-                table2: {
-                    headers: [
-                        {
-                            key: 'country',
-                            label: 'Contry',
-                            width: 1/4
-                        },
-                        {
-                            key: 'confirmed',
-                            label: 'Confirmed',
-                            width: 1/4,
-                            boldCol: true
-                        },
-                        {
-                            key: 'recovered',
-                            label: 'Recovered',
-                            width: 1/4,
-                            boldCol: true
-                        },
-                        {
-                            key: 'deaths',
-                            label: 'Deaths',
-                            width: 1/4,
-                            boldCol: true
-                        }
-                    ] as TableHeader[],
-                    rows: [
-                        {
-                            country: 'Slovakia',
-                            confirmed: 73.67,
-                            recovered: 45.66,
-                            deaths: 45.66
-                        },
-                        {
-                            country: 'United Kingdom',
-                            confirmed: 73.67,
-                            recovered: 45.66,
-                            deaths: 45.66
-                        },
-                        {
-                            country: 'India',
-                            confirmed: 73.67,
-                            recovered: 45.66,
-                            deaths: 45.66
-                        },
-                        {
-                            country: 'China',
-                            confirmed: 73.67,
-                            recovered: 45.66,
-                            deaths: 45.66
-                        },
-                        {
-                            country: 'Iran',
-                            confirmed: 73.67,
-                            recovered: 45.66,
-                            deaths: 45.66
-                        }
-                    ]
-                },
                 beData: {
                     countriesData: [] as CountriesData,
                     symptCasesLocationDistrictData: {} as SymptCasesLocationDistrictData,
-                    symptCasesLocationMunicipalityData: {} as SymptCasesLocationMunicipalityData
+                    symptCasesLocationMunicipalityData: {} as SymptCasesLocationMunicipalityData,
+                    mortalityRate: null as MortalityRateData,
+                    symptCasesAgeData: {} as SymptCasesAgeData,
+                    symptCasesSexData: {} as SymptCasesSexData,
+                    symptCasesRiskData: {} as SymptCasesRiskData,
                 },
+            }
+        },
+        computed: {
+            mortalityRate() {
+                return `${(this.beData.mortalityRate*100).toFixed(1)}%`
             }
         },
         methods: {
@@ -261,6 +95,10 @@
                         this.beData.countriesData = data.countriesData.data;
                         this.beData.symptCasesLocationDistrictData = data.symptCasesLocationDistrictData.data;
                         this.beData.symptCasesLocationMunicipalityData = data.symptCasesLocationMunicipalityData.data;
+                        this.beData.mortalityRate = data.mortalityRate.data;
+                        this.beData.symptCasesAgeData = data.symptCasesAgeData.data;
+                        this.beData.symptCasesSexData = data.symptCasesSexData.data;
+                        this.beData.symptCasesRiskData = data.symptCasesRiskData.data;
                     })
             }
         },
