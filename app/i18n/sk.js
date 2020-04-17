@@ -67,7 +67,7 @@ const i18n = {
             text1: 'Doporučujeme izoláciu seba a svojich najbližších. Kontroluj svoj zdravotný stav a teplotu 2x denne.'
         },
         danger: {
-            title: 'Doporučujeme testovanie!',
+            title: 'Doporučujeme testovanie! Kontaktuj svojho praktického lekára alebo navštív najbližšie miesto testovania.',
             text1: 'Izoluj seba a svojich najbližších, dôsledne dodržiavaj doporučené pokyny. V prípade naliehavého stavu volaj 112.'
         },
 
