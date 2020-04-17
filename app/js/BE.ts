@@ -26,16 +26,16 @@ export type CountryData = {
 };
 export type CountriesData = CountryData[];
 
+export type SymptCasesLocationDistrictData = { [key: string]: number }
+
+export type SymptCasesLocationMunicipalityData = { [key: string]: number }
 
 export type HeatMapData = any
 
 export type DashboardData = {
-    // skMap: AxiosResponse<SkMapData>,
-    // skTable: AxiosResponse<SkTableData>,
-    // worldMap: AxiosResponse<WorldMapData>,
-    // worldTable: AxiosResponse<WorldTableData>,
-    // cards: AxiosResponse<DashboardCardsData>
-    countriesData: AxiosResponse<CountriesData>
+    countriesData: AxiosResponse<CountriesData>,
+    symptCasesLocationDistrictData: AxiosResponse<SymptCasesLocationDistrictData>,
+    symptCasesLocationMunicipalityData: AxiosResponse<SymptCasesLocationMunicipalityData>
 }
 
 export type NearMeData = {
@@ -56,40 +56,32 @@ export default {
     getCountriesData(): Promise<AxiosResponse<CountriesData>> {
         return axios.get(`${url}/stats-countries`);
     },
-    getSlovakiaMapData(): Promise<AxiosResponse<SkMapData>> {
-        return axios.get('https://postman-echo.com/get?data=skmap');
+    getSymptCasesLocationDistrictData(): Promise<AxiosResponse<SymptCasesLocationDistrictData>> {
+        return axios.get(`${url}/stats-symptomatic_cases_location`, {
+            params: {
+                level: 'city'
+            }
+        });
     },
-    getWorldMapData(): Promise<AxiosResponse<WorldMapData>> {
-        return axios.get('https://postman-echo.com/get?data=wmap');
-    },
-    getSlovakiaTableData(): Promise<AxiosResponse<SkTableData>> {
-        return axios.get('https://postman-echo.com/get?data=sktable');
-    },
-    getWorldTableData(): Promise<AxiosResponse<WorldTableData>> {
-        return axios.get('https://postman-echo.com/get?data=wtable');
-    },
-    //i.e. suspected new cases and mortality rate
-    getDashboardCardsData(): Promise<AxiosResponse<DashboardCardsData>> {
-        return axios.get('https://postman-echo.com/get?data=cards');
+    getSymptCasesLocationMunicipalityData(): Promise<AxiosResponse<SymptCasesLocationMunicipalityData>> {
+        return axios.get(`${url}/stats-symptomatic_cases_location`, {
+            params: {
+                level: 'suburb'
+            }
+        });
     },
 
     getAllDashboardData(): Promise<DashboardData> {
         return axios.all([
-            // this.getSlovakiaMapData(),
-            // this.getSlovakiaTableData(),
-            // this.getWorldMapData(),
-            // this.getWorldTableData(),
-            // this.getDashboardCardsData()
-            this.getCountriesData()
+            this.getCountriesData(),
+            this.getSymptCasesLocationDistrictData(),
+            this.getSymptCasesLocationMunicipalityData()
         ])
             .then(axios.spread((...responses: AxiosResponse[]) => {
                 return Promise.resolve({
-                    // skMap: responses[0],
-                    // skTable: responses[1],
-                    // worldMap: responses[2],
-                    // worldTable: responses[3],
-                    // cards: responses[4]
-                    countriesData: responses[0]
+                    countriesData: responses[0],
+                    symptCasesLocationDistrictData: responses[1],
+                    symptCasesLocationMunicipalityData: responses[2]
                 } as DashboardData);
             }))
     },

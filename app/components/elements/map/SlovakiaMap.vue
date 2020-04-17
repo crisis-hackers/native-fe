@@ -8,18 +8,28 @@
     import {GeoJson} from "@/js/types/Map";
     import SlovakiaGeoJson from '@/geojson/sk/sk_2_10.json';
     import MapMixin from "@/components/mixins/MapMixin.vue";
-    import {FeatureCollection} from "geojson";
 
     export default {
         name: "SlovakiaMap",
         mixins: [PageLoaded,MapMixin],
         components: {OpenLayersMap},
+        props: {
+            districtData: {
+                required: false
+            }
+        },
         data() {
             return {
-                geoJson: {
+                mapHue: 7,
+                mapSaturation: 57
+            }
+        },
+        computed: {
+            geoJson() : GeoJson {
+                return  {
                     geoJson: SlovakiaGeoJson,
                     showText: false,
-                    colors: this.generateRandomColors(SlovakiaGeoJson as FeatureCollection),
+                    colors: this.generateColors(this.districtData),
                     fitMap: true
                 } as GeoJson
             }

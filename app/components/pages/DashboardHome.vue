@@ -4,7 +4,7 @@
             <FlexboxLayout>
                 <Label class="h3 text-text" :textWrap="true" :text="'dashboard.home.text1'|L" />
                 <FlexboxLayout>
-                    <SlovakiaMap :loaded="dLoaded" style="height: 200dp" />
+                    <SlovakiaMap :district-data="beData.symptCasesLocationDistrictData" :loaded="dLoaded" style="height: 200dp" />
                 </FlexboxLayout>
                 <Button class="m-button" @tap="navigateExplore" :text="'dashboard.home.explore'|L" />
             </FlexboxLayout>
@@ -35,7 +35,12 @@
     import DashboardTable from "@/components/elements/DashboardTable.vue";
     import DashboardSimpleCard from "@/components/elements/DashboardSimpleCard.vue";
     import NearMe from "@/components/pages/NearMe.vue";
-    import BE, {CountriesData, DashboardData} from "@/js/BE";
+    import BE, {
+        CountriesData,
+        DashboardData,
+        SymptCasesLocationDistrictData,
+        SymptCasesLocationMunicipalityData
+    } from "@/js/BE";
     import DashboardWorldTable from "@/components/elements/DashboardWorldTable.vue";
 
     export default {
@@ -235,8 +240,10 @@
                     ]
                 },
                 beData: {
-                    countriesData: [] as CountriesData
-                }
+                    countriesData: [] as CountriesData,
+                    symptCasesLocationDistrictData: {} as SymptCasesLocationDistrictData,
+                    symptCasesLocationMunicipalityData: {} as SymptCasesLocationMunicipalityData
+                },
             }
         },
         methods: {
@@ -247,6 +254,8 @@
                 BE.getAllDashboardData()
                     .then((data: DashboardData) => {
                         this.beData.countriesData = data.countriesData.data;
+                        this.beData.symptCasesLocationDistrictData = data.symptCasesLocationDistrictData.data;
+                        this.beData.symptCasesLocationMunicipalityData = data.symptCasesLocationMunicipalityData.data;
                     })
             }
         },

@@ -33,6 +33,9 @@
         },
         methods: {
             generateWorldColors(countriesData: CountriesData, geoJson: FeatureCollection): GeoJsonColors {
+                if (countriesData.length < 1) {
+                    return {};
+                }
                 let maxCases = countriesData.reduce((currMax: number, curr: CountryData) => {
                     return curr.total_cases > currMax ? curr.total_cases : currMax;
                 }, Number.MIN_VALUE);
@@ -56,7 +59,7 @@
         },
         data() {
             return {
-                mapLightnessSpan: 75
+
             }
         }
     }
