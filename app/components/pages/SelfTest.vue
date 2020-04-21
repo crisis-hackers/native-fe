@@ -1,6 +1,6 @@
 <template>
     <Page @loaded="onPageLoaded">
-        <ActionBarBackButton :title="str.appName" />
+        <MActionBar :title="str.appName" :show-back-button="true" />
         <GridLayout rows="*,60" columns="*">
             <ScrollView row="0" col="0" orientation="vertical" ref="mainScrollView">
                 <FlexboxLayout flexDirection="column" class="msg-feed">
@@ -43,7 +43,7 @@
     import BE, {SelfTestResult} from '../../js/BE';
     import TestResults from './TestResults.vue';
     import LocationHelper from '../../js/Location';
-    import ActionBarBackButton from "@/components/elements/ActionBarBackButton.vue";
+    import MActionBar from "@/components/elements/MActionBar.vue";
     import {Questionnaire} from "@/js/Questionnaire";
     import {Location as MLocation, Settings} from '@/js/Settings';
     import {Location as NSLocation} from 'nativescript-geolocation'
@@ -52,7 +52,7 @@
 
     export default {
         name: "SelfTest",
-        components: {ActionBarBackButton},
+        components: {MActionBar},
         mixins: [
             Strings
         ],

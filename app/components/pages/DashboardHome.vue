@@ -1,30 +1,33 @@
 <template>
-    <ScrollView orientation="vertical">
-        <StackLayout class="main-container" orientation="vertical">
-            <FlexboxLayout>
-                <Label class="h3 text-text" :textWrap="true" :text="'dashboard.home.text1'|L" />
+    <GridLayout rows="*" columns="*">
+        <ScrollView row="0" col="0" :class="`${loading ? 'loading-disabled' : ''}`" orientation="vertical">
+            <StackLayout class="main-container" orientation="vertical">
                 <FlexboxLayout>
-                    <SlovakiaMap :district-data="beData.symptCasesLocationDistrictData" :loaded="dLoaded" style="height: 200dp" />
+                    <Label class="h3 text-text" :textWrap="true" :text="'dashboard.home.text1'|L" />
+                    <FlexboxLayout>
+                        <SlovakiaMap :district-data="beData.symptCasesLocationDistrictData" :loaded="dLoaded" style="height: 200dp" />
+                    </FlexboxLayout>
+                    <Button class="m-button" @tap="navigateExplore" :text="'dashboard.home.explore'|L" />
                 </FlexboxLayout>
-                <Button class="m-button" @tap="navigateExplore" :text="'dashboard.home.explore'|L" />
-            </FlexboxLayout>
-            <FlexboxLayout>
-                <Label class="h2 text-subheader" :text="'dashboard.home.header2'|L" />
-                <DashboardSymptTable :age-data="beData.symptCasesAgeData" :sex-data="beData.symptCasesSexData" />
-            </FlexboxLayout>
-            <FlexboxLayout>
-                <Label class="h2 text-subheader" :text="'dashboard.home.header3'|L" />
                 <FlexboxLayout>
-                    <WorldMap :countries-data="beData.countriesData" :loaded="dLoaded" style="height: 280dp" />
+                    <Label class="h2 text-subheader" :text="'dashboard.home.header2'|L" />
+                    <DashboardSymptTable :age-data="beData.symptCasesAgeData" :sex-data="beData.symptCasesSexData" />
                 </FlexboxLayout>
-                <DashboardWorldTable :countries-data="beData.countriesData" />
-            </FlexboxLayout>
-            <GridLayout rows="auto" columns="*,*">
-                <DashboardSimpleCard row="0" col="0" value-color="#0061FF" value="112" :label="'dashboard.home.cards.newCasesLabel'|L"/>
-                <DashboardSimpleCard row="0" col="1" value-color="#FF0643" :value="mortalityRate" :label="'dashboard.home.cards.mortalityLabel'|L"/>
-            </GridLayout>
-        </StackLayout>
-    </ScrollView>
+                <FlexboxLayout>
+                    <Label class="h2 text-subheader" :text="'dashboard.home.header3'|L" />
+                    <FlexboxLayout>
+                        <WorldMap :countries-data="beData.countriesData" :loaded="dLoaded" style="height: 280dp" />
+                    </FlexboxLayout>
+                    <DashboardWorldTable :countries-data="beData.countriesData" />
+                </FlexboxLayout>
+                <GridLayout rows="auto" columns="*,*">
+                    <DashboardSimpleCard row="0" col="0" value-color="#0061FF" value="112" :label="'dashboard.home.cards.newCasesLabel'|L"/>
+                    <DashboardSimpleCard row="0" col="1" value-color="#FF0643" :value="mortalityRate" :label="'dashboard.home.cards.mortalityLabel'|L"/>
+                </GridLayout>
+            </StackLayout>
+        </ScrollView>
+        <ActivityIndicator rowSpan="1" col="0" :busy="loading" />
+    </GridLayout>
 </template>
 
 <script lang="ts">
@@ -73,6 +76,7 @@
                     symptCasesSexData: {} as SymptCasesSexData,
                     symptCasesRiskData: {} as SymptCasesRiskData,
                 },
+                loading: false
             }
         },
         computed: {
@@ -90,6 +94,7 @@
                 });
             },
             getData(): void {
+                this.loading = true;
                 BE.getAllDashboardData()
                     .then((data: DashboardData) => {
                         this.beData.countriesData = data.countriesData.data;
@@ -99,6 +104,9 @@
                         this.beData.symptCasesAgeData = data.symptCasesAgeData.data;
                         this.beData.symptCasesSexData = data.symptCasesSexData.data;
                         this.beData.symptCasesRiskData = data.symptCasesRiskData.data;
+                    })
+                    .finally(() => {
+                        this.loading = false;
                     })
             }
         },

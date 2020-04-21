@@ -1,6 +1,6 @@
 <template>
     <Page @loaded="pageHasLoaded">
-        <ActionBar :title="str.appName" />
+        <MActionBar :title="str.appName" />
         <Tabs selectedIndex="0" tabsPosition="bottom">
             <TabStrip>
                 <TabStripItem>
@@ -40,6 +40,7 @@
     import DashboardProfile from "@/components/pages/DashboardProfile.vue";
     import DashboardTracking from "@/components/pages/DashboardTracking.vue";
     import PageLoaded from "@/components/mixins/PageLoaded.vue";
+    import MActionBar from "@/components/elements/MActionBar.vue";
 
     export default {
         name: "Dashboard",
@@ -47,6 +48,7 @@
             Strings, PageLoaded
         ],
         components: {
+            MActionBar,
             DashboardFAQ,
             DashboardHome,
             DashboardProfile,

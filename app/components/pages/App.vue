@@ -1,10 +1,8 @@
 <template>
     <Page ref="page">
-        <ActionBar :title="`${str.appName}`">
-
-        </ActionBar>
+        <MActionBar :title="`${str.appName}`" :img-res-svg="'group-21'|svg" />
         <GridLayout columns="*" rows="*,*,*,*" class="main">
-            <Button row="0" class="m-button m-green-button" @tap="startTest" :text="'selfTest.startButton'|L" />
+            <Button row="0" class="m-button m-green-button" @tap="startTest" :text="'buttons.startSelfTest'|L" />
             <SocialShareButton row="1" />
             <CallHelplineButton row="2" />
             <Button row="3" class="m-button" @tap="devStartDashboard">!!DEV!! dashboard</Button>
@@ -18,9 +16,10 @@
     import CallHelplineButton from "@/components/elements/CallHelplineButton.vue";
     import SocialShareButton from "@/components/elements/SocialShareButton.vue";
     import Dashboard from "@/components/pages/Dashboard.vue";
+    import MActionBar from "@/components/elements/MActionBar.vue";
 
     export default {
-        components: {SocialShareButton, CallHelplineButton},
+        components: {MActionBar, SocialShareButton, CallHelplineButton},
         mixins:[
             Strings
         ],

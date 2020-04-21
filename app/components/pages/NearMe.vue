@@ -1,6 +1,6 @@
 <template>
     <Page @loaded="pageHasLoaded">
-        <ActionBarBackButton :title="'nearMe.title'|L" />
+        <MActionBar :title="'nearMe.title'|L" />
         <GridLayout rows="auto,*" columns="*">
             <SegmentedBar v-model="segmentedBarIndex">
                 <SegmentedBarItem v-for="item in segmentedBarItems" :key="item.tag"
@@ -15,13 +15,13 @@
 <script lang="ts">
     import PageLoaded from "../mixins/PageLoaded.vue";
     import NearMeMap from "../elements/map/NearMeMap.vue";
-    import ActionBarBackButton from "@/components/elements/ActionBarBackButton.vue";
+    import MActionBar from "@/components/elements/MActionBar.vue";
     import {HeatMap} from "@/js/types/Map";
     import BE, {NearMeData, SymptCasesLocationDistrictData, SymptCasesLocationMunicipalityData} from "@/js/BE";
 
     export default {
         name: "NearMe",
-        components: {ActionBarBackButton, NearMeMap},
+        components: {MActionBar, NearMeMap},
         mixins: [PageLoaded],
         props: {
             districtData: {

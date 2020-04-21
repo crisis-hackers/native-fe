@@ -1,6 +1,6 @@
 <template>
     <Page>
-        <ActionBar title="Test Results"/>
+        <MActionBar title="Test Results"/>
         <GridLayout rows="*,80" columns="*">
             <FlexboxLayout row="0" flexDirection="column" justifyContent="space-around" alignItems="center"
                 padding="64dp" class="result">
@@ -23,10 +23,11 @@
     import Dashboard from '@/components/pages/Dashboard.vue';
     import CallHelplineButton from '@/components/elements/CallHelplineButton.vue';
     import {SelfTestResult} from "@/js/BE";
+    import MActionBar from "@/components/elements/MActionBar.vue";
 
     export default {
         name: "TestResults",
-        components: {CallHelplineButton},
+        components: {MActionBar, CallHelplineButton},
         mixins: [
             Strings
         ],

@@ -30,8 +30,12 @@ Vue.registerElement(
       }
     }
 );
+Vue.registerElement("SVGImage", () => require("@teammaestro/nativescript-svg").SVGImage)
 
 Vue.filter('L', localize);
+Vue.filter('svg', function (value) {
+    return `~/assets/svg/${value}.svg`
+})
 
 new Vue({
   store,
