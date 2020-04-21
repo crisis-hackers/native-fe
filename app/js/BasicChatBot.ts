@@ -15,7 +15,7 @@ export type QOption = {
 }
 
 export enum QType {
-    TEXT, NUMBER, BOOLEAN, RADIO, CHECKBOX
+    TEXT, NUMBER, BOOLEAN, RADIO, CHECKBOX, DATE
 }
 
 export type QStep = {
@@ -28,6 +28,12 @@ export type QStep = {
     negSubsteps?: QStep[]
 }
 
+export type QInput = {
+    type: QType,
+    answer: string|string[]|Date,
+    options?: []
+}
+  
 export type QResult = {
     [key: string]: any
 }
@@ -47,14 +53,14 @@ export class BasicChatBot {
         this.stepStack.push({key: "", messages: [], type: undefined});
     }
 
-    getNextStep(response): QStep {
+    getNextStep(response: QInput): QStep {
         let topItem = this.stepStack.pop();
         if (response && topItem.key) {
-            this.responses[topItem.key] = response.answer;
+            this.saveResponse(response, topItem);
         }
         let substeps: QStep[] = [];
         if (topItem.substeps && response && response.answer) {
-            substeps = topItem.substeps;
+            substeps = this.getPositiveSubsteps(response, topItem);
         } else if (topItem.negSubsteps && response) {
             substeps = topItem.negSubsteps;
         }
@@ -63,6 +69,26 @@ export class BasicChatBot {
             return null;
         }
         return this.topItem();
+    }
+
+    saveResponse(response: QInput, step: QStep) {
+        let answer = response.answer;
+        switch (step.type) {
+            case QType.DATE:
+                answer = (answer as Date).getUTCMilliseconds().toString();
+        }
+        this.responses[step.key] = answer;
+    }
+
+    getPositiveSubsteps(response: QInput, step: QStep): QStep[] {
+        switch (step.type) {
+            case QType.CHECKBOX:
+            case QType.RADIO:
+                let selected: string[] = typeof response.answer === "string" ? [response.answer as string] : response.answer as string[];
+                return step.substeps.filter((substep) => selected.includes(substep.key));
+            default:
+                return step.substeps ?? [];
+        }
     }
 
     topItem() : QStep {

@@ -7,7 +7,8 @@ const i18n = {
         next: 'Next',
         skip: 'Skip',
         send: 'Send',
-        agree: 'I Agree'
+        agree: 'I Agree',
+        done: 'Done'
     },
     dashboard: {
         tabs: {
