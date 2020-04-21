@@ -34,8 +34,24 @@ const i18n = {
             text1: 'First calculations of symptomatic COVID in each area across the Slovakia',
             explore: 'Explore COVID-19 cases near you',
             header2: 'Covid Tracker',
-            header3: 'World Covid Tracker'
+            header3: 'World Covid Tracker',
+            cards: {
+                newCasesLabel: 'Suspected new cases',
+                mortalityLabel: 'Mortality rate'
+            },
+            symptResults: {
+                1: 'Marked Safe',
+                2: 'Moderate Risk',
+                3: 'High Risk'
+            },
+            symptTable: {
+                byAge: 'By Age',
+                bySex: 'By Gender'
+            }
         }
+    },
+    nearMe: {
+        title: 'Near Me'
     },
     intro: {
         _1: {

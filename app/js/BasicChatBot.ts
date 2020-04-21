@@ -33,6 +33,10 @@ export type QInput = {
     answer: string|string[]|Date,
     options?: []
 }
+  
+export type QResult = {
+    [key: string]: any
+}
 
 export abstract class AQuestionnaire {
     constants: object;
@@ -91,7 +95,7 @@ export class BasicChatBot {
         return this.stepStack[this.stepStack.length - 1];
     }
 
-    getResult() : object {
+    getResult() : QResult {
         return this.responses;
     }
 }

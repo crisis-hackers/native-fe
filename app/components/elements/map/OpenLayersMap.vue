@@ -1,13 +1,15 @@
 <template>
-    <WebView style="height: 100%" ref="webView" />
+    <WebView style="height: auto" ref="webView" />
 </template>
 
 <script lang="ts">
     import PageLoaded from "@/components/mixins/PageLoaded.vue";
     import {WebViewInterface} from 'nativescript-webview-interface';
     import {WebView} from 'tns-core-modules/ui/web-view/web-view';
-    import {GeoJson, HeatMap} from "@/js/Map";
-
+    import {GeoJson, HeatMap, ZoomChangedEvent} from "@/js/types/Map";
+    import Location from "@/js/Location";
+    import {Location as NSLocation} from 'nativescript-geolocation';
+    import {Settings} from "@/js/Settings";
 
     export default {
         name: "OpenLayersMap",
@@ -24,18 +26,33 @@
                 default: false
             },
             heatmap: {
-                type: Object as () => HeatMap,
+                type: Array as () => HeatMap,
                 required: false
             },
             geoJson: {
                 type: Object as () => GeoJson,
                 required: false
+            },
+            showLocation: {
+                type: Boolean,
+                required: false,
+                default: false
             }
         },
         data() {
             return {
                 webView: null as WebView,
                 webViewInterface: null
+            }
+        },
+        watch: {
+            heatmap: function (value) {
+                this.setHeatMap(value);
+            },
+            geoJson: function (value) {
+                if (this.webViewInterface) {
+                    this.setGeoJson(value);
+                }
             }
         },
         methods: {
@@ -54,17 +71,37 @@
                             disableInteractions: this.disableInteractions
                         });
                         if (this.geoJson) {
-                            this.webViewInterface.emit('addGeoJSON', this.geoJson);
+                            this.setGeoJson(this.geoJson);
                         }
                         if (this.heatmap) {
-                            this.webViewInterface.emit('setHeatMapLayer', this.heatmap);
+                            this.setHeatMap(this.heatmap);
+                        }
+                        if (this.showLocation) {
+                            this.setLocation(Settings.getLastLocation());
+                            Location.getPreciseLocation(30 * 1000)
+                                .then(this.setLocation)
                         }
 
+                        this.webViewInterface.on('zoomChanged', (event: ZoomChangedEvent) => {
+                            this.$emit('zoomChanged', event);
+                        })
                     }
                 })
             },
-
-
+            setHeatMap(heatmap) {
+                this.webViewInterface.emit('setHeatMapLayer', heatmap);
+            },
+            setGeoJson(geoJson) {
+                this.webViewInterface.emit('addGeoJSON', geoJson);
+            },
+            setLocation(location: Location|NSLocation) {
+                if (!location) {
+                    return
+                }
+                this.webViewInterface.emit('setUserLocation', {
+                    location: location
+                });
+            }
         }
     }
 </script>

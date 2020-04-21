@@ -19,7 +19,7 @@
     let webInt = window.nsWebViewInterface;
     let olMap = null;
     webInt.on('setup', function (showMap) {
-        olMap = new OlMap(showMap);
+        olMap = new OlMap(showMap, window.nsWebViewInterface);
     });
     webInt.on('addGeoJSON', function (data) {
         olMap.addGeoJSON(data);
@@ -27,6 +27,9 @@
     webInt.on('setHeatMapLayer', function (data) {
         olMap.setHeatMapLayer(data, true);
     });
+    webInt.on('setUserLocation', function (data) {
+        olMap.setUserLocation(data);
+    })
 </script>
 </body>
 </html>

@@ -40,7 +40,7 @@
 <script lang="ts">
     import {BasicChatBot, QInput, QMessage, QMessageTrans, QStep, QType} from "@/js/BasicChatBot";
     import Strings from '../mixins/Strings.vue';
-    import BE from '../../js/BE';
+    import BE, {SelfTestResult} from '../../js/BE';
     import TestResults from './TestResults.vue';
     import LocationHelper from '../../js/Location';
     import ActionBarBackButton from "@/components/elements/ActionBarBackButton.vue";
@@ -48,6 +48,7 @@
     import {Location as MLocation, Settings} from '@/js/Settings';
     import {Location as NSLocation} from 'nativescript-geolocation'
     import {formatDate} from "@/js/utils/Format";
+    import {AxiosResponse} from "axios";
 
     export default {
         name: "SelfTest",
@@ -212,9 +213,12 @@
 
                     return BE.sendSelfTestResult(result);
                 })
-                .then((result) => {
+                .then((result: AxiosResponse<SelfTestResult>) => {
                     this.$navigateTo(TestResults, {
-                        clearHistory: true
+                        clearHistory: true,
+                        props: {
+                            result: result.data
+                        }
                     });
                 })
                 .catch((err) => {
