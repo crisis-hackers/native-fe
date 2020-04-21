@@ -6,7 +6,8 @@
                 <SegmentedBarItem v-for="item in segmentedBarItems" :key="item.tag"
                                   :title="`dashboard.heatmap.tags.${item.tag}.title`|L" />
             </SegmentedBar>
-            <NearMeMap row="1" col="0" :loaded="dLoaded" :heatmap="heatmap" />
+            <NearMeMap :district-data="districtData" :municipality-data="municipalityData" row="1" col="0"
+                       :loaded="dLoaded" />
         </GridLayout>
     </Page>
 </template>
@@ -15,13 +16,23 @@
     import PageLoaded from "../mixins/PageLoaded.vue";
     import NearMeMap from "../elements/map/NearMeMap.vue";
     import ActionBarBackButton from "@/components/elements/ActionBarBackButton.vue";
-    import {HeatMap} from "@/js/Map";
-    import BE, {NearMeData} from "@/js/BE";
+    import {HeatMap} from "@/js/types/Map";
+    import BE, {NearMeData, SymptCasesLocationDistrictData, SymptCasesLocationMunicipalityData} from "@/js/BE";
 
     export default {
         name: "NearMe",
         components: {ActionBarBackButton, NearMeMap},
         mixins: [PageLoaded],
+        props: {
+            districtData: {
+                type: Object as () => SymptCasesLocationDistrictData,
+                required: true
+            },
+            municipalityData: {
+                type: Object as () => SymptCasesLocationMunicipalityData,
+                required: true
+            }
+        },
         data() {
             return {
                 segmentedBarItems: [
@@ -62,9 +73,6 @@
                         console.dir(nearMeData.heatMap.data);
                     })
             }
-        },
-        mounted(): void {
-            this.getData();
         }
     }
 </script>

@@ -3,8 +3,9 @@
         <GridLayout rows="*, 90" columns="*">
             <Tabs row="0" col="0" :selectedIndex="currentPage" @selectedIndexChanged="tabChanged">
                 <TabContentItem v-for="page in pages" class="m-tab-view-item">
-                    <FlexboxLayout flexDirection="column" justifyContent="space-around"
+                    <FlexboxLayout flexDirection="column" justifyContent="center"
                                    alignItems="center" :paddingLeft="layout.mainXPadding" :paddingRight="layout.mainXPadding">
+                        <Image :src="page.image" stretch="none" />
                         <Label class="title h1" textWrap="true" :text="`intro.${page.key}.title`|L" />
                         <Label class="subtitle h3" textWrap="true" :text="`intro.${page.key}.subtitle`|L" />
                     </FlexboxLayout >
@@ -31,13 +32,16 @@
                 currentPage: 0,
                 pages: [
                     {
-                        key: '_1'
+                        key: '_1',
+                        image: 'res://test'
                     },
                     {
-                        key: '_2'
+                        key: '_2',
+                        image: 'res://test'
                     },
                     {
-                        key: '_3'
+                        key: '_3',
+                        image: 'res://test'
                     }
                 ],
                 layout: {
@@ -65,10 +69,13 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .title {
         text-transform: uppercase;
         text-align: center;
+        $margin-y: 48dp;
+        margin-top: $margin-y;
+        margin-bottom: $margin-y;
     }
 
     .subtitle {

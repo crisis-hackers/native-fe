@@ -6,7 +6,7 @@
     import PageLoaded from "@/components/mixins/PageLoaded.vue";
     import {WebViewInterface} from 'nativescript-webview-interface';
     import {WebView} from 'tns-core-modules/ui/web-view/web-view';
-    import {GeoJson, HeatMap} from "@/js/Map";
+    import {GeoJson, HeatMap, ZoomChangedEvent} from "@/js/types/Map";
     import Location from "@/js/Location";
     import {Location as NSLocation} from 'nativescript-geolocation';
     import {Settings} from "@/js/Settings";
@@ -48,6 +48,11 @@
         watch: {
             heatmap: function (value) {
                 this.setHeatMap(value);
+            },
+            geoJson: function (value) {
+                if (this.webViewInterface) {
+                    this.setGeoJson(value);
+                }
             }
         },
         methods: {
@@ -66,7 +71,7 @@
                             disableInteractions: this.disableInteractions
                         });
                         if (this.geoJson) {
-                            this.webViewInterface.emit('addGeoJSON', this.geoJson);
+                            this.setGeoJson(this.geoJson);
                         }
                         if (this.heatmap) {
                             this.setHeatMap(this.heatmap);
@@ -76,11 +81,18 @@
                             Location.getPreciseLocation(30 * 1000)
                                 .then(this.setLocation)
                         }
+
+                        this.webViewInterface.on('zoomChanged', (event: ZoomChangedEvent) => {
+                            this.$emit('zoomChanged', event);
+                        })
                     }
                 })
             },
             setHeatMap(heatmap) {
                 this.webViewInterface.emit('setHeatMapLayer', heatmap);
+            },
+            setGeoJson(geoJson) {
+                this.webViewInterface.emit('addGeoJSON', geoJson);
             },
             setLocation(location: Location|NSLocation) {
                 if (!location) {

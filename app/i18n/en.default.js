@@ -37,6 +37,15 @@ const i18n = {
             cards: {
                 newCasesLabel: 'Suspected new cases',
                 mortalityLabel: 'Mortality rate'
+            },
+            symptResults: {
+                1: 'Marked Safe',
+                2: 'Moderate Risk',
+                3: 'High Risk'
+            },
+            symptTable: {
+                byAge: 'By Age',
+                bySex: 'By Gender'
             }
         }
     },

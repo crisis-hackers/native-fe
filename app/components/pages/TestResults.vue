@@ -1,5 +1,5 @@
 <template>
-    <Page @loaded="onPageLoaded">
+    <Page>
         <ActionBar title="Test Results"/>
         <GridLayout rows="*,80" columns="*">
             <FlexboxLayout row="0" flexDirection="column" justifyContent="space-around" alignItems="center"
@@ -18,11 +18,11 @@
 </template>
 
 <script lang="ts">
-    import * as TNSPhone from 'nativescript-phone'
     import Strings from '@/components/mixins/Strings.vue'
     import SelfTest from '@/components/pages/SelfTest.vue';
     import Dashboard from '@/components/pages/Dashboard.vue';
     import CallHelplineButton from '@/components/elements/CallHelplineButton.vue';
+    import {SelfTestResult} from "@/js/BE";
 
     export default {
         name: "TestResults",
@@ -30,39 +30,35 @@
         mixins: [
             Strings
         ],
+        props: {
+            beResult: {
+                type: Number as () => SelfTestResult
+            }
+        },
         data() {
             return {
                 possibleResults: {
-                    safe: {
+                    1: {
                         key: 'safe'
                     },
-                    risk: {
+                    2: {
                         key: 'risk'
                     },
-                    danger: {
+                    3: {
                         key: 'danger'
                     }
-                },
-                actualResult: null
+                }
             }
         },
         computed: {
             result(): object {
-                return this.actualResult ? this.possibleResults[this.actualResult] : {}
+                return this.actualResult ? this.possibleResults[this.beResult] : {}
             },
             resultClass(): string {
                 return this.actualResult ?? '';
             }
         },
         methods: {
-            dummyGetResult() {
-                let keys = Object.keys(this.possibleResults);
-                this.actualResult = keys[Math.floor(Math.random() * keys.length)];
-            },
-            callHelpLine() {
-                console.dir(this.result);
-                TNSPhone.dial(this.num.helpline, true);
-            },
             navigateToTest() {
                 this.$navigateTo(SelfTest, {
                     clearHistory: false
@@ -72,9 +68,6 @@
                 this.$navigateTo(Dashboard, {
                     clearHistory: true
                 });
-            },
-            onPageLoaded() {
-                this.dummyGetResult();
             }
         }
     }

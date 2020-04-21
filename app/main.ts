@@ -33,11 +33,6 @@ Vue.registerElement(
 
 Vue.filter('L', localize);
 
-Vue.registerElement(
-    'MapView',
-    ()=> require('nativescript-google-maps-sdk').MapView
-);
-
 new Vue({
   store,
   render: h => h('frame', [h(Intro)])
