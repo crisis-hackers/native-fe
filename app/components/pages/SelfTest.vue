@@ -1,6 +1,6 @@
 <template>
     <Page @loaded="onPageLoaded">
-        <MActionBar :title="str.appName" :show-back-button="true" />
+        <MActionBar :title="str.appName" :show-back-button="true" :img-res-svg="'coronavirus'|svg" />
         <GridLayout rows="*,60" columns="*">
             <ScrollView row="0" col="0" orientation="vertical" ref="mainScrollView">
                 <FlexboxLayout flexDirection="column" class="msg-feed">

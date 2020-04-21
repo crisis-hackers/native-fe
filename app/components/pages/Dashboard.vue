@@ -1,6 +1,6 @@
 <template>
     <Page @loaded="pageHasLoaded">
-        <MActionBar :title="str.appName" />
+        <MActionBar :title="str.appName" :img-res-svg="'group-21'|svg" />
         <Tabs selectedIndex="0" tabsPosition="bottom">
             <TabStrip>
                 <TabStripItem>

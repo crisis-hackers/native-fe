@@ -4,7 +4,7 @@
             <SVGImage class="ab-back" v-if="showBackButton" :src="'ic_arrow_back_black'|svg" @tap="$navigateBack"/>
             <Image class="ab-icon" v-if="imgRes" :src="imgRes" />
             <SVGImage class="ab-icon" v-if="imgResSvg" :src="imgResSvg" />
-            <Label class="ab-text" :text="titleToShow" fontSize="24" verticalAlignment="center" />
+            <Label class="ab-text" :text="titleToShow" verticalAlignment="center" />
         </StackLayout>
     </ActionBar>
 </template>
@@ -60,8 +60,10 @@
     }
 
     .ab-text {
+        font-family: "SF UI Text", 'SFUIText-Semibold';
         color: black;
-        font-weight: 500;
+        font-weight: semibold;
         margin-right: $items-margin;
+        font-size: 21dp;
     }
 </style>
