@@ -9,7 +9,7 @@ import Theme from '@nativescript/theme'
 import {localize} from 'nativescript-localize';
 
 if(TNS_ENV !== 'production') {
-  Vue.use(VueDevtools)
+  Vue.use(VueDevtools, { host: '192.168.1.88' })
 }
 
 // Prints Vue logs when --env.production is *NOT* set while building

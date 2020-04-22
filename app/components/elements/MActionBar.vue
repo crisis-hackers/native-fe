@@ -6,6 +6,7 @@
             <SVGImage class="ab-icon" v-if="imgResSvg" :src="imgResSvg" />
             <Label class="ab-text" :text="titleToShow" verticalAlignment="center" />
         </StackLayout>
+        <ActionItem v-for="item in actionItems" ios.position="right" android.position="actionBarIfRoom" :icon="item.icon" @tap="$emit(item.event)" />
     </ActionBar>
 </template>
 
@@ -29,6 +30,11 @@
             imgResSvg: {
                 type: String,
                 required: false
+            },
+            actionItems: {
+                type: Array,
+                required: false,
+                default: []
             }
         },
         computed: {
@@ -62,7 +68,7 @@
     .ab-text {
         font-family: "SF UI Text", 'SFUIText-Semibold';
         color: black;
-        font-weight: semibold;
+        font-weight: 600;
         margin-right: $items-margin;
         font-size: 21dp;
     }
