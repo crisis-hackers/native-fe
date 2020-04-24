@@ -53,8 +53,8 @@ export type NearMeData = {
     heatMap: AxiosResponse<HeatMapData>
 }
 
-//const url = 'https://europe-west3-hackthevirus.cloudfunctions.net';
-const url = 'http://0.0.0.0:5000';
+const url = 'https://europe-west3-hackthevirus.cloudfunctions.net';
+//const url = 'http://0.0.0.0:5000';
 
 function createUserData(result: QResult): PostUser {
     var user = {
