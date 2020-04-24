@@ -53,23 +53,72 @@ export type NearMeData = {
     heatMap: AxiosResponse<HeatMapData>
 }
 
-const url = 'https://europe-west3-hackthevirus.cloudfunctions.net';
+//const url = 'https://europe-west3-hackthevirus.cloudfunctions.net';
+const url = 'http://0.0.0.0:5000';
 
-function createUserData(): PostUser {
-    return {
-        customer_id: Settings.getUUID()
-    }
+function createUserData(result: QResult): PostUser {
+    var user = {
+        customer_id: Settings.getUUID(),
+        age: result["age"],
+        cardiovascular: result["underlyingConditions"].includes("cardiovascular"),
+        respiratory: result["underlyingConditions"].includes("respiratory"),
+        smoker: result["smoker"] || false,
+        diabetes: result["underlyingConditions"].includes("diabetes"),
+        cancer: result["underlyingConditions"].includes("cancer"),
+        kidney_problems: result["underlyingConditions"].includes("kidneyProblems"),
+        liver_problems: result["underlyingConditions"].includes("liverProblems"),
+        immunodeficiency: result["underlyingConditions"].includes("immunodeficiency")
+    };
+
+    return user;
 }
 
 function prepareQResult(result: QResult): PostSelfTest {
-    result['customer_id'] = Settings.getUUID();
+    var symptoms_report = {
+        customer_id: Settings.getUUID(),
+    }
+    // 2a. Main symptoms
+    symptoms_report["dry_cough"] = result["symptoms"].includes("dryCough") || false;
+    symptoms_report["fever"] = result["symptoms"].includes("fever");
+    // temperature_under_38 = content.get("temperature_under_38", None)
+    // temperature_idk = content.get("temperature_idk", None)
+    // temperature_over_38 = content.get("temperature_over_38", None)
+    symptoms_report["taste_and_smell_loss"] = result["symptoms"].includes("lackOfSmell");
+    symptoms_report["difficulty_breathing"] = result["symptoms"].includes("breathingDifficulty");
+    
+    // // 3. Other important information
+    symptoms_report["exposure_abroad"] = result["travelled"];
+    symptoms_report["exposure_to_quarantined_or_sick"] = result["exposed"];
+    symptoms_report["test_time"] = result["testDate"];
+    symptoms_report["test_result"] = result["testResult"];
+    // // 4. Other symptoms not mentioned
+    symptoms_report["other_symptoms"] = result["otherSymp"] || false;
+    
+    if (result["hasSecondarySymptoms"]) {
+        // ADD 2b. Other symptoms
+        symptoms_report["headache"] = result["secondarySymptoms"].includes("headache");
+        symptoms_report["sore_throat"] = result["secondarySymptoms"].includes("soreThroat");
+        symptoms_report["weakness"] = result["secondarySymptoms"].includes("weakness");
+        symptoms_report["chest_pain"] = result["secondarySymptoms"].includes("chestPain");
+        symptoms_report["chills"] = result["secondarySymptoms"].includes("chills");
+        symptoms_report["sweating"] = result["secondarySymptoms"].includes("sweating");
+        symptoms_report["stuffy_nose"] = result["secondarySymptoms"].includes("stuffyNose");
+        symptoms_report["runny_nose"] = result["secondarySymptoms"].includes("runnyNose");
+        symptoms_report["diarrhea"] = result["secondarySymptoms"].includes("diarrhea");
+        symptoms_report["watery_itchy_eyes"] = result["secondarySymptoms"].includes("wateryItchyEyes");
+    }
+
+    symptoms_report["lat"] = result.lat;
+    symptoms_report["lon"] = result.lon;
+
+    console.log(symptoms_report);
     //lat & lon from SelfTest.vue
-    return result as PostSelfTest;
+    return symptoms_report as PostSelfTest;
 }
 
 export default {
     sendSelfTestResult(result: QResult): Promise<AxiosResponse<SelfTestResult>> {
-        return axios.post(`${url}/user`, createUserData())
+        return axios.post(`${url}/user`, createUserData(result))
             .then((response: AxiosResponse) => {
                 return axios.post(`${url}/user-report_symptoms`, prepareQResult(result));
             })

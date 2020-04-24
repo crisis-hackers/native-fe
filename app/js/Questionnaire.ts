@@ -178,6 +178,12 @@ export class Questionnaire extends AQuestionnaire {
                         },
                         {
                             label: {
+                                sk: 'Slzivé a/alebo svrbivé oči'
+                            },
+                            value: 'wateryItchyEyes'
+                        },
+                        {
+                            label: {
                                 sk: 'Iný symptóm'
                             },
                             value: 'otherSymp'
@@ -200,7 +206,7 @@ export class Questionnaire extends AQuestionnaire {
             ]
         },
         {
-            key: 'condition',
+            key: 'underlyingConditions',
             messages: [
                 {
                     text: {
@@ -219,7 +225,7 @@ export class Questionnaire extends AQuestionnaire {
                     label: {
                         sk: 'Kardiovaskulárne'
                     },
-                    value: 'cardio'
+                    value: 'cardiovascular'
                 },
                 {
                     label: {
@@ -255,7 +261,7 @@ export class Questionnaire extends AQuestionnaire {
                     label: {
                         sk: 'Znížená imunita'
                     },
-                    value: 'imunodeficiency'
+                    value: 'immunodeficiency'
                 },
                 {
                     label: {
@@ -329,7 +335,7 @@ export class Questionnaire extends AQuestionnaire {
                                     }
                                 }
                             ],
-                            type: QType.CHECKBOX,
+                            type: QType.RADIO,
                             options: [
                                 {
                                     label: {

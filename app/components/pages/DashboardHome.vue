@@ -5,7 +5,9 @@
                 <FlexboxLayout>
                     <Label class="h3 text-text" :textWrap="true" :text="'dashboard.home.text1'|L" />
                     <FlexboxLayout>
-                        <SlovakiaMap :district-data="beData.symptCasesLocationDistrictData" :loaded="dLoaded" style="height: 200dp" />
+                        <GridLayout>
+                            <SlovakiaMap :district-data="beData.symptCasesLocationDistrictData" :loaded="dLoaded" style="height: 200dp" />
+                        </GridLayout>
                     </FlexboxLayout>
                     <Button class="m-button" @tap="navigateExplore" :text="'dashboard.home.explore'|L" />
                 </FlexboxLayout>
@@ -16,7 +18,9 @@
                 <FlexboxLayout>
                     <Label class="h2 text-subheader" :text="'dashboard.home.header3'|L" />
                     <FlexboxLayout>
-                        <WorldMap :countries-data="beData.countriesData" :loaded="dLoaded" style="height: 280dp" />
+                        <GridLayout>
+                            <WorldMap :countries-data="beData.countriesData" :loaded="dLoaded" style="height: 280dp" />
+                        </GridLayout>
                     </FlexboxLayout>
                     <DashboardWorldTable :countries-data="beData.countriesData" />
                 </FlexboxLayout>
