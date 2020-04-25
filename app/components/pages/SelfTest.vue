@@ -1,39 +1,38 @@
 <template>
     <Page @loaded="onPageLoaded">
-        <MActionBar :title="str.appName" :show-back-button="true" :img-res-svg="'coronavirus'|svg" />
-        <GridLayout rows="*,60" columns="*">
-            <ScrollView row="0" col="0" orientation="vertical" ref="mainScrollView">
-                <FlexboxLayout flexDirection="column" class="msg-feed">
-                    <StackLayout v-for="msg in messages" orientation="vertical" :class="msg.question ? 'msg msg-question' : 'msg msg-answer'">
-                        <Label v-if="msg.title" class="msg-title">{{ msg.title }}</Label>
-                        <Label class="msg-text" :textWrap="true">{{ msg.text }}</Label>
-                    </StackLayout>
-                    <StackLayout v-if="currentInput !== null" :key="currentInput.type" class="msg msg-answer msg-input">
-                        <TextField v-if="currentInput.type === QType.TEXT || currentInput.type === QType.NUMBER"
-                                   :keyboardType="currentInput.type === QType.NUMBER ? 'number' : ''"
-                                   v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" ref="inputTextField" />
-                        <StackLayout v-if="currentInput.type === QType.BOOLEAN || currentInput.type === QType.RADIO"
-                                     :orientation="currentInput.options && currentInput.options.length > 2 ? 'vertical' : 'horizontal'">
-                            <Button class="msg-input-button m-button" v-for="option in currentInput.options" :key="option.value" @tap="processInput(option)">{{ tq(option.label) }}</Button>
+        <MActionBar :title="str.appName" :show-back-button="true" :img-res-svg="'coronavirus'|svg"
+                    :action-items="[{icon: 'res://group', event:'reload'}]" @reload="reload"/>
+        <GridLayout rows="*" columns="*">
+            <GridLayout rows="*,60" columns="*" :class="`${processing ? 'loading-disabled' : ''}`">
+                <ScrollView row="0" col="0" orientation="vertical" ref="mainScrollView">
+                    <FlexboxLayout flexDirection="column" class="msg-feed">
+                        <StackLayout v-for="msg in messages" orientation="vertical" :class="msg.question ? 'msg font-poppins-reg msg-question' : 'msg msg-answer'">
+                            <Label v-if="msg.title" class="msg-title">{{ msg.title }}</Label>
+                            <Label class="msg-text" :textWrap="true">{{ msg.text }}</Label>
                         </StackLayout>
-                        <StackLayout v-if="currentInput.type === QType.CHECKBOX" orientation="vertical">
-                            <StackLayout v-for="option in currentInput.options" :key="option.value" orientation="horizontal">
-                                <CheckBox :checked="option.checked" @checkedChange="option.checked = $event.value" />
-                                <Label verticalAlignment="center" textWrap="true">{{ tq(option.label) }}</Label>
+                        <StackLayout v-if="currentInput !== null" :key="currentInput.type" :class="inputLayoutClass">
+                            <TextField v-if="currentInput.type === QType.TEXT || currentInput.type === QType.NUMBER"
+                                       :keyboardType="currentInput.type === QType.NUMBER ? 'number' : ''"
+                                       v-model="currentInput.answer" returnKeyType="send" @returnPress="processInput" ref="inputTextField" />
+                            <FlexboxLayout v-if="currentInput.type === QType.BOOLEAN || currentInput.type === QType.RADIO || currentInput.type === QType.CHECKBOX"
+                                           class="msg-buttons-layout">
+                                <Button v-for="option in currentInput.options" :key="option.value"
+                                        :class="`msg-input-button${selectedOptions[option.value] ? '-active' : ''}`"
+                                        @tap="processInput(option)" :text="tq(option.label)" />
+                                <SVGImage v-if="currentInput.type === QType.CHECKBOX" class="msg-input-checkbox-button"
+                                          :src="'group-5'|svg" @tap="processInput(undefined)" />
+                            </FlexboxLayout>
+                            <StackLayout v-if="currentInput.type === QType.DATE">
+                                <DatePicker v-model="currentInput.answer" :minDate="datePicker.min" :maxDate="datePicker.max" />
+                                <Button class="m-button msg-input-button" @tap="processInput" :text="'buttons.done'|L" />
                             </StackLayout>
-                            <Button class="m-button msg-input-button" @tap="processInput" :text="'buttons.done'|L" />
                         </StackLayout>
-                        <StackLayout v-if="currentInput.type === QType.DATE">
-                            <DatePicker v-model="currentInput.answer" :minDate="datePicker.min" :maxDate="datePicker.max" />
-                            <Button class="m-button msg-input-button" @tap="processInput" :text="'buttons.done'|L" />
-                        </StackLayout>
-                    </StackLayout>
-                </FlexboxLayout>
-            </ScrollView>
-            <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="m-button m-green-button" @tap="sendResult" :text="'buttons.send'|L" />
-            <ActivityIndicator rowSpan="2" :busy="processing" />
+                    </FlexboxLayout>
+                </ScrollView>
+                <Button row="1" col="0" :isEnabled="currentInput === null && !processing" class="m-button m-green-button" @tap="sendResult" :text="'buttons.send'|L" />
+            </GridLayout>
+            <ActivityIndicator rowSpan="1" :busy="processing" />
         </GridLayout>
-
     </Page>
 </template>
 
@@ -69,7 +68,28 @@
                 datePicker: {
                     min: new Date(2019, 11, 1), //first case
                     max: new Date(),
+                },
+                selectedOptions: {}
+            }
+        },
+        computed: {
+            inputLayoutClass() {
+                if (!this.currentInput) {
+                    return '';
                 }
+                let ret = 'msg msg-input font-poppins-reg';
+                switch (this.currentInput.type) {
+                    case QType.DATE:
+                        ret += ' msg-answer'
+                        break;
+                    case QType.NUMBER:
+                        ret += ' msg-answer';
+                        break;
+                    case QType.TEXT:
+                        ret += ' msg-answer';
+                        break;
+                }
+                return ret;
             }
         },
         methods: {
@@ -88,9 +108,15 @@
                         break;
 
                     case QType.CHECKBOX:
-                        let selectedOptions = this.currentInput.options.filter((item) => item.checked);
-                        this.fillAnswer(selectedOptions.map((item) => item.value));
-                        this.addAnswerMessage(selectedOptions.map((item) => this.tq(item.label)).join(',\n'));
+                        if(value) {
+                            this.$set(this.selectedOptions, value.value, !this.selectedOptions[value.value]);
+                            return;
+                        } else {
+                            let selectedOptions = this.currentInput.options.filter(item => this.selectedOptions[item.value] && true);
+                            this.fillAnswer(selectedOptions.map((item) => item.value));
+                            this.addAnswerMessage(selectedOptions.map((item) => this.tq(item.label)).join(',\n'));
+                            this.selectedOptions = {};
+                        }
                         break;
 
                     case QType.DATE:
@@ -186,6 +212,7 @@
             },
             onPageLoaded() {
                 this.messages = [];
+                this.selectedOptions = {};
                 this.getUserLocation();
                 this.chatbot = new BasicChatBot(new Questionnaire());
                 this.nextStep();
@@ -262,28 +289,33 @@
                     return null;
                 }
                 return value[this.language];
+            },
+            reload() {
+                this.onPageLoaded();
             }
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .msg {
         padding: 8dp 12dp;
         border-radius: 25px;
-        margin-bottom: 8dp;
+        margin-top: 8dp;
+        margin-bottom: 0dp;
         font-size: 14sp;
     }
 
     .msg-question {
         align-self: flex-start;
-        background-color: #ffeaa7;
+        background-color: #bae8f5;
         margin-right: 20%;
     }
 
     .msg-answer {
         align-self: flex-end;
-        background-color: #c2e1e7;
+        background-color: #20a7c7;
+        color: white;
         margin-left: 20%;
     }
 
@@ -309,5 +341,41 @@
 
     .msg-input-button {
         font-size: 12px;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        color: black;
+        $x-padding: 8dp;
+        $y-padding: 0dp;
+        padding: $y-padding $x-padding;
+
+        $x-margin: 4dp;
+        margin-left: $x-margin;
+        margin-right: $x-margin;
+
+        &-active {
+            @extend .msg-input-button;
+            background-image: linear-gradient(120deg, #005395 8%, #31456a 178%);
+            color: white;
+        }
+    }
+
+    .msg-buttons-layout {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .msg-input-checkbox-button {
+        $size: 48dp;
+        height: $size;
+        width: $size;
+        vertical-align: center;
+    }
+
+    .msg TextField {
+        color: white;
+        background-color: #20a7c7;
+        border-color: white;
+        border-width: 0;
+        border-bottom-width: 1;
     }
 </style>

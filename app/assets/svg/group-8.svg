@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="105" viewBox="0 0 84 105">
+    <g fill="none" fill-rule="evenodd" transform="translate(0 -10)">
+        <circle cx="24.5" cy="35" r="24.5" fill="#BAE8F5"/>
+        <path fill="#009ABF" d="M76.139 17.661c9.568 9.568 9.568 25.08 0 34.649L41.985 86.463 24.661 69.139c-9.568-9.568-9.568-25.08 0-34.649l16.83-16.829c9.567-9.568 25.08-9.568 34.648 0z" opacity=".6"/>
+        <path fill="#31456A" d="M41.665 17.504c4.535 4.447 7.35 10.643 7.35 17.496 0 13.531-10.97 24.5-24.5 24.5-2.076 0-4.091-.258-6.016-.744-2.451-8.326-.392-17.697 6.177-24.266l16.829-16.829z"/>
+        <text fill="#000" font-family="PlayfairDisplay-Bold, Playfair Display" font-size="20" font-weight="bold">
+            <tspan x="1" y="111">Sympt.io</tspan>
+        </text>
+    </g>
+</svg>
+
