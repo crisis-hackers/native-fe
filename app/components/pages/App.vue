@@ -1,12 +1,17 @@
 <template>
     <Page ref="page">
         <MActionBar :title="`${str.appName}`" :img-res-svg="'group-21'|svg" />
-        <GridLayout columns="*" rows="*,*,*,*" class="main">
-            <Button row="0" class="m-button m-green-button" @tap="startTest" :text="'buttons.startSelfTest'|L" />
-            <SocialShareButton row="1" />
-            <CallHelplineButton row="2" />
-            <Button row="3" class="m-button" @tap="devStartDashboard">!!DEV!! dashboard</Button>
-        </GridLayout>
+        <FlexboxLayout flexDirection="column" justifyContent="space-between" class="main">
+            <FlexboxLayout flexDirection="column">
+                <SVGImage :src="'group-8'|svg" height="128dp" width="164dp" />
+                <Label class="h2" text="Welcome to Sympt.io" />
+                <Button row="0" class="m-button m-green-button" @tap="startTest" :text="'buttons.startSelfTest'|L" />
+            </FlexboxLayout>
+            <FlexboxLayout flexDirection="column">
+                <Button row="3" class="m-button" @tap="devStartDashboard">!!DEV!! dashboard</Button>
+                <CallHelplineButton />
+            </FlexboxLayout>
+        </FlexboxLayout>
     </Page>
 </template>
 
@@ -43,7 +48,10 @@
     }
 
     .main {
-        padding-left: 16dp;
-        padding-right: 16dp;
+        padding: 32dp 16dp;
+    }
+
+    .main Label {
+        text-align: center;
     }
 </style>
