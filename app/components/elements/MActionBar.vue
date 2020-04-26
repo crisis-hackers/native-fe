@@ -1,7 +1,7 @@
 <template>
     <ActionBar :title="titleToShow" :flat="true" class="ab">
         <StackLayout class="ab-layout" orientation="horizontal" horizontalAlignment="left">
-            <SVGImage class="ab-back" v-if="showBackButton" :src="'ic_arrow_back_black'|svg" @tap="$navigateBack"/>
+            <SVGImage class="ab-back" v-if="$isAndroid && showBackButton" :src="'ic_arrow_back_black'|svg" @tap="$navigateBack"/>
             <Image class="ab-icon" v-if="imgRes" :src="imgRes" />
             <SVGImage class="ab-icon" v-if="imgResSvg" :src="imgResSvg" />
             <Label class="ab-text" :text="titleToShow" verticalAlignment="center" />

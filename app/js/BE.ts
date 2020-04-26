@@ -74,15 +74,15 @@ function createUserData(result: QResult): PostUser {
 }
 
 function prepareQResult(result: QResult): PostSelfTest {
+    console.log(result);
     var symptoms_report = {
         customer_id: Settings.getUUID(),
     }
     // 2a. Main symptoms
     symptoms_report["dry_cough"] = result["symptoms"].includes("dryCough") || false;
     symptoms_report["fever"] = result["symptoms"].includes("fever");
-    // temperature_under_38 = content.get("temperature_under_38", None)
-    // temperature_idk = content.get("temperature_idk", None)
-    // temperature_over_38 = content.get("temperature_over_38", None)
+    
+    symptoms_report["temperature"] = result['fever'];
     symptoms_report["taste_and_smell_loss"] = result["symptoms"].includes("lackOfSmell");
     symptoms_report["difficulty_breathing"] = result["symptoms"].includes("breathingDifficulty");
     
@@ -111,8 +111,6 @@ function prepareQResult(result: QResult): PostSelfTest {
     symptoms_report["lat"] = result.lat;
     symptoms_report["lon"] = result.lon;
 
-    console.log(symptoms_report);
-    //lat & lon from SelfTest.vue
     return symptoms_report as PostSelfTest;
 }
 

@@ -7,6 +7,10 @@ import store from './store'
 import VueDevtools from 'nativescript-vue-devtools'
 import Theme from '@nativescript/theme'
 import {localize} from 'nativescript-localize';
+import { isAndroid, isIOS } from 'tns-core-modules/platform';
+
+Vue.prototype.$isAndroid = isAndroid;
+Vue.prototype.$isIOS = isIOS;
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools, { host: '192.168.1.88' })

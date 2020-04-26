@@ -20,7 +20,7 @@
                                         :class="`msg-input-button${selectedOptions[option.value] ? '-active' : ''}`"
                                         @tap="processInput(option)" :text="tq(option.label)" />
                                 <SVGImage v-if="currentInput.type === QType.CHECKBOX" class="msg-input-checkbox-button"
-                                          :src="'group-5'|svg" @tap="processInput(undefined)" />
+                                          :src="'questionnaire_next_btn'|svg" @tap="processInput(undefined)" />
                             </FlexboxLayout>
                             <StackLayout v-if="currentInput.type === QType.DATE">
                                 <DatePicker v-model="currentInput.answer" :minDate="datePicker.min" :maxDate="datePicker.max" />

@@ -3,7 +3,7 @@
         <MActionBar :title="`${str.appName}`" :img-res-svg="'group-21'|svg" />
         <FlexboxLayout flexDirection="column" justifyContent="space-between" class="main">
             <FlexboxLayout flexDirection="column">
-                <SVGImage :src="'group-8'|svg" height="128dp" width="164dp" />
+                <SVGImage :src="'symptio_heart'|svg" height="128dp" width="164dp" />
                 <Label class="h2" text="Welcome to Sympt.io" />
                 <Button row="0" class="m-button m-green-button" @tap="startTest" :text="'buttons.startSelfTest'|L" />
             </FlexboxLayout>
