@@ -48,7 +48,7 @@
   <string name="_buttons_callHelpline_ZI4lVK">"COVID-19 HELPLINE"</string>
   <string name="_buttons_shareApp_1OKGdT">"Share The App"</string>
   <string name="_buttons_startSelfTest_wWFU8">"Start Test"</string>
-  <string name="_app_name_1k3Sbz">"Q-Tracker"</string>
-  <string name="app_name">"Q-Tracker"</string>
-  <string name="title_activity_kimera">"Q-Tracker"</string>
+  <string name="_app_name_1k3Sbz">"Sympt.io"</string>
+  <string name="app_name">"Sympt.io"</string>
+  <string name="title_activity_kimera">"Sympt.io"</string>
 </resources>

@@ -1,4 +1,4 @@
-# Q-Tracker
+# Sympt.io
 
 > Hack The Crisis Slovakia Healthcare Team 3's App
 

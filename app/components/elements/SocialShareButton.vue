@@ -17,7 +17,7 @@
         },
         methods: {
             shareApp() {
-                SocialShare.shareText('I recommend Q-Tracker App to fight against COVID-19. Please download and share it' +
+                SocialShare.shareText('I recommend Sympt.io App to fight against COVID-19. Please download and share it' +
                     ' using this link\n' +
                     `iOS: ${this.links.ios}\nAndroid: ${this.links.android}`);
             }

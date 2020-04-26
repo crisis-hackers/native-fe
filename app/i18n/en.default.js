@@ -1,5 +1,5 @@
 const i18n = {
-    'app.name': "Q-Tracker",
+    'app.name': "Sympt.io",
     buttons: {
         startSelfTest: "Start Test",
         shareApp: 'Share The App',
