@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="_notifications_daily_body_ZLY1fY">"Tap to open Sympt.io app"</string>
+  <string name="_notifications_daily_title_13FAqq">"Time for your daily checkup!"</string>
   <string name="_tos__2_text_Z1QFKqg">"Your data will only be shared with certified health professionals and scientists for research purposes."</string>
   <string name="_tos__2_title_Z1P1unL">"Data Sharing"</string>
   <string name="_tos__1_text_Z1SJSmB">"It is recommended that you set your location sharing to \'Always\'. You can change this anytime later."</string>

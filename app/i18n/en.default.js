@@ -97,6 +97,12 @@ const i18n = {
             title: 'Data Sharing',
             text: 'Your data will only be shared with certified health professionals and scientists for research purposes.'
         }
+    },
+    notifications: {
+        daily: {
+            title: 'Time for your daily checkup!',
+            body: 'Tap to open Sympt.io app'
+        }
     }
 };
 

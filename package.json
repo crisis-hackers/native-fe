@@ -24,6 +24,7 @@
     "leaflet": "^1.6.0",
     "nativescript-geolocation": "^5.1.0",
     "nativescript-intl": "^3.0.0",
+    "nativescript-local-notifications": "^4.2.1",
     "nativescript-localize": "^4.2.1",
     "nativescript-phone": "^1.4.1",
     "nativescript-social-share": "^1.6.0",

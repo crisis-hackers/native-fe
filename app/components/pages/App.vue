@@ -1,5 +1,5 @@
 <template>
-    <Page ref="page">
+    <Page ref="page" @loaded="pageHasLoaded">
         <MActionBar :title="`${str.appName}`" :img-res-svg="'group-21'|svg" />
         <FlexboxLayout flexDirection="column" justifyContent="space-between" class="main">
             <FlexboxLayout flexDirection="column">
@@ -22,11 +22,13 @@
     import SocialShareButton from "@/components/elements/SocialShareButton.vue";
     import Dashboard from "@/components/pages/Dashboard.vue";
     import MActionBar from "@/components/elements/MActionBar.vue";
+    import PageLoaded from "@/components/mixins/PageLoaded.vue";
+    import {Notifications} from "@/js/Notifications";
 
     export default {
         components: {MActionBar, SocialShareButton, CallHelplineButton},
         mixins:[
-            Strings
+            Strings, PageLoaded
         ],
         methods: {
             startTest() {
@@ -34,7 +36,14 @@
             },
             devStartDashboard() {
                 this.$navigateTo(Dashboard);
+            },
+            onPageLoaded() {
+                console.log('page loaded');
+                new Notifications(this.$options.filters['L']).setUp();
             }
+        },
+        mounted(): void {
+            new Notifications(this.$options.filters['L']).setUp();
         }
     }
 </script>

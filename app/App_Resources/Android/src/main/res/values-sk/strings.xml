@@ -45,6 +45,8 @@
   <string name="_app_name_1k3Sbz">"Sympt.io"</string>
   <string name="app_name">"Sympt.io"</string>
   <string name="title_activity_kimera">"Sympt.io"</string>
+  <string name="_notifications_daily_body_ZLY1fY">"Tap to open Sympt.io app"</string>
+  <string name="_notifications_daily_title_13FAqq">"Time for your daily checkup!"</string>
   <string name="_dashboard_home_symptTable_bySex_XFzky">"By Gender"</string>
   <string name="_dashboard_home_symptTable_byAge_XFuGG">"By Age"</string>
   <string name="_dashboard_home_symptResults_3_ZkSIuD">"High Risk"</string>

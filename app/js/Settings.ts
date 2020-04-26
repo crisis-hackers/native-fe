@@ -48,5 +48,13 @@ export let Settings = {
 
     getDateTimeLocale(): string {
         return 'sk-SK';
+    },
+
+    saveNumber(key: string, number: number): void {
+        appSettings.setNumber(key, number);
+    },
+
+    getNumber(key: string, defaultValue?: number): number {
+        return appSettings.getNumber(key, defaultValue);
     }
 };

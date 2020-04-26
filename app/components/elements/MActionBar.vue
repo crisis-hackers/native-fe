@@ -34,7 +34,7 @@
             actionItems: {
                 type: Array,
                 required: false,
-                default: []
+                default: () => []
             }
         },
         computed: {
