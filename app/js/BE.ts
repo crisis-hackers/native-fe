@@ -56,6 +56,8 @@ export type NearMeData = {
 const url = 'https://europe-west3-hackthevirus.cloudfunctions.net';
 //const url = 'http://0.0.0.0:5000';
 
+export const downloadDataURL = `${url}/personal/${Settings.getUUID()}`;
+
 function createUserData(result: QResult): PostUser {
     var user = {
         customer_id: Settings.getUUID(),
@@ -200,5 +202,9 @@ export default {
                     heatMap: responses[0]
                 });
             }))
+    },
+
+    deletePersonalData(): Promise<AxiosResponse> {
+        return axios.delete(`${url}/personal/${Settings.getUUID()}`)
     }
 }

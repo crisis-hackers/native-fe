@@ -8,7 +8,9 @@ const i18n = {
         skip: 'Skip',
         send: 'Send',
         agree: 'I Agree',
-        done: 'Done'
+        done: 'Done',
+        yes: 'Yes',
+        no: 'No'
     },
     dashboard: {
         tabs: {
@@ -47,6 +49,14 @@ const i18n = {
             symptTable: {
                 byAge: 'By Age',
                 bySex: 'By Gender'
+            }
+        },
+        profile: {
+            downloadData: 'Download all personal data',
+            deleteData: 'Delete all personal data',
+            deleteDataDialog: {
+                title: 'Delete all personal data',
+                text: 'Are you sure you want to delete all your personal data from the app an the server?'
             }
         }
     },

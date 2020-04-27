@@ -47,10 +47,16 @@
   <string name="title_activity_kimera">"Sympt.io"</string>
   <string name="_notifications_daily_body_ZLY1fY">"Tap to open Sympt.io app"</string>
   <string name="_notifications_daily_title_13FAqq">"Time for your daily checkup!"</string>
+  <string name="_dashboard_profile_deleteDataDialog_text_ZVT1aq">"Are you sure you want to delete all your personal data from the app an the server?"</string>
+  <string name="_dashboard_profile_deleteDataDialog_title_15eLyt">"Delete all personal data"</string>
+  <string name="_dashboard_profile_deleteData_Z9CFRz">"Delete all personal data"</string>
+  <string name="_dashboard_profile_downloadData_Z1yrXYq">"Download all personal data"</string>
   <string name="_dashboard_home_symptTable_bySex_XFzky">"By Gender"</string>
   <string name="_dashboard_home_symptTable_byAge_XFuGG">"By Age"</string>
   <string name="_dashboard_home_symptResults_3_ZkSIuD">"High Risk"</string>
   <string name="_dashboard_home_symptResults_2_ZkSIuE">"Moderate Risk"</string>
   <string name="_dashboard_home_symptResults_1_ZkSIuF">"Marked Safe"</string>
+  <string name="_buttons_no_pWs8v">"No"</string>
+  <string name="_buttons_yes_Z23S5kW">"Yes"</string>
   <string name="_buttons_done_283rqp">"Done"</string>
 </resources>

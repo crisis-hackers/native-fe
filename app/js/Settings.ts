@@ -17,6 +17,7 @@ export let Settings = {
         }
         uuid = generateUUIDv4();
         appSettings.setString('uuid4', uuid);
+        appSettings.flush();
         return uuid;
     },
 
@@ -24,6 +25,7 @@ export let Settings = {
         let results = this.getResults();
         results.push(result);
         appSettings.setString('results', JSON.stringify(results));
+        appSettings.flush();
     },
 
     getResults(): SelfTestResult[] {
@@ -35,6 +37,7 @@ export let Settings = {
             latitude: lat,
             longitude: lon
         }));
+        appSettings.flush();
     },
 
     getLastLocation(): Location {
@@ -48,6 +51,11 @@ export let Settings = {
 
     getDateTimeLocale(): string {
         return 'sk-SK';
+    },
+
+    clearAll() {
+        appSettings.clear();
+        appSettings.flush();
     },
 
     saveNumber(key: string, number: number): void {
