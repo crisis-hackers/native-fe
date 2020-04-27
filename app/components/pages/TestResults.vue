@@ -53,10 +53,10 @@
         },
         computed: {
             result(): object {
-                return this.actualResult ? this.possibleResults[this.beResult] : {}
+                return this.possibleResults[this.beResult]
             },
             resultClass(): string {
-                return this.actualResult ?? '';
+                return this.possibleResults[this.beResult] ?? '';
             }
         },
         methods: {

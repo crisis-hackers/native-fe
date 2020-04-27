@@ -73,11 +73,11 @@ const i18n = {
             text1: 'Stay home and help prevent the spread of COVID-19'
         },
         risk: {
-            title: 'You are at high risk!',
-            text1: 'Isolate yourself and your immediate family members'
+            title: 'You might be at risk!',
+            text1: 'Go out as little as possible'
         },
         danger: {
-            title: 'Get yourself tested now!',
+            title: 'Stay at home!',
             text1: 'Isolate yourself and your immediate family members'
         },
 

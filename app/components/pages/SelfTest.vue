@@ -244,7 +244,7 @@
                     this.$navigateTo(TestResults, {
                         clearHistory: true,
                         props: {
-                            result: result.data
+                            beResult: result.data
                         }
                     });
                 })

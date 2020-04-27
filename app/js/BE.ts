@@ -1,6 +1,6 @@
-import axios, {AxiosResponse} from 'axios';
-import {Settings} from './Settings'
-import {QResult} from "@/js/BasicChatBot";
+import axios, { AxiosResponse } from 'axios';
+import { Settings } from './Settings'
+import { QResult } from "@/js/BasicChatBot";
 
 export type PostUser = {
     customer_id: string,
@@ -33,7 +33,7 @@ export type CountriesData = CountryData[];
 export type SymptCasesLocationDistrictData = { [key: string]: number }
 export type SymptCasesLocationMunicipalityData = { [key: string]: number }
 export type MortalityRateData = number;
-export type SymptCasesAgeData = { [key: string]: object}
+export type SymptCasesAgeData = { [key: string]: object }
 export type SymptCasesSexData = { [key: string]: object }
 export type SymptCasesRiskData = { [key: string]: number }
 
@@ -60,9 +60,9 @@ function createUserData(result: QResult): PostUser {
     var user = {
         customer_id: Settings.getUUID(),
         age: result["age"],
+        smoker: result["smoker"] || false,
         cardiovascular: result["underlyingConditions"].includes("cardiovascular"),
         respiratory: result["underlyingConditions"].includes("respiratory"),
-        smoker: result["smoker"] || false,
         diabetes: result["underlyingConditions"].includes("diabetes"),
         cancer: result["underlyingConditions"].includes("cancer"),
         kidney_problems: result["underlyingConditions"].includes("kidneyProblems"),
@@ -74,26 +74,26 @@ function createUserData(result: QResult): PostUser {
 }
 
 function prepareQResult(result: QResult): PostSelfTest {
-    console.log(result);
     var symptoms_report = {
         customer_id: Settings.getUUID(),
     }
+
     // 2a. Main symptoms
     symptoms_report["dry_cough"] = result["symptoms"].includes("dryCough") || false;
     symptoms_report["fever"] = result["symptoms"].includes("fever");
-    
     symptoms_report["temperature"] = result['fever'];
     symptoms_report["taste_and_smell_loss"] = result["symptoms"].includes("lackOfSmell");
     symptoms_report["difficulty_breathing"] = result["symptoms"].includes("breathingDifficulty");
-    
+
     // // 3. Other important information
     symptoms_report["exposure_abroad"] = result["travelled"];
     symptoms_report["exposure_to_quarantined_or_sick"] = result["exposed"];
     symptoms_report["test_time"] = result["testDate"];
     symptoms_report["test_result"] = result["testResult"];
+
     // // 4. Other symptoms not mentioned
     symptoms_report["other_symptoms"] = result["otherSymp"] || false;
-    
+
     if (result["hasSecondarySymptoms"]) {
         // ADD 2b. Other symptoms
         symptoms_report["headache"] = result["secondarySymptoms"].includes("headache");
@@ -129,7 +129,7 @@ export default {
             })
             .then((response: AxiosResponse<SelfTestResult>) => {
                 Settings.saveResult(response.data);
-                return Promise.resolve(response);
+                return response;
             })
     },
     getCountriesData(): Promise<AxiosResponse<CountriesData>> {
