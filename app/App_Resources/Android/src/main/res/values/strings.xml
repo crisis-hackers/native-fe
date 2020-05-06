@@ -10,9 +10,9 @@
   <string name="_testResults_reminder_vgOGV">"Please check the app regularly to stay updated."</string>
   <string name="_testResults_thankYou_2iCzcu">"Thank you for your time."</string>
   <string name="_testResults_danger_text1_17yOno">"Isolate yourself and your immediate family members"</string>
-  <string name="_testResults_danger_title_17zkjF">"Get yourself tested now!"</string>
-  <string name="_testResults_risk_text1_Z1QlffJ">"Isolate yourself and your immediate family members"</string>
-  <string name="_testResults_risk_title_Z1QkJjs">"You are at high risk!"</string>
+  <string name="_testResults_danger_title_17zkjF">"Stay at home!"</string>
+  <string name="_testResults_risk_text1_Z1QlffJ">"Go out as little as possible"</string>
+  <string name="_testResults_risk_title_Z1QkJjs">"You might be at risk!"</string>
   <string name="_testResults_safe_text1_2eDCVn">"Stay home and help prevent the spread of COVID-19"</string>
   <string name="_testResults_safe_title_2eE8RE">"You are safe!"</string>
   <string name="_intro__3_subtitle_WsmHB">"You will be alerted if you come in close proximity of a COVID 19 patient"</string>
